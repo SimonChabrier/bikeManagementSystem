@@ -45,6 +45,23 @@ class StationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Station[]
+     */
+    public function findAllOrderByTourOrder(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Station s
+            ORDER BY s.tourOrder ASC'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Station[] Returns an array of Station objects
     //  */
