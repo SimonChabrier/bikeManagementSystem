@@ -38,14 +38,6 @@
   /* Legacy iOS */
 }
 
-label.form-check-label.required {
-  padding: 5px 0;
-}
-
-.pictContainer img {
-  padding: .5rem 0;
-}
-
 /*-------------------------------------------------------------------------------------*/
 /*  TYPO															   
 /*-------------------------------------------------------------------------------------*/
@@ -126,6 +118,10 @@ a:hover {
   color: #4087B6;
 }
 
+a:active {
+  color: red;
+}
+
 span {
   margin-bottom: 0.25rem !important;
   color: #0D5483;
@@ -139,11 +135,11 @@ span {
 .btn {
   width: 100%;
   margin: 0.5rem 0 !important;
-  background-color: #4087B6 !important;
 }
 
-.btn:hover {
-  background-color: #0D5483 !important;
+.btn > a {
+  color: white;
+  text-transform: capitalize !important;
 }
 
 .fab {
@@ -210,6 +206,14 @@ span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+label.form-check-label.required {
+  padding: 5px 0;
+}
+
+.pictContainer img {
+  padding: .5rem 0;
 }
 
 /*-------------------------------------------------------------------------------------*/

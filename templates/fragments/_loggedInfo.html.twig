@@ -3,5 +3,8 @@
 <p>{{ app.user.job |capitalize }} connecté : <br>
 {{ app.user.firstName |capitalize }} {{ app.user.lastName |capitalize }}  | {{ app.user.company |capitalize }}</p>
 <a class="link" href="{{ path('app_logout') }}">Déconnexion</a>
+{% else %}
+<a class="link" data-toggle="modal" data-target=".Mylogin-modal">Identification</a><!-- call modal on : data-target=".login-modal  -->
+{% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
 {% endif %}
 </div>
