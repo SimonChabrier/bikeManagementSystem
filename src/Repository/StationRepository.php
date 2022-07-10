@@ -63,6 +63,42 @@ class StationRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    /**
+     * @return Station[]
+     */
+    public function findAllOrderedByName(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Station s
+            WHERE s.status = true
+            ORDER BY s.name ASC'
+        );
+
+        // returns an array of Station objects
+        return $query->getResult();
+    }
+
+     /**
+     * @return Station[]
+     */
+    public function findAllOrderedByCity(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Station s
+            WHERE s.status = true
+            ORDER BY s.zip ASC'
+        );
+
+        // returns an array of Station objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Station[] Returns an array of Station objects
     //  */
