@@ -1,0 +1,7 @@
+<div class="container">
+{% if app.user %}
+<p>{{ app.user.job |capitalize }} connecté : <br>
+{{ app.user.firstName |capitalize }} {{ app.user.lastName |capitalize }}  | {{ app.user.company |capitalize }}</p>
+<a class="link" href="{{ path('app_logout') }}">Déconnexion</a>
+{% endif %}
+</div>

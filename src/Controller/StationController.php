@@ -14,15 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StationController extends AbstractController
 {
     /**
-     * @Route("/list/station", name="list_station")
+     * @Route("/tournee", name="list_station")
      */
     public function ListAllStation(StationRepository $stationRepository):Response
     {
         $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
         $stationListOrderByCity = $stationRepository->findAllOrderedByCity();
-        //dd($stationListOrder);
-        return $this->render('front/home.html.twig', [
+        
+        return $this->render('front/tourOrder.html.twig', [
             'stationsOrdered' => $stationListOrder,
             'stationsByName' => $stationListOrderByName,
             'stationsByCity' => $stationListOrderByCity

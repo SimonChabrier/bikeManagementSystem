@@ -74,6 +74,7 @@
 </head>
     <body>  
         {% set redirect = app.request.uri %}
+        {% include 'fragments/_loggedInfo.html.twig' %}
         <!-- include nav bar -->
         {% include 'fragments/_navbar.html.twig' %}
         {% block body %}{% endblock %}

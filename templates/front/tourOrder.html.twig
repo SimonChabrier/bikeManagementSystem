@@ -12,9 +12,23 @@
 {% endfor %}
 
 <div class="container">
-<h1>Accueil</h1>
+<h1>TOURNEE</h1>
 
-
+<h5>Stations par ordre tournée</h5>
+<br>
+{% for station in stationsOrdered %}
+<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
+{% endfor %}
+<br>
+<h5>Stations par nom</h5>
+{% for station in stationsByName %}
+<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
+{% endfor %}
+<br>
+<h5>Stations par ville</h5>
+{% for station in stationsByCity %}
+<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
+{% endfor %}
 
 </div><!-- end home container --> 
 
