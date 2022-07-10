@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>  {# Bouton home à styliser #}
+    <!-- burger button -->
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>  
+    <div class="collapse navbar-collapse collapsed" id="navbarSupportedContent"><!-- nav content start -->   
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"><!-- nav items start --> 
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Mon Compte
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            {% if app.user %}
+            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{{ path('app_login') }}">Identification</a></li>
+            {% endif %}
+
+            {% if app.user %}
+            {% else %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ path('app_register') }}">Créer un compte utilisateur</a></li>
+            <li><hr class="dropdown-divider"></li>
+            {% endif %}
+
+            {% if app.user %}
+            <li><a class="dropdown-item" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié !</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié !</a></li>
+            {% endif %}
+          </ul>
+        </li>
+        {% if app.user %} <!-- IMPORTANT - here, We must hide the login modal window if the user is already logged in so as not to have an error with the csrf token during a password update request if the user is already logged in. -->
+            <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
+        {% else %}
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target=".Mylogin-modal">Identification</a><!-- call modal on : data-target=".login-modal  -->
+            {% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
+        </li>
+        {% endif %}   
+      </ul><!-- nav items end --> 
+    </div><!-- nav content end --> 
+  </div><!-- container end -->
+</nav>
+
+{# add a link source code :
+<li class="nav-item">
+<a class="nav-link" href="#">Add a Link</a>
+</li>
+#}

@@ -1,0 +1,226 @@
+/*-------------------------------------------------------------------------------------*/
+/*  COLORS														   
+/*-------------------------------------------------------------------------------------*/
+/* set in _colors.scss your colors var */
+/*-------------------------------------------------------------------------------------*/
+/*  Fonts															   
+/*-------------------------------------------------------------------------------------*/
+/* poppins-200 - latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  src: url("../fonts/poppins/poppins-v19-latin-200.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-200.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-200.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-200.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-200.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-200.svg#Poppins") format("svg");
+  /* Legacy iOS */
+}
+
+/* poppins-regular - latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/poppins/poppins-v19-latin-regular.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-regular.svg#Poppins") format("svg");
+  /* Legacy iOS */
+}
+
+/* poppins-600 - latin */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/poppins/poppins-v19-latin-600.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-600.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-600.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-600.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-600.svg#Poppins") format("svg");
+  /* Legacy iOS */
+}
+
+label.form-check-label.required {
+  padding: 5px 0;
+}
+
+.pictContainer img {
+  padding: .5rem 0;
+}
+
+/*-------------------------------------------------------------------------------------*/
+/*  TYPO															   
+/*-------------------------------------------------------------------------------------*/
+html {
+  /* Bootstrap 5 use a default font-size of 16px. So 16px = 1rem in default setup */
+  /* https://getbootstrap.com/docs/5.0/content/typography/ */
+  /* Now we set a root font size to 20px...now it means 20px is equal to 1rem */
+  font-size: 20px;
+}
+
+body {
+  font-family: "Poppins" !important;
+  background-color: #f4f4f4 !important;
+}
+
+h1 {
+  color: #0D5483;
+  font-size: 2rem !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+}
+
+h1.modalTitle {
+  padding-bottom: 0.8rem !important;
+}
+
+h2 {
+  color: #666666;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+h3 {
+  color: #666666;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+h4 {
+  color: #B3B3B3;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+h5 {
+  color: #0D5483;
+  font-size: 0.9rem !important;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+  line-height: 1.2rem;
+}
+
+ol > li {
+  font-size: .8rem;
+  list-style-type: none;
+  text-transform: uppercase;
+  line-height: 1.5rem;
+}
+
+p {
+  font-size: 0.8rem !important;
+  line-height: 1.2rem;
+}
+
+.nav-link {
+  padding-bottom: .25rem;
+}
+
+a {
+  color: #0D5483;
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: #4087B6;
+}
+
+span {
+  margin-bottom: 0.25rem !important;
+  color: #0D5483;
+}
+
+.bi {
+  font-size: 1.2rem;
+  color: #0D5483;
+}
+
+.btn {
+  width: 100%;
+  margin: 0.5rem 0 !important;
+  background-color: #4087B6 !important;
+}
+
+.btn:hover {
+  background-color: #0D5483 !important;
+}
+
+.fab {
+  color: #0D5483 !important;
+}
+
+.fab:hover {
+  color: #4087B6 !important;
+}
+
+/*-------------------------------------------------------------------------------------*/
+/*  RADIUS - PADDING - SPACES...												   
+/*-------------------------------------------------------------------------------------*/
+.radius-100 {
+  border-radius: 100%;
+  border: 0.1rem solid #4087B6;
+}
+
+.border-bottom, h1, h2, h3, h4, h5 {
+  border-bottom: 0.05rem dotted #4087B6;
+}
+
+.myPadAndMarg, h1, h2, h3, h4, h5, p {
+  padding: 0.25rem 0 !important;
+  margin: 0.25rem 0 !important;
+}
+
+.my1remBottomMarg, h1, .container {
+  margin-bottom: 1rem !important;
+}
+
+.my1remTopMarg, .container {
+  margin-top: 1rem !important;
+}
+
+.mediumTransition, a:hover, .btn:hover, .fab:hover {
+  -webkit-transition: 1.5s !important;
+  transition: 1.5s !important;
+}
+
+/*-------------------------------------------------------------------------------------*/
+/*  LAYOUT													   
+/*-------------------------------------------------------------------------------------*/
+.card-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 30px;
+}
+
+.myInlineFlex {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  gap: 0.3rem;
+  color: #0D5483;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+/*-------------------------------------------------------------------------------------*/
+/*  MEDIA QUERIES													   
+/*-------------------------------------------------------------------------------------*/
+/* Here you have media queries exemples */
+/* XXXSmall devices (phones, 280px and up) */
+/* XXSmall devices (phones, 320px and up) */
+/* XSmall devices (phones, 375px and up) */
+/* Small devices (phones, 414px and up) */
+/* Small devices (phones, 540px and up) */
+/* Medium devices (tablets, 768px and up) */
+/* XL devices (large desktops, 1200px and up) */
+/*# sourceMappingURL=style.css.map */

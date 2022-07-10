@@ -1,0 +1,25 @@
+.container {
+    @extend .my1remTopMarg;
+    @extend .my1remBottomMarg;
+}
+.card-group {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.myInlineFlex {
+    display: inline-flex;
+    gap: 0.3rem;
+    color: $dark-blue;
+    align-items: center;
+}
+
+label.form-check-label.required {
+    padding: 5px 0;
+}
+
+.pictContainer img {
+    padding: .5rem 0;
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrement{% endblock %}
+
+{% block body %}
+<div class = "container">
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+{% if app.user %}
+    {# put here what you want to display or do if the user is already logged in #}
+    <h1>Vous êtes bien enregistré {{ app.user.username }}</h1>
+    <a class="btn btn-primary" href="{{ path('app_home') }}" role="button">Retourner à l'accueil</a> 
+{% else %}
+
+    <h1>CREATION COMPTE UTILISATEUR</h1>
+
+    {{ form_start(registrationForm, {attr: {'novalidate': 'novalidate'}}) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.company) }}      
+        {{ form_row(registrationForm.job) }}      
+        {{ form_row(registrationForm.firstName) }}
+        {{ form_row(registrationForm.lastName) }}
+        {{ form_row(registrationForm.address) }}
+        {{ form_row(registrationForm.zip) }}
+        {{ form_row(registrationForm.city) }}
+        {{ form_row(registrationForm.phone) }}
+        {{ form_row(registrationForm.Conditions) }}
+        <button class="btn btn-lg btn-primary" type="submit">Je crée mon compte</button>
+    {{ form_end(registrationForm) }}
+</div>    
+
+{% endif %}
+{% endblock %}
