@@ -7,51 +7,38 @@
         we are actually not directly on /login #}
 
             <div class="container">
-                <form method="post" action="{{ path('app_login')}}" >
-                    
-                    {% if error is defined and error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+                <form method="post" action="{{ path('app_login')}}" >    
+                {% if error is defined and error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            {% if app.user %}
-                <h5>Vous êtes connecté {{ app.user.username }}</h5> 
-                <a class="btn btn-primary" href="{{ path('app_logout') }}" role="button">Me déconnecter</a>
-            {% else %}
-
-                <h1 class="modalTitle">Indentification</h1>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                
-
-                <div class="mb-3">
-                    <label for="inputEmail" class = "form-label required">Nom d'utilisateur</label>
-                    <input type="text" {% if last_username is defined %} value="{{ last_username }}" {% endif %} name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                </div>
-
-                <div class="mb-3">    
-                    <label for="inputPassword" class = "form-label required">Mot de passe</label>
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                </div>
-                
+                {% if app.user %}
+                    <h5>Vous êtes connecté {{ app.user.username }}</h5> 
+                    <a class="btn btn-primary" href="{{ path('app_logout') }}" role="button">Me déconnecter</a>
+                {% else %}
+                    <h1 class="modalTitle">Indentification</h1>
+                    <div class="mb-3">
+                        <label for="inputEmail" class ="form-label required mb-3">Identifiant</label>
+                        <input type="text" {% if last_username is defined %} value="{{ last_username }}" {% endif %} placeholder="saisir votre nom d'utilisateur" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    <div class="mb-3">    
+                        <label for="inputPassword" class="form-label required mb-3">Mot de passe</label>
+                        <input type="password" placeholder="saisir votre mot de passe" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                    {# for info : app.user / app.request / app.session / app.flashes / app.environment / app.debug / app.token #}
-                    {# If we use modal login, we let the user on current page after login for better UX #}
+                    {# let user on current page after login for better UX #}
                     {% set redirect = app.request.uri %}
                     {% if redirect is defined %}
                     <input type="hidden" name="_target_path" value="{{ redirect | lower  }}"/> 
-                    {% else %}
-                    {# if no custom_redirection we do nothing #}
                     {% endif %}
-
-                    {# See https://symfony.com/doc/current/security/remember_me.html #}
                         <div class="checkbox mb-3">
                             <label>
                                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
                             </label>
                         </div>
-                    
-                    <button class="btn btn-lg btn-primary" type="submit">Valider</button>
+                    <button class="btn btn-lg btn-success" type="submit">Connexion</button>
+                    <hr>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                 </form>
             </div>  
             {% endif %}
