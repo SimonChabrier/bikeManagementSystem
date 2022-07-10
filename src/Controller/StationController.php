@@ -19,19 +19,19 @@ class StationController extends AbstractController
     public function ListAllStation(StationRepository $stationRepository):Response
     {
         $stationList = $stationRepository->findAll();
-        $stationListOrder = $stationRepository->findAllOrderByTourOrder();
-        dD($stationListOrder);
+        $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
+        //dd($stationListOrder);
         return $this->render('front/home.html.twig', [
             'stations' => $stationList,
             'stationsOrdered' => $stationListOrder
+           
         ]);
     }
 
     /**
      * @Route("/create/station", name="create_station")
      */
-    public function createStation(Request $request, 
-    EntityManagerInterface $entityManager): Response
+    public function createStation(Request $request, EntityManagerInterface $entityManager): Response
     {
         $station = new Station();
         $form = $this->createForm(StationType::class, $station);

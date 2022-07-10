@@ -13,6 +13,10 @@
 
 <div class="container">
 <h1>CONTENU DE LA HOME</h1>
+{% for station in stationsOrdered %}
+<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
+{% endfor %}
+
 </div><!-- end home container --> 
 
 <!-- include slider fragment template + JQuery exemple for toggle option --> 
