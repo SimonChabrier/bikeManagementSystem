@@ -12,10 +12,26 @@
 {% endfor %}
 
 <div class="container">
-<h1>TOURNEE</h1>
-{% for station in stationsByName %}
-<p>Station - <a href="{{ path('order_station', { slug: station.slug}) }}">{{ station.name }}</a> - N° {{station.tourOrder}}</p>
-{% endfor %}
+<h1>état de la tournée</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><i class="bi bi-arrow-down"></i> N° Tournée</th>
+      <th scope="col"><i class="bi bi-bicycle"></i> Station</th>
+      <th scope="col"><i class="bi bi-pen"></i> Edition</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for station in stationsByName %}
+    <tr>
+      <td>{{station.tourOrder}}</td>
+      <td>{{ station.name }}</td>
+      <td><a class="" href="{{ path('order_station', { slug: station.slug}) }}" role="button">Editer</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 </div><!-- end home container --> 
 

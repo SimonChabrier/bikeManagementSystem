@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-sm-12">
-    <h5 class="mb-3">Cliquer sur la station à editer</h5>
+    <h1 class="mb-3">Stations</h1>
         {% for station in stationListOrderByName %}
         N°{{ station.tourOrder}} - <a href="{{ path('order_station', { slug: station.slug}) }}">{{ station.name }}</a><br><br>
         {% endfor %}
