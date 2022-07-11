@@ -23,6 +23,14 @@ class StationType extends AbstractType
                     'placeholder' => 'Eg : gare'
                 ),
             ]) 
+            ->add('status', ChoiceType::class, [
+                'label' => 'Statut de la station',
+                'choices'  => [
+                    'Active' => true,
+                    'Inactive' => false,
+                ],
+                
+            ])
             ->add('name', TextType::class, [
                 'label' => 'Saisir le nom de la Station',
                 'attr' => array(
@@ -67,7 +75,6 @@ class StationType extends AbstractType
                     ]),
                 ],
             ]) 
-            //->add('status')
             ->add('tourOrder', ChoiceType::class, [
                 'label' => 'Ordre de la station sur la tournée',
                 'choices'  => [
