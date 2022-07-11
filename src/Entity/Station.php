@@ -269,4 +269,15 @@ class Station
         }
     }
 
+    /**
+     * Property to string for Form using EntityType::class
+     * on property
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
 }
