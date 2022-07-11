@@ -28,14 +28,14 @@ class StationController extends AbstractController
     }
 
     /**
-     * @Route("/station/tour", name="list_station")
+     * @Route("/stations", name="list_station")
      */
     public function showAllStation(StationRepository $stationRepository):Response
     {
         $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
         $stationListOrderByCity = $stationRepository->findAllOrderedByCity();
-        
+        dump($stationListOrderByName);
         return $this->render('front/tourOrder.html.twig', [
             'stationsOrdered' => $stationListOrder,
             'stationsByName' => $stationListOrderByName,

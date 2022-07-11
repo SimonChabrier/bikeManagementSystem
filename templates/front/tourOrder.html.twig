@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GEstion de la Tournée{% endblock %}
+{% block title %}Gestion de la Tournée{% endblock %}
 
 {% block body %}
 
@@ -13,43 +13,11 @@
 
 <div class="container">
 <h1>TOURNEE</h1>
-
-<h5>Stations par ordre tournée</h5>
-<br>
-
-<h5>Stations par nom</h5>
 {% for station in stationsByName %}
-<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
+<p>Station - <a href="{{ path('order_station', { slug: station.slug}) }}">{{ station.name }}</a> - N° {{station.tourOrder}}</p>
 {% endfor %}
-<br>
-
-
-{# {% for station in stationsOrdered %}
-<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
-{% endfor %}
-<br>
-<h5>Stations par ville</h5>
-{% for station in stationsByCity %}
-<p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
-{% endfor %} #}
 
 </div><!-- end home container --> 
 
-<!-- include slider fragment template + JQuery exemple for toggle option --> 
-
-{# {% include 'fragments/_slider.html.twig' %} #}
-
-{# <div class="container">
-    <h5>Ex Js Api Fetch in -> front/home.html.twig</h5>
-</div> #}
-
-<!-- app.js is in assets/js/app.js  --> 
-<!-- Api load content is positioned inside this div Id --> 
-
-{# <div class="container">  
-    <div class="card-group" id="mydiv"></div>
-</div> #}
-
-<!-- comment or delete this to no longer see the Js API Exemple -->    
 
 {% endblock %}
