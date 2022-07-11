@@ -7,7 +7,7 @@
 <h1>Ordonner les station</h1>
   <div class="row">
     <div class="col-lg-12 col-sm-12">
-    <h1 class="mb-3">Stations</h1>
+    <h2 class="mb-3">Stations</h2>
         {% for station in stationListOrderByName %}
         N°{{ station.tourOrder}} - <a href="{{ path('order_station', { slug: station.slug}) }}">{{ station.name }}</a><br><br>
         {% endfor %}
