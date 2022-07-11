@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\StationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Monolog\DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -71,6 +73,7 @@ class Station
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Slug(fields={"name"})
      */
     private $slug;
 
@@ -238,21 +241,7 @@ class Station
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
-
+   
     public function getMainPicture(): ?string
     {
         return $this->mainPicture;
@@ -269,13 +258,15 @@ class Station
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function sluggify():void
+    public function updatedTimestamps(): void
     {
-        $setSlug = $this->getName();
-        if($this->getSlug() === null ){
-            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $setSlug)));
-            $this->setSlug($slug);
-        }
+        $setDateTime = new DateTimeImmutable('now');
 
+        $this->setUpdatedAt($setDateTime);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($setDateTime);
+        }
     }
+
 }

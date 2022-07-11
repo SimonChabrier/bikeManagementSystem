@@ -16,7 +16,7 @@ class StationController extends AbstractController
     /**
      * @Route("/tournee", name="list_station")
      */
-    public function ListAllStation(StationRepository $stationRepository):Response
+    public function showAllStation(StationRepository $stationRepository):Response
     {
         $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
@@ -27,6 +27,20 @@ class StationController extends AbstractController
             'stationsByName' => $stationListOrderByName,
             'stationsByCity' => $stationListOrderByCity
         ]);
+    }
+
+    /**
+     * @Route("/station/{slug}", name="show_station")
+     */
+    public function showStation(StationRepository $stationRepository, Request $request):Response
+    {
+        $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
+        
+        return $this->render('front/station.html.twig', [
+            'station' => $station,
+        ]
+
+        );
     }
 
     /**
@@ -54,5 +68,29 @@ class StationController extends AbstractController
         
     }
 
+    /**
+     * @Route("/update/station/{slug}", name="update_station")
+     */
+    public function updateStation(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager):Response
+    {
+        $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
+        
+        $form = $this->createForm(StationType::class, $station);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $station = $form->getData();
+  
+            $entityManager->persist($station);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->renderForm('station/stationCreate.html.twig', [
+            'form' => $form,
+        ]);
+    }
     
 }
