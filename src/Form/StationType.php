@@ -76,7 +76,7 @@ class StationType extends AbstractType
                 ],
             ]) 
             ->add('tourOrder', ChoiceType::class, [
-                'label' => 'Ordre de la station sur la tournée',
+                'label' => 'Ordre de la station sur la tournée (facultatif)',
                 'choices'  => [
                     'Voir la liste' => null,
                     '1' => '1',
@@ -95,11 +95,6 @@ class StationType extends AbstractType
                     '14' => '14',
                     '15' => '15',
                     '16' => '16',
-                ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de saisir la ville de la Station !',
-                    ]),
                 ],
             ]) 
             //->add('lat')

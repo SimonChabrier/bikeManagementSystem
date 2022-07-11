@@ -12,26 +12,53 @@
 {% endfor %}
 
 <div class="container">
-<h1>état de la tournée</h1>
-
+<h1>Gestion des station</h1>
+<div class="alert alert-primary text-center" role="alert">
+  1 - Editer l'ordre des stations sur la tournée <br>
+  2 - Edition générale de chaque station
+</div>
+<h2>état actuel de la tournée</h2>
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col"><i class="bi bi-arrow-down"></i> N° Tournée</th>
-      <th scope="col"><i class="bi bi-bicycle"></i> Station</th>
-      <th scope="col"><i class="bi bi-pen"></i> Edition</th>
+      <th scope="col"><i class="fa-regular fa-pen-to-square"></i></i> Edition</th>
+      <th scope="col"><i class="bi bi-bicycle"></i></i> Station</th>
+      <th scope="col"><i class="fa-regular fa-pen-to-square"></i></i> Edition</th>
     </tr>
   </thead>
   <tbody>
     {% for station in stationsByName %}
     <tr>
-      <td>{{station.tourOrder}}</td>
+      <td>{% if station.tourOrder %}{{station.tourOrder}}{% else %}Pas de N° renseigné !{% endif %}</td>
+      <td><a class="" href="{{ path('order_station', { slug: station.slug}) }}" role="button">Ordre</a></td>
       <td>{{ station.name }}</td>
-      <td><a class="" href="{{ path('order_station', { slug: station.slug}) }}" role="button">Editer</a></td>
+      <td><a class="" href="{{ path('update_station', { slug: station.slug}) }}" role="button">Station</a></td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<h2>Stations actuellement inactives</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><i class="fa-solid fa-location-dot"></i> Ville</th>
+      <th scope="col"><i class="bi bi-bicycle"></i> Station</th>
+      <th scope="col"><i class="fa-regular fa-pen-to-square"></i></i> Edition</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for station in stationUnactiveList %}
+    <tr>
+      <td>{{ station.city }}</td>
+      <td>{{ station.name }}</td>
+      <td><a class="" href="{{ path('update_station', { slug: station.slug}) }}" role="button">Editer</a></td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
 
 </div><!-- end home container --> 
 

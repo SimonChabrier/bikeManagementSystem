@@ -35,11 +35,13 @@ class StationController extends AbstractController
         $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
         $stationListOrderByCity = $stationRepository->findAllOrderedByCity();
-        dump($stationListOrderByName);
+        $stationUnactiveList = $stationRepository->findAllInactiveStation();
+        
         return $this->render('front/tourOrder.html.twig', [
             'stationsOrdered' => $stationListOrder,
             'stationsByName' => $stationListOrderByName,
-            'stationsByCity' => $stationListOrderByCity
+            'stationsByCity' => $stationListOrderByCity,
+            'stationUnactiveList' =>$stationUnactiveList
         ]);
     }
 
@@ -85,7 +87,8 @@ class StationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('list_station');
+            //return $this->redirect($request->headers->get('referer'));
         }
 
         return $this->renderForm('station/stationCreate.html.twig', [

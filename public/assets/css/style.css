@@ -45,7 +45,7 @@ html {
   /* Bootstrap 5 use a default font-size of 16px. So 16px = 1rem in default setup */
   /* https://getbootstrap.com/docs/5.0/content/typography/ */
   /* Now we set a root font size to 20px...now it means 20px is equal to 1rem */
-  font-size: 20px;
+  font-size: 16px;
 }
 
 body {
@@ -65,29 +65,29 @@ h1.modalTitle {
 }
 
 h2 {
-  color: #666666;
-  font-size: 1.7rem;
+  color: #0D5483;
+  font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 200;
 }
 
 h3 {
-  color: #666666;
-  font-size: 1.5rem;
+  color: #0D5483;
+  font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: 100;
 }
 
 h4 {
   color: #B3B3B3;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-transform: uppercase;
   font-weight: 100;
 }
 
 h5 {
   color: #0D5483;
-  font-size: 0.9rem !important;
+  font-size: 0.7rem !important;
   text-transform: uppercase;
   font-weight: 400 !important;
   line-height: 1.2rem;
@@ -164,7 +164,7 @@ span {
 
 .myPadAndMarg, h1, h2, h3, h4, h5, p {
   padding: 0.25rem 0 !important;
-  margin: 0.25rem 0 !important;
+  margin: 0.5rem 0 !important;
 }
 
 .my1remBottomMarg, h1, .container {

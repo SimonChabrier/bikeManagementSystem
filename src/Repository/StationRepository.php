@@ -63,6 +63,24 @@ class StationRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+     /**
+     * @return Station[]
+     */
+    public function findAllInactiveStation(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Station s
+            WHERE s.status = false
+            ORDER BY s.tourOrder ASC'
+        );
+
+        // returns an array of Station objects
+        return $query->getResult();
+    }
+
     /**
      * @return Station[]
      */
