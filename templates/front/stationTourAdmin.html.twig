@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Station Tour Admin{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+    <h5 class="mb-3">Cliquer sur la station à editer</h5>
+        {% for station in stationListOrderByName %}
+        N°{{ station.tourOrder}} - <a href="{{ path('order_station', { slug: station.slug}) }}">{{ station.name }}</a><br><br>
+        {% endfor %}
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        {{ form(form) }}
+    </div>
+  </div>
+</div>
+{% endblock %}
+    

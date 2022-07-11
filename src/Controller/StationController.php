@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Station;
-use App\Repository\StationRepository;
 use App\Form\StationType;
+use App\Form\StationTourType;
+use App\Repository\StationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +14,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StationController extends AbstractController
 {
+
     /**
-     * @Route("/tournee", name="list_station")
+     * @Route("/station/{slug}", name="show_station")
+     */
+    public function showStation(StationRepository $stationRepository, Request $request):Response
+    {
+        $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
+        
+        return $this->render('front/station.html.twig', [
+            'station' => $station,
+        ]);
+    }
+
+    /**
+     * @Route("/station/tour", name="list_station")
      */
     public function showAllStation(StationRepository $stationRepository):Response
     {
@@ -26,18 +40,6 @@ class StationController extends AbstractController
             'stationsOrdered' => $stationListOrder,
             'stationsByName' => $stationListOrderByName,
             'stationsByCity' => $stationListOrderByCity
-        ]);
-    }
-
-    /**
-     * @Route("/station/{slug}", name="show_station")
-     */
-    public function showStation(StationRepository $stationRepository, Request $request):Response
-    {
-        $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
-        
-        return $this->render('front/station.html.twig', [
-            'station' => $station,
         ]);
     }
 
@@ -90,8 +92,33 @@ class StationController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    // TODO gérer la création d'une tournée = choix de la station par nom + association d'un numéro
-    // j'ai besoin de la propriété name et de la propriété tourOrder
     
+    /**
+     * @Route("/update/station/tour/{slug}", name="order_station")
+     */
+    public function adminTourOrder(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager)
+    {
+
+        $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
+        $form = $this->createForm(StationTourType::class, $station);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $station = $form->getData();
+
+            $entityManager->persist($station);
+            $entityManager->flush();
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        $stationListOrderByName = $stationRepository->findAllOrderedByName();
+
+        return $this->renderForm('front/stationTourAdmin.html.twig', [
+            'form' => $form,
+            'stationListOrderByName' => $stationListOrderByName
+        ]);
+
+    }
 }
