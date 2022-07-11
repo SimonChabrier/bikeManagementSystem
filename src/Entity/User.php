@@ -107,6 +107,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mainPicture;
+
 
     public function getId(): ?int
     {
@@ -341,6 +346,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(string $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -356,16 +385,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
     }
 
-    public function getJob(): ?string
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function sluggify():void
     {
-        return $this->job;
-    }
+        $setSlug = $this->getfirstName() . '-' . $this->getLastName();
+        if($this->getSlug() === null ){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $setSlug)));
+            $this->setSlug($slug);
+        }
 
-    public function setJob(string $job): self
-    {
-        $this->job = $job;
-
-        return $this;
     }
 
 

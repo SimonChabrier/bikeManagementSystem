@@ -84,6 +84,11 @@ class Station
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mainPicture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -246,5 +251,31 @@ class Station
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function sluggify():void
+    {
+        $setSlug = $this->getName();
+        if($this->getSlug() === null ){
+            $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $setSlug)));
+            $this->setSlug($slug);
+        }
+
     }
 }
