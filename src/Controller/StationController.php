@@ -38,9 +38,7 @@ class StationController extends AbstractController
         
         return $this->render('front/station.html.twig', [
             'station' => $station,
-        ]
-
-        );
+        ]);
     }
 
     /**

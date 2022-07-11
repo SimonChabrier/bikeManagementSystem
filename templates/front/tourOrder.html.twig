@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}GEstion de la Tournée{% endblock %}
 
 {% block body %}
 
@@ -16,19 +16,22 @@
 
 <h5>Stations par ordre tournée</h5>
 <br>
-{% for station in stationsOrdered %}
+
+<h5>Stations par nom</h5>
+{% for station in stationsByName %}
 <p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
 {% endfor %}
 <br>
-<h5>Stations par nom</h5>
-{% for station in stationsByName %}
+
+
+{# {% for station in stationsOrdered %}
 <p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
 {% endfor %}
 <br>
 <h5>Stations par ville</h5>
 {% for station in stationsByCity %}
 <p>Station - {{station.name}} - N° {{station.tourOrder}}</p>
-{% endfor %}
+{% endfor %} #}
 
 </div><!-- end home container --> 
 
