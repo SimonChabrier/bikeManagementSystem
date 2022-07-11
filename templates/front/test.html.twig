@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Page{% endblock %}
+
+{% block body %}
+
+<!-- this flash message is displayed after user click on verified email-link  --> 
+{% for message in app.flashes('isVerified') %}
+    <div class="container text-center alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<div class="container">
+<h1>Page de test</h1>
+
+<h5>Utilisateur connecté <br>
+{{ app.user.firstName |capitalize }} {{ app.user.lastName |capitalize }} pour {{ app.user.company |capitalize }} comme {{ app.user.job |capitalize }}</h5>
+
+
+</div><!-- end home container --> 
+
+<!-- include slider fragment template + JQuery exemple for toggle option --> 
+
+{# {% include 'fragments/_slider.html.twig' %} #}
+
+{# <div class="container">
+    <h5>Ex Js Api Fetch in -> front/home.html.twig</h5>
+</div> #}
+
+<!-- app.js is in assets/js/app.js  --> 
+<!-- Api load content is positioned inside this div Id --> 
+
+{# <div class="container">  
+    <div class="card-group" id="mydiv"></div>
+</div> #}
+
+<!-- comment or delete this to no longer see the Js API Exemple -->    
+
+{% endblock %}

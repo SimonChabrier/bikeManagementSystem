@@ -12,8 +12,21 @@
 {% endfor %}
 
 <div class="container">
-<h1>CONTENU DE LA HOME</h1>
+{% if app.user %}
+<button type="button" class="btn btn-primary btn-lg btn-block">Présence vélos</button>
+<button type="button" class="btn btn-primary btn-lg btn-block">Interventions</button>
+<button type="button" class="btn btn-success btn-lg btn-block">Tableau de bord</button>
+<button type="button" class="btn btn-secondary btn-lg btn-block">Vélos</button>
+<button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_station') }}">Stations</a></button>
+<button type="button" class="btn btn-secondary btn-lg btn-block">Pannes</button>
+{% else %}<!-- we add big buton for open modal login -->
+<h6 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h6>
+<button type="button" class="btn btn-primary btn-lg btn-block"><a class="link" data-toggle="modal" data-target=".Mylogin-modal">Identification</a></button>
+{% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
+{% endif %}
 </div><!-- end home container --> 
+
+
 
 <!-- include slider fragment template + JQuery exemple for toggle option --> 
 

@@ -92,6 +92,10 @@ a:hover {
     color : $medium-blue;
 }
 
+a:active{
+    color : red;
+}
+
 span {
     margin-bottom: .25rem!important;
     color: $dark-blue;
@@ -105,12 +109,16 @@ span {
 .btn {
     width: 100%;
     margin: .5rem 0!important;
-    background-color : $medium-blue!important;
 }
+
+.btn > a {
+    color: white;
+    text-transform: capitalize !important;
+}
+
 
 .btn:hover {
     @extend .mediumTransition;
-    background-color : $dark-blue!important;
 }
 
 // social icons

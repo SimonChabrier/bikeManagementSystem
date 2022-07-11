@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Station{% endblock %}
+
+{% block body %}
+<div class="container">
+<ul>
+<li>{{station.name}}</li>
+<li>{{station.address}}</li>
+<li>{{station.zip}}</li>
+<li>{{station.city}}</li>
+</ul>
+</div>
+{% endblock %}
