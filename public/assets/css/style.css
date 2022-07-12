@@ -79,7 +79,7 @@ h3 {
 }
 
 h4 {
-  color: #B3B3B3;
+  color: #0D5483;
   font-size: 1rem;
   text-transform: uppercase;
   font-weight: 100;
@@ -87,9 +87,9 @@ h4 {
 
 h5 {
   color: #0D5483;
-  font-size: 0.7rem !important;
+  font-size: 1rem !important;
   text-transform: uppercase;
-  font-weight: 400 !important;
+  font-weight: 300 !important;
   line-height: 1.2rem;
 }
 

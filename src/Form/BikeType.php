@@ -19,9 +19,9 @@ class BikeType extends AbstractType
             ->add('rate')
             //->add('purchasedAt')
             //->add('mainPicture')
-            ->add('Enregister', SubmitType::class, [
-                'attr' => ['class' => 'Enregistrer la Vélo'],
-            ]);
+            // ->add('Enregister', SubmitType::class, [
+            //     'attr' => ['class' => 'Enregistrer la Vélo'],
+            // ]);
         ;
     }
 

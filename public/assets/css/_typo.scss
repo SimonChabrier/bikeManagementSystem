@@ -46,7 +46,7 @@ h3 {
 h4 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
-    color : $light-gray;
+    color : $dark-blue;
     font-size: 1rem;
     text-transform: uppercase;
     font-weight: 100;
@@ -56,9 +56,9 @@ h5 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
     color : $dark-blue;
-    font-size: .7rem!important;
+    font-size: 1rem!important;
     text-transform: uppercase;
-    font-weight: 400!important;
+    font-weight: 300!important;
     line-height: 1.2rem;
 } 
 
