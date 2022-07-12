@@ -28,7 +28,7 @@ class UserType extends AbstractType
             ],
         ])
         ->add('password')
-
+        
         ->add('company', ChoiceType::class, [
             'label' => 'Choisir votre entreprise dans la liste',
             'choices'  => [

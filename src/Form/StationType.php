@@ -19,23 +19,23 @@ class StationType extends AbstractType
             
             ->add('reference', TextType::class, [
                 'label' => 'Saisir la référence de la Station (facultatif)',
-                'attr' => array(
+                'attr' => ([
                     'placeholder' => 'Eg : gare'
-                ),
+                ]),
             ]) 
             ->add('status', ChoiceType::class, [
                 'label' => 'Statut de la station',
                 'choices'  => [
-                    'Active' => true,
-                    'Inactive' => false,
+                    'Visible' => true,
+                    'Archivé' => false,
                 ],
                 
             ])
             ->add('name', TextType::class, [
                 'label' => 'Saisir le nom de la Station',
-                'attr' => array(
+                'attr' => ([
                     'placeholder' => 'Eg : Agen Gare'
-                ),
+                ]),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir le nom de la Station !',
@@ -44,9 +44,9 @@ class StationType extends AbstractType
             ]) 
             ->add('address', TextType::class, [
                 'label' => 'Saisir l\'adresse de la Stationde la Station',
-                'attr' => array(
+                'attr' => ([
                     'placeholder' => 'Eg : 1 Place Rabelais'
-                ),
+                ]),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir \'adresse de la Stationde la Station !',
@@ -55,9 +55,9 @@ class StationType extends AbstractType
             ]) 
             ->add('zip', TextType::class, [
                 'label' => 'Saisir le code postal de la Station',
-                'attr' => array(
+                'attr' => ([
                     'placeholder' => 'Eg : 47000'
-                ),
+                ]),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir le code postal de la Station !',
@@ -66,9 +66,9 @@ class StationType extends AbstractType
             ]) 
             ->add('city', TextType::class, [
                 'label' => 'Saisir la ville de la Station',
-                'attr' => array(
+                'attr' => ([
                     'placeholder' => 'Eg : Agen'
-                ),
+                ]),
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir la ville de la Station !',

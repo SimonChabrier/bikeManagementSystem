@@ -1,57 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bike index{% endblock %}
+{% block title %}Administration des vélos{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Bike index</h1>
-     
+<h1>Administration des vélos</h1>
+<h5>liste l'ensemble de vélos</h5>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Status</th>
-                <th>Lat</th>
-                <th>Lng</th>
+                {# <th>Id</th> #}
+                <th>Statut</th>
+                {# <th>Lat</th>
+                <th>Lng</th> #}
                 <th>Reference</th>
-                <th>Number</th>
-                <th>Rate</th>
-                <th>PurchasedAt</th>
-                <th>Slug</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>MainPicture</th>
-                <th>actions</th>
+                <th>N° vélo</th>
+                <th>Etat général</th>
+                {# <th>Date d'achat</th> #}
+                {# <th>Slug</th> #}
+                {# <th>Date de création</th> #}
+                {# <th>Date de mise à jour</th> #}
+                {# <th>Image principale</th> #}
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bike in bikes %}
             <tr>
-                <td>{{ bike.id }}</td>
-                <td>{{ bike.status ? 'Yes' : 'No' }}</td>
-                <td>{{ bike.lat }}</td>
-                <td>{{ bike.lng }}</td>
+                {# <td>{{ bike.id }}</td> #}
+                <td>{{ bike.status ? 'Activé' : 'Désactivé' }}</td>
+                {# <td>{{ bike.lat }}</td> #}
+                {# <td>{{ bike.lng }}</td> #}
                 <td>{{ bike.reference }}</td>
                 <td>{{ bike.number }}</td>
                 <td>{{ bike.rate }}</td>
-                <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bike.slug }}</td>
-                <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ bike.mainPicture }}</td>
+                {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.slug }}</td> #}
+                {# <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.mainPicture }}</td> #}
                 <td>
-                    <a href="{{ path('app_bike_show', {'id': bike.id}) }}">show</a>
-                    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}">edit</a>
+                    <a href="{{ path('app_bike_show', {'id': bike.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="13">no records found</td>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement de vélos en Base de Données !
+                </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_bike_new') }}">Create new</a>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_bike_new') }}">Créer un nouveau vélo</a></button>
 </div>
 {% endblock %}

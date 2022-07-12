@@ -1,4 +1,10 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.reference) }}
+    {{ form_row(form.number) }}      
+    {{ form_row(form.rate) }} 
+    {{ form_row(form.status) }}     
+    <hr>
+    <button class="btn btn-lg btn-success" type="submit">Enregistrer le vélo</button>
 {{ form_end(form) }}
+</div>
