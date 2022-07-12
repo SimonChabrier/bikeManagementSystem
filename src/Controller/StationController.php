@@ -28,9 +28,9 @@ class StationController extends AbstractController
     }
 
     /**
-     * @Route("/stations", name="list_station")
+     * @Route("/stations", name="list_stations")
      */
-    public function showAllStation(StationRepository $stationRepository):Response
+    public function showAllStations(StationRepository $stationRepository):Response
     {
         $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
@@ -46,7 +46,7 @@ class StationController extends AbstractController
     }
 
     /**
-     * @Route("/create/station", name="create_station")
+     * @Route("/create/station", name="create_station", methods={"GET","POST"})
      */
     public function createStation(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -71,7 +71,7 @@ class StationController extends AbstractController
     }
 
     /**
-     * @Route("/update/station/{slug}", name="update_station")
+     * @Route("/station/update/{slug}", name="update_station")
      */
     public function updateStation(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager):Response
     {
@@ -87,7 +87,7 @@ class StationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('list_station');
+            return $this->redirectToRoute('list_stations');
             //return $this->redirect($request->headers->get('referer'));
         }
 
@@ -97,7 +97,7 @@ class StationController extends AbstractController
     }
     
     /**
-     * @Route("/update/station/tour/{slug}", name="order_station")
+     * @Route("/station/update/tour/{slug}", name="order_station")
      */
     public function adminTourOrder(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager)
     {

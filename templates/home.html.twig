@@ -17,12 +17,12 @@
     <button type="button" class="btn btn-primary btn-lg btn-block">Interventions</button>
 {% if is_granted('ROLE_MONITEUR')%}
     <button type="button" class="btn btn-success btn-lg btn-block">Tableau de bord</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block">Vélos</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_station') }}">Stations</a></button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_bikes') }}">Vélos</a></button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_stations') }}">Stations</a></button>
 {% endif %}
     <button type="button" class="btn btn-secondary btn-lg btn-block">Pannes</button>
 {% else %}<!-- we add big buton for open modal login -->
-<h6 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h6>
+<h1 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h1>
 <button type="button" class="btn btn-primary btn-lg btn-block"><a class="link" data-toggle="modal" data-target=".Mylogin-modal">Identification</a></button>
 {% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
 {% endif %}
