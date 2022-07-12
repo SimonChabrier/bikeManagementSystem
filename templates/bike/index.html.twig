@@ -3,8 +3,9 @@
 {% block title %}Bike index{% endblock %}
 
 {% block body %}
+<div class="container"> 
     <h1>Bike index</h1>
-
+     
     <table class="table">
         <thead>
             <tr>
@@ -52,4 +53,5 @@
     </table>
 
     <a href="{{ path('app_bike_new') }}">Create new</a>
+</div>
 {% endblock %}
