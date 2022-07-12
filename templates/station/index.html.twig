@@ -1,60 +1,63 @@
 {% extends 'base.html.twig' %}
-{% block title %}Station index{% endblock %}
+{% block title %}Administration des stations{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Station index</h1>
-
+    <h1>Administration des stations</h1>
+    <h5>liste l'ensemble des stations</h5>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Status</th>
-                <th>TourOrder</th>
+                {# <th>Id</th> #}
+                <th>Statut</th>
+                <th>Ordre sur tournée</th>
                 <th>Reference</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Zip</th>
-                <th>City</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>Slug</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>MainPicture</th>
-                <th>actions</th>
+                <th>Station</th>
+                {# <th>Address</th> #}
+                {# <th>Zip</th> #}
+                {# <th>City</th> #}
+                {# <th>Lat</th> #}
+                {# <th>Lng</th> #}
+                {# <th>Slug</th> #}
+                {# <th>CreatedAt</th> #}
+                {# <th>UpdatedAt</th> #}
+                {# <th>MainPicture</th> #}
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for station in stations %}
             <tr>
-                <td>{{ station.id }}</td>
-                <td>{{ station.status ? 'Yes' : 'No' }}</td>
+                {# <td>{{ station.id }}</td> #}
+                <td>{{ station.status ? 'Activé' : 'Désactivé' }}</td>
                 <td>{{ station.tourOrder }}</td>
                 <td>{{ station.reference }}</td>
                 <td>{{ station.name }}</td>
-                <td>{{ station.address }}</td>
-                <td>{{ station.zip }}</td>
-                <td>{{ station.city }}</td>
-                <td>{{ station.lat }}</td>
-                <td>{{ station.lng }}</td>
-                <td>{{ station.slug }}</td>
-                <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ station.mainPicture }}</td>
+                {# <td>{{ station.address }}</td> #}
+                {# <td>{{ station.zip }}</td> #}
+                {# <td>{{ station.city }}</td> #}
+                {# <td>{{ station.lat }}</td> #}
+                {# <td>{{ station.lng }}</td> #}
+                {# <td>{{ station.slug }}</td> #}
+                {# <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ station.mainPicture }}</td> #}
                 <td>
-                    <a href="{{ path('app_station_show', {'id': station.id}) }}">show</a>
-                    <a href="{{ path('app_station_edit', {'id': station.id}) }}">edit</a>
+                    <a href="{{ path('app_station_show', {'id': station.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_station_edit', {'id': station.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
-            <tr>
-                <td colspan="15">no records found</td>
+             <tr>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement d'utilisateurs en Base de Données !
+                </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_station_new') }}">Create new</a>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_station_new') }}">Créer une nouvelle station</a></button>
 </div>
 {% endblock %}
