@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration de utilisateurs{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Administration des Utilisateurs</h1>
+<h5>liste l'ensemble de utilisateurs</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Poste occupé</th>
+                <th>Entreprise</th>
+                {# <th>Id</th> #}
+                <th>Statut</th>
+                {# <th>Roles</th> #}
+                {# <th>Email</th> #}
+                {# <th>IsVerified</th> #}
+                {# <th>Password</th> #}
+                {# <th>Address</th> #}
+                {# <th>Zip</th> #}
+                {# <th>City</th> #}
+                <th>Tel</th>
+                {# <th>Slug</th> #}
+                {# <th>CreatedAt</th> #}
+                {# <th>UpdatedAt</th> #}
+                {# <th>MainPicture</th> #}
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.job }}</td>
+                <td>{{ user.company }}</td>
+                {# <td>{{ user.id }}</td> #}
+                <td>{{ user.status ? 'Activé' : 'Désactivé' }}</td>
+                {# <td>{{ user.roles ? user.roles|json_encode : '' }}</td> #}
+                {# <td>{{ user.email }}</td> #}
+                {# <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td> #}
+                {# <td>{{ user.password }}</td> #}
+                {# <td>{{ user.address }}</td> #}
+                {# <td>{{ user.zip }}</td> #}
+                {# <td>{{ user.city }}</td> #}
+                <td>{{ user.phone }}</td>
+                {# <td>{{ user.slug }}</td> #}
+                {# <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ user.mainPicture }}</td> #}
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement d'utilisateurs en Base de Données !
+                </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a></button>
+</div>
+{% endblock %}

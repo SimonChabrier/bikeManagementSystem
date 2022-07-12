@@ -45,11 +45,6 @@ class BikeController extends AbstractController
     public function createBike(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $routeName = $request->attributes->get('_route');
-        dump($routeName);
-        $routeParameters = $request->attributes->get('_route_params');
-        dump($routeParameters);
-
         $bike = new Bike();
         $form = $this->createForm(BikeType::class, $bike);
         $form->handleRequest($request);
@@ -66,6 +61,7 @@ class BikeController extends AbstractController
 
         return $this->renderForm('bike/bikeCreate.html.twig', [
             'form' => $form,
+            // 'bike' => $bike
         ]);
     }   
 
