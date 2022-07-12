@@ -5,9 +5,6 @@
 {% block body %}
 <div class="container"> 
     <h1>Vélo</h1>
-    <h3><a href="{{ path('app_bike_index') }}">retour à l'administration des vélos</a></h3>
-    <h5><a href="{{ path('app_bike_edit', {'id': bike.id}) }}">modifier le vélo</a></h5>
-
     <table class="table">
         <tbody>
             {# <tr>
@@ -64,6 +61,8 @@
             {% endif %}
         </tbody>
     </table>
+    <button class="btn btn-lg btn-success" type="submit"><a href="{{ path('app_bike_edit', {'id': bike.id}) }}">modifier le vélo</a></button>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_bike_index') }}">retour à l'administration des vélos</a></button>
     {{ include('bike/_delete_form.html.twig') }}
 </div>
 {% endblock %}

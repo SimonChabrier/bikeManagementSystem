@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block title %}New Station{% endblock %}
+{% block title %}Créer Station{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Create new Station</h1>
-
+    <h1>Créer une nouvelle station</h1>
     {{ include('station/_form.html.twig') }}
-
-    <a href="{{ path('app_station_index') }}">back to list</a>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_station_index') }}">Retour à la liste</a></button>
 </div>
 {% endblock %}
