@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrer l'utilisateur{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Fiche Utilisateur</h1>
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            {# <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr> #}
+            <tr>
+                <th>Entreprise</th>
+                <td>{{ user.company }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ user.job }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Addresse</th>
+                <td>{{ user.address }}</td>
+            </tr>
+            <tr>
+                <th>Code Postal</th>
+                <td>{{ user.zip }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ user.phone }}</td>
+            </tr>
+            {# <tr>
+                <th>Slug</th>
+                <td>{{ user.slug }}</td>
+            </tr> #}
+            <tr>
+                <th>Statut</th>
+                <td>{{ user.status ? 'Activé' : 'Désactivé' }}</td>
+            </tr>
+            <tr>
+                <th>Mail vérifié</th>
+                <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date de mise à jour</th>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Rôles sur l'application</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            {% if user.mainPicture %}
+            <tr>
+                <th>Image pricipale</th>
+                <td>{{ user.mainPicture }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <button class="btn btn-lg btn-success" type="submit"><a href="{{ path('app_user_edit', {'id': user.id}) }}">modifier l'utilisateur</a></button>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_user_index') }}">retour à la liste des utilisateur</a></button>
+    {{ include('user/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

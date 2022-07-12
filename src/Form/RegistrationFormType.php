@@ -42,7 +42,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 4,
-                        'minMessage' => 'Le mot de passe doit comporter au inimum {{ limit }} caractères',
+                        'minMessage' => 'Le mot de passe doit comporter au minimum {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -52,8 +52,9 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Choisir votre entreprise dans la liste',
                 'choices'  => [
                     'Voir la liste' => null,
-                    'Agnelis' => 'agnelis',
-                    'Esat' => 'esat',
+                    'Agnelis' => 'Agnelis',
+                    'Esat' => 'Esat',
+                    'Autre' => 'Autre',
                 ],
 
                 'constraints' => [

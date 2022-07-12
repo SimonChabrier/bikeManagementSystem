@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BikeController!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+<h1>Gestion des vélos</h1>
+<div class="alert alert-primary text-center" role="alert">
+  Espace message info utilisateur
+</div>
+
+<h2>Liste des vélos</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"><i class="bi bi-bicyle"></i> N° Vélo</th>
+      <th scope="col"><i class="fa-solid fa-location-dot"></i> Station</th>
+      <th scope="col"><i class="fa-regular fa-pen-to-square"></i></i> Edition vélo</th>
+      <th scope="col"><i class="bi bi-star"></i> Note vélo</th>
+      <th scope="col"><i class="bi bi-check-circle"></i> Statut vélo</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for bike in bikes %}
+    <tr>
+      <td>{{bike.number}}</td>
+      <td>STATION</td>
+      <td><a class="" href="{{ path('update_bike', { slug: bike.slug}) }}" role="button">Editer</a></td>
+      <td>{{bike.rate}}</td>
+      <td>{% if bike.status %}<i class="bi bi-check-circle">{% else %}<i class="bi bi-dash-circle"></i>{% endif %}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% endblock %}

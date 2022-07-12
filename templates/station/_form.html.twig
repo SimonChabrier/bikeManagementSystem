@@ -1,0 +1,11 @@
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.reference) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.name) }}      
+    {{ form_row(form.address) }}      
+    {{ form_row(form.zip) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.tourOrder) }}
+    <hr>
+    <button class="btn btn-lg btn-success" type="submit">Enregistrer la station</button>
+{{ form_end(form) }}

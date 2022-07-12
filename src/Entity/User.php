@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Monolog\DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -94,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Slug(fields={"firstName", "lastName"})
      */
     private $slug;
 
@@ -106,6 +108,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mainPicture;
 
 
     public function getId(): ?int
@@ -341,6 +348,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(string $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -355,18 +386,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->setCreatedAt($setDateTime);
         }
     }
-
-    public function getJob(): ?string
-    {
-        return $this->job;
-    }
-
-    public function setJob(string $job): self
-    {
-        $this->job = $job;
-
-        return $this;
-    }
-
 
 }

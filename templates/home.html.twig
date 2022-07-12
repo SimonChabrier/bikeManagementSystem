@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container"> 
+<!-- this flash message is displayed after user click on verified email-link  --> 
+{% for message in app.flashes('isVerified') %}
+    <div class="container text-center alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+{% if app.user %}
+    <button type="button" class="btn btn-primary btn-lg btn-block">Présence vélos</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block">Interventions</button>
+{% if is_granted('ROLE_MONITEUR')%}
+    <button type="button" class="btn btn-success btn-lg btn-block">Tableau de bord</button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('app_bike_index') }}">Vélos</a></button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('app_station_index') }}">Stations</a></button>
+{% endif %}
+    <button type="button" class="btn btn-secondary btn-lg btn-block">Pannes</button>
+{% else %}
+<h1 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h1>
+<button type="button" class="btn btn-primary btn-lg btn-block"><a class="link" data-toggle="modal" data-target=".Mylogin-modal">Identification</a></button>
+{% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
+{% endif %}
+
+
+
+
+<!-- include slider fragment template + JQuery exemple for toggle option --> 
+{# {% include 'fragments/_slider.html.twig' %} #}
+{# <div class="container">
+    <h5>Ex Js Api Fetch in -> front/home.html.twig</h5>
+</div> #}
+<!-- app.js is in assets/js/app.js  --> 
+<!-- Api load content is positioned inside this div Id --> 
+{# <div class="container">  
+    <div class="card-group" id="mydiv"></div>
+</div> #}
+<!-- comment or delete this to no longer see the Js API Exemple -->    
+</div>
+{% endblock %}

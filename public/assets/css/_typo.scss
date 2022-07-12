@@ -2,10 +2,7 @@ html {
     /* Bootstrap 5 use a default font-size of 16px. So 16px = 1rem in default setup */
     /* https://getbootstrap.com/docs/5.0/content/typography/ */
     /* Now we set a root font size to 20px...now it means 20px is equal to 1rem */
-    font-size:20px;    
-    
-
-
+    font-size:16px;    
 }
  
 body {
@@ -31,8 +28,8 @@ h1.modalTitle {
 h2 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
-    color : $medium-gray;
-    font-size: 1.7rem;
+    color : $dark-blue;
+    font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: 200;
 } 
@@ -40,8 +37,8 @@ h2 {
 h3 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
-    color : $medium-gray;
-    font-size: 1.5rem;
+    color : $dark-blue;
+    font-size: 1.2rem;
     text-transform: uppercase;
     font-weight: 100;
 } 
@@ -49,8 +46,8 @@ h3 {
 h4 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
-    color : $light-gray;
-    font-size: 1.2rem;
+    color : $dark-blue;
+    font-size: 1rem;
     text-transform: uppercase;
     font-weight: 100;
 } 
@@ -59,9 +56,9 @@ h5 {
     @extend .border-bottom;
     @extend .myPadAndMarg;
     color : $dark-blue;
-    font-size: .9rem!important;
+    font-size: 1rem!important;
     text-transform: uppercase;
-    font-weight: 400!important;
+    font-weight: 300!important;
     line-height: 1.2rem;
 } 
 
@@ -92,6 +89,10 @@ a:hover {
     color : $medium-blue;
 }
 
+a:active{
+    color : red;
+}
+
 span {
     margin-bottom: .25rem!important;
     color: $dark-blue;
@@ -105,12 +106,16 @@ span {
 .btn {
     width: 100%;
     margin: .5rem 0!important;
-    background-color : $medium-blue!important;
 }
+
+.btn > a {
+    color: white;
+    text-transform: capitalize !important;
+}
+
 
 .btn:hover {
     @extend .mediumTransition;
-    background-color : $dark-blue!important;
 }
 
 // social icons

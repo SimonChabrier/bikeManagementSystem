@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration des vélos{% endblock %}
+
+{% block body %}
+<div class="container"> 
+<h1>Administration des vélos</h1>
+<h5>liste l'ensemble de vélos</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Statut</th>
+                {# <th>Lat</th>
+                <th>Lng</th> #}
+                {# <th>Reference</th> #}
+                <th>N° vélo</th>
+                <th>Note d'état général</th>
+                {# <th>Date d'achat</th> #}
+                {# <th>Slug</th> #}
+                {# <th>Date de création</th> #}
+                {# <th>Date de mise à jour</th> #}
+                {# <th>Image principale</th> #}
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bike in bikes %}
+            <tr>
+                {# <td>{{ bike.id }}</td> #}
+                <td>{{ bike.status ? 'Visible' : 'Archivé' }}</td>
+                {# <td>{{ bike.lat }}</td> #}
+                {# <td>{{ bike.lng }}</td> #}
+                {# <td>{{ bike.reference }}</td> #}
+                <td>{{ bike.number }}</td>
+                <td>{{ bike.rate }}</td>
+                {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.slug }}</td> #}
+                {# <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.mainPicture }}</td> #}
+                <td>
+                    <a href="{{ path('app_bike_show', {'id': bike.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement de vélos en Base de Données !
+                </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_bike_new') }}">Créer un nouveau vélo</a></button>
+</div>
+{% endblock %}

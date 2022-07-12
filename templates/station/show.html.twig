@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrer la station{% endblock %}
+
+{% block body %}
+<div class="container"> 
+    <h1>Fiche Station</h1>
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ station.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Status</th>
+                <td>{{ station.status ? 'Activé' : 'Désactivé' }}</td>
+            </tr>
+            <tr>
+                <th>Ordre sur la tournée</th>
+                <td>N° {{ station.tourOrder }}</td>
+            </tr>
+            {# <tr>
+                <th>Reference</th>
+                <td>{{ station.reference }}</td>
+            </tr> #}
+            <tr>
+                <th>Nom</th>
+                <td>{{ station.name }}</td>
+            </tr>
+            <tr>
+                <th>Addresse</th>
+                <td>{{ station.address }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ station.zip }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ station.city }}</td>
+            </tr>
+            {# <tr>
+                <th>Lat</th>
+                <td>{{ station.lat }}</td>
+            </tr> #}
+            {# <tr>
+                <th>Lng</th>
+                <td>{{ station.lng }}</td>
+            </tr> #}
+            {# <tr>
+                <th>Slug</th>
+                <td>{{ station.slug }}</td>
+            </tr> #}
+            {# <tr>
+                <th>CreatedAt</th>
+                <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr> #}
+            <tr>
+                <th>Dernière mise à jour</th>
+                <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            {% if station.mainPicture %}
+            <tr>
+                <th>Image pricipale</th>
+                <td>{{ station.mainPicture }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <button class="btn btn-lg btn-success" type="submit"><a href="{{ path('app_station_edit', {'id': station.id}) }}">modifier la station</a></button>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_station_index') }}">retour à la liste des stations</a></button>
+    {{ include('station/_delete_form.html.twig') }}
+</div>
+{% endblock %}

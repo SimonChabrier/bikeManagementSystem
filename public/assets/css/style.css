@@ -38,14 +38,6 @@
   /* Legacy iOS */
 }
 
-label.form-check-label.required {
-  padding: 5px 0;
-}
-
-.pictContainer img {
-  padding: .5rem 0;
-}
-
 /*-------------------------------------------------------------------------------------*/
 /*  TYPO															   
 /*-------------------------------------------------------------------------------------*/
@@ -53,7 +45,7 @@ html {
   /* Bootstrap 5 use a default font-size of 16px. So 16px = 1rem in default setup */
   /* https://getbootstrap.com/docs/5.0/content/typography/ */
   /* Now we set a root font size to 20px...now it means 20px is equal to 1rem */
-  font-size: 20px;
+  font-size: 16px;
 }
 
 body {
@@ -73,31 +65,31 @@ h1.modalTitle {
 }
 
 h2 {
-  color: #666666;
-  font-size: 1.7rem;
+  color: #0D5483;
+  font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 200;
 }
 
 h3 {
-  color: #666666;
-  font-size: 1.5rem;
+  color: #0D5483;
+  font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: 100;
 }
 
 h4 {
-  color: #B3B3B3;
-  font-size: 1.2rem;
+  color: #0D5483;
+  font-size: 1rem;
   text-transform: uppercase;
   font-weight: 100;
 }
 
 h5 {
   color: #0D5483;
-  font-size: 0.9rem !important;
+  font-size: 1rem !important;
   text-transform: uppercase;
-  font-weight: 400 !important;
+  font-weight: 300 !important;
   line-height: 1.2rem;
 }
 
@@ -126,6 +118,10 @@ a:hover {
   color: #4087B6;
 }
 
+a:active {
+  color: red;
+}
+
 span {
   margin-bottom: 0.25rem !important;
   color: #0D5483;
@@ -139,11 +135,11 @@ span {
 .btn {
   width: 100%;
   margin: 0.5rem 0 !important;
-  background-color: #4087B6 !important;
 }
 
-.btn:hover {
-  background-color: #0D5483 !important;
+.btn > a {
+  color: white;
+  text-transform: capitalize !important;
 }
 
 .fab {
@@ -168,7 +164,7 @@ span {
 
 .myPadAndMarg, h1, h2, h3, h4, h5, p {
   padding: 0.25rem 0 !important;
-  margin: 0.25rem 0 !important;
+  margin: 0.5rem 0 !important;
 }
 
 .my1remBottomMarg, h1, .container {
@@ -210,6 +206,14 @@ span {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+label.form-check-label.required {
+  padding: 5px 0;
+}
+
+.pictContainer img {
+  padding: .5rem 0;
 }
 
 /*-------------------------------------------------------------------------------------*/

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stations{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Titre</h1>
+<ul>
+<li><a href="{{ path('update_station', { slug: station.slug}) }}">{{ station.name }}</a> </li>
+<li>{{station.address}}</li>
+<li>{{station.zip}}</li>
+<li>{{station.city}}</li>
+</ul>
+</div>
+{% endblock %}

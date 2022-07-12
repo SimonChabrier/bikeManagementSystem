@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Test Page{% endblock %}
 
 {% block body %}
 
@@ -12,7 +12,12 @@
 {% endfor %}
 
 <div class="container">
-<h1>CONTENU DE LA HOME</h1>
+<h1>Page de test</h1>
+
+<h5>Utilisateur connecté <br>
+{{ app.user.firstName |capitalize }} {{ app.user.lastName |capitalize }} pour {{ app.user.company |capitalize }} comme {{ app.user.job |capitalize }}</h5>
+
+
 </div><!-- end home container --> 
 
 <!-- include slider fragment template + JQuery exemple for toggle option --> 
