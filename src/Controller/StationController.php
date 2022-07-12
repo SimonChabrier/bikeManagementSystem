@@ -61,7 +61,7 @@ class StationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('station/stationCreate.html.twig', [
@@ -87,7 +87,7 @@ class StationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('list_stations');
+            return $this->redirectToRoute('list_stations', [], Response::HTTP_SEE_OTHER);
             //return $this->redirect($request->headers->get('referer'));
         }
 
