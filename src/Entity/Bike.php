@@ -33,6 +33,16 @@ class Bike
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $lng;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
     private $reference = "ref_";
 
     /**
@@ -71,6 +81,7 @@ class Bike
      */
     private $mainPicture;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,6 +95,30 @@ class Bike
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getLat(): ?string
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?string $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?string
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?string $lng): self
+    {
+        $this->lng = $lng;
 
         return $this;
     }
@@ -198,4 +233,5 @@ class Bike
 
         return $this;
     }
+
 }

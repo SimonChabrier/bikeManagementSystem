@@ -28,7 +28,7 @@ class BikeController extends AbstractController
     }
 
     /**
-     * @Route("/bikes", name="list_bike")
+     * @Route("/bikes", name="list_bikes")
      */
     public function showAllBikes(BikeRepository $bikeRepository):Response
     {
@@ -68,4 +68,30 @@ class BikeController extends AbstractController
             'form' => $form,
         ]);
     }   
+
+    /**
+     * @Route("/bike/update/{slug}", name="update_bike")
+     */
+    public function updateStation(BikeRepository $bikeRepository, Request $request, EntityManagerInterface $entityManager):Response
+    {
+        $bike = $bikeRepository->findOneBy(['slug' => $request->get('slug')]);
+        
+        $form = $this->createForm(BikeType::class, $bike);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $bike = $form->getData();
+  
+            $entityManager->persist($bike);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('list_bikes');
+            //return $this->redirect($request->headers->get('referer'));
+        }
+
+        return $this->renderForm('bike/bikeCreate.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }

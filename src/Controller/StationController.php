@@ -28,7 +28,7 @@ class StationController extends AbstractController
     }
 
     /**
-     * @Route("/stations", name="list_station")
+     * @Route("/stations", name="list_stations")
      */
     public function showAllStations(StationRepository $stationRepository):Response
     {
@@ -87,7 +87,7 @@ class StationController extends AbstractController
             $entityManager->persist($station);
             $entityManager->flush();
 
-            return $this->redirectToRoute('list_station');
+            return $this->redirectToRoute('list_stations');
             //return $this->redirect($request->headers->get('referer'));
         }
 
