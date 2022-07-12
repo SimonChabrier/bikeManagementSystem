@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Station index{% endblock %}
+
+{% block body %}
+    <h1>Station index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>TourOrder</th>
+                <th>Reference</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Zip</th>
+                <th>City</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Slug</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>MainPicture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for station in stations %}
+            <tr>
+                <td>{{ station.id }}</td>
+                <td>{{ station.status ? 'Yes' : 'No' }}</td>
+                <td>{{ station.tourOrder }}</td>
+                <td>{{ station.reference }}</td>
+                <td>{{ station.name }}</td>
+                <td>{{ station.address }}</td>
+                <td>{{ station.zip }}</td>
+                <td>{{ station.city }}</td>
+                <td>{{ station.lat }}</td>
+                <td>{{ station.lng }}</td>
+                <td>{{ station.slug }}</td>
+                <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ station.mainPicture }}</td>
+                <td>
+                    <a href="{{ path('app_station_show', {'id': station.id}) }}">show</a>
+                    <a href="{{ path('app_station_edit', {'id': station.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_station_new') }}">Create new</a>
+{% endblock %}

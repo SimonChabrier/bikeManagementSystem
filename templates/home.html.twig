@@ -17,8 +17,8 @@
     <button type="button" class="btn btn-primary btn-lg btn-block">Interventions</button>
 {% if is_granted('ROLE_MONITEUR')%}
     <button type="button" class="btn btn-success btn-lg btn-block">Tableau de bord</button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_bikes') }}">Vélos</a></button>
-    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('list_stations') }}">Stations</a></button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('app_bike_index') }}">Vélos</a></button>
+    <button type="button" class="btn btn-secondary btn-lg btn-block"><a href="{{ path('app_station_index') }}">Stations</a></button>
 {% endif %}
     <button type="button" class="btn btn-secondary btn-lg btn-block">Pannes</button>
 {% else %}<!-- we add big buton for open modal login -->

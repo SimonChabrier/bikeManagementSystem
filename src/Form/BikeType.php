@@ -6,7 +6,6 @@ use App\Entity\Bike;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class BikeType extends AbstractType
 {
@@ -17,11 +16,13 @@ class BikeType extends AbstractType
             ->add('reference')
             ->add('number')
             ->add('rate')
+            //->add('lat')
+            //->add('lng')
             //->add('purchasedAt')
+            //->add('slug')
+            //->add('createdAt')
+            //->add('updatedAt')
             //->add('mainPicture')
-            // ->add('Enregister', SubmitType::class, [
-            //     'attr' => ['class' => 'Enregistrer la Vélo'],
-            // ]);
         ;
     }
 

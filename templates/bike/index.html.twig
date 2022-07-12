@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bike index{% endblock %}
+
+{% block body %}
+    <h1>Bike index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Reference</th>
+                <th>Number</th>
+                <th>Rate</th>
+                <th>PurchasedAt</th>
+                <th>Slug</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>MainPicture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bike in bikes %}
+            <tr>
+                <td>{{ bike.id }}</td>
+                <td>{{ bike.status ? 'Yes' : 'No' }}</td>
+                <td>{{ bike.lat }}</td>
+                <td>{{ bike.lng }}</td>
+                <td>{{ bike.reference }}</td>
+                <td>{{ bike.number }}</td>
+                <td>{{ bike.rate }}</td>
+                <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.slug }}</td>
+                <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.mainPicture }}</td>
+                <td>
+                    <a href="{{ path('app_bike_show', {'id': bike.id}) }}">show</a>
+                    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bike_new') }}">Create new</a>
+{% endblock %}
