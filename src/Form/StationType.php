@@ -102,9 +102,9 @@ class StationType extends AbstractType
             //->add('slug')
             //->add('createdAt')
             //->add('updatedAt')
-            ->add('Enregister', SubmitType::class, [
-                'attr' => ['class' => 'Enregistrer la Station'],
-            ]);
+            // ->add('Enregister', SubmitType::class, [
+            //     'attr' => ['class' => 'Enregistrer la Station'],
+            // ]);
         ;
     }
 

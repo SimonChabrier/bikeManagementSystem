@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}User{% endblock %}
+{% block title %}Administrer l'utilisateur{% endblock %}
 
 {% block body %}
 <div class="container">
     <h1>Utilisateur</h1>
     <h3><a href="{{ path('app_user_index') }}">retour à l'administration des utilisateur</a></h3>
-    <h5><a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier l'utilisateur</a></h5>
+    <h5><a href="{{ path('app_user_edit', {'id': user.id}) }}">modifier l'utilisateur</a></h5>
 
     <table class="table">
         <tbody>
@@ -59,7 +59,7 @@
             </tr> #}
             <tr>
                 <th>Statut</th>
-                <td>{{ user.status ? '1' : '0' }}</td>
+                <td>{{ user.status ? 'Actvé' : 'Désactivé' }}</td>
             </tr>
             <tr>
                 <th>Mail vérifié</th>
@@ -79,7 +79,7 @@
             </tr>
             {% if user.mainPicture %}
             <tr>
-                <th>Photo</th>
+                <th>Image pricipale</th>
                 <td>{{ user.mainPicture }}</td>
             </tr>
             {% endif %}

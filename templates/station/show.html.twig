@@ -1,75 +1,74 @@
 {% extends 'base.html.twig' %}
-{% block title %}Station{% endblock %}
+{% block title %}Administrer la station{% endblock %}
 
 {% block body %}
 <div class="container"> 
     <h1>Station</h1>
+    <h3><a href="{{ path('app_station_index') }}">retour à l'administration des stations</a></h3>
+    <h5><a href="{{ path('app_station_edit', {'id': station.id}) }}">modifier la station</a></h5>
 
     <table class="table">
         <tbody>
-            <tr>
+            {# <tr>
                 <th>Id</th>
                 <td>{{ station.id }}</td>
-            </tr>
+            </tr> #}
             <tr>
                 <th>Status</th>
-                <td>{{ station.status ? 'Yes' : 'No' }}</td>
+                <td>{{ station.status ? 'Actvé' : 'Désactivé' }}</td>
             </tr>
             <tr>
-                <th>TourOrder</th>
-                <td>{{ station.tourOrder }}</td>
+                <th>Ordre sur la tournée</th>
+                <td>N° {{ station.tourOrder }}</td>
             </tr>
-            <tr>
+            {# <tr>
                 <th>Reference</th>
                 <td>{{ station.reference }}</td>
-            </tr>
+            </tr> #}
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ station.name }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>Addresse</th>
                 <td>{{ station.address }}</td>
             </tr>
             <tr>
-                <th>Zip</th>
+                <th>Code postal</th>
                 <td>{{ station.zip }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>Ville</th>
                 <td>{{ station.city }}</td>
             </tr>
-            <tr>
+            {# <tr>
                 <th>Lat</th>
                 <td>{{ station.lat }}</td>
-            </tr>
-            <tr>
+            </tr> #}
+            {# <tr>
                 <th>Lng</th>
                 <td>{{ station.lng }}</td>
-            </tr>
-            <tr>
+            </tr> #}
+            {# <tr>
                 <th>Slug</th>
                 <td>{{ station.slug }}</td>
-            </tr>
-            <tr>
+            </tr> #}
+            {# <tr>
                 <th>CreatedAt</th>
                 <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+            </tr> #}
             <tr>
-                <th>UpdatedAt</th>
+                <th>Dernière mise à jour</th>
                 <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            {% if station.mainPicture %}
             <tr>
-                <th>MainPicture</th>
+                <th>Image pricipale</th>
                 <td>{{ station.mainPicture }}</td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_station_index') }}">back to list</a>
-
-    <a href="{{ path('app_station_edit', {'id': station.id}) }}">edit</a>
-
     {{ include('station/_delete_form.html.twig') }}
 </div>
 {% endblock %}
