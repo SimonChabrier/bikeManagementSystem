@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class BikeType extends AbstractType
 {
@@ -17,12 +18,12 @@ class BikeType extends AbstractType
         $builder
 
             ->add('reference', TextType::class, [
-                'label' => 'Facultatif - Saisir votre référence pour le vélo',
+                'label' => 'Ajouter une référence Agnélis au Vélo (facultatif)',
                 'attr' => ([
                     'placeholder' => 'Eg : Ref-100'
                 ]),
             ]) 
-            ->add('number', TextType::class, [
+            ->add('number', NumberType::class, [
                 'label' => 'Saisir le numéro identifiant Tempo du vélo',
                 'attr' => ([
                     'placeholder' => 'Eg : 100'
@@ -34,7 +35,7 @@ class BikeType extends AbstractType
                 ],
             ]) 
             ->add('rate', ChoiceType::class, [
-                'label' => 'Facultatif - Attribuer une note d\'état du vélo',
+                'label' => 'Attribuer une note d\'état du vélo (facultatif)',
                 'choices'  => [
                     'Attribuer une note d\'état du vélo' => null,
                     '1' => '1',
