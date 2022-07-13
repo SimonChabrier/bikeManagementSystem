@@ -83,6 +83,17 @@ class StationType extends AbstractType
                     ]),
                 ],
             ]) 
+            ->add('capacity', NumberType::class, [
+                'label' => 'Saisir le nombre de bornes vélos présentes sur la Station',
+                'attr' => ([
+                    'placeholder' => 'Eg : 12'
+                ]),
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de saisir nombre de bornes vélos présentes sur la Station !',
+                    ]),
+                ],
+            ]) 
             ->add('status', ChoiceType::class, [
                 'label' => 'Statut de la Station',
                 'choices'  => [
