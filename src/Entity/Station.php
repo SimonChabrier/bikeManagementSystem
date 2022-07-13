@@ -33,13 +33,22 @@ class Station
 
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
+     * this is for station external reference number from client
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * this is for station internal reference
      */
     private $reference;
+
+
+    /**
+     * @ORM\Column(type="string", length=3)
+     * this is for station item capacity from 0 to 999
+     */
+    private $capacity;
 
     /**
      * @ORM\Column(type="string", length=150)
@@ -91,6 +100,7 @@ class Station
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mainPicture;
+
 
     public function getId(): ?int
     {
@@ -278,6 +288,18 @@ class Station
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getCapacity(): ?string
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(string $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
     }
 
 }
