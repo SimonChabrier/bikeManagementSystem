@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('app_bike_delete', {'id': bike.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce vélo ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ bike.id) }}">
-    <button class="btn btn-lg btn-danger" type="submit">Supprimer</button>
+    <button class="btn btn-lg btn-danger" type="submit">supprimer</button>
 </form>
