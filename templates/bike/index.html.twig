@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration des vélos{% endblock %}
+{% block title %}Admin Parc Vélo{% endblock %}
 
 {% block body %}
 <div class="container"> 
@@ -14,7 +14,7 @@
                 {# <th>Lat</th>
                 <th>Lng</th> #}
                 {# <th>Reference</th> #}
-                <th>N° vélo</th>
+                <th>N° Tempo</th>
                 <th>Note d'état général</th>
                 {# <th>Date d'achat</th> #}
                 {# <th>Slug</th> #}
@@ -34,10 +34,10 @@
                 {# <td>{{ bike.reference }}</td> #}
                 <td>{{ bike.number }}</td>
                 <td>{{ bike.rate }}</td>
-                {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td> #}
                 {# <td>{{ bike.slug }}</td> #}
-                {# <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
-                {# <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td> #}
+                {# <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td> #}
                 {# <td>{{ bike.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_bike_show', {'id': bike.id}) }}">Afficher</a>

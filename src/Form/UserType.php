@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
@@ -28,7 +29,6 @@ class UserType extends AbstractType
             ],
         ])
         ->add('password')
-        
         ->add('company', ChoiceType::class, [
             'label' => 'Choisir votre entreprise dans la liste',
             'choices'  => [
@@ -84,7 +84,7 @@ class UserType extends AbstractType
                 ]),
             ],
         ])  
-        ->add('zip', TextType::class, [
+        ->add('zip', NumberType::class, [
             'label' => 'Saisir votre code postal',
             'constraints' => [
                 new NotBlank([
@@ -107,7 +107,15 @@ class UserType extends AbstractType
                     'message' => 'Merci de saisir votre numéro de téléphone !',
                 ]),
             ],
-        ])   
+        ])  
+        ->add('status', ChoiceType::class, [
+            'label' => 'Statut de l\'utilisateur',
+            'choices'  => [
+                'Actif' => true,
+                'Archivé' => false,
+            ],
+            
+        ])
         ;
     }
 
