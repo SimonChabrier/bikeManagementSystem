@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administrer le vélo{% endblock %}
+{% block title %}Fiche vélo {{ bike.number }}{% endblock %}
 
 {% block body %}
 <div class="container"> 
@@ -28,7 +28,7 @@
                 <td>{{ bike.reference }}</td>
             </tr> #}
             <tr>
-                <th>N° vélo</th>
+                <th>N° Tempo</th>
                 <td>{{ bike.number }}</td>
             </tr>
             <tr>
@@ -38,7 +38,7 @@
             {% if bike.purchasedAt%}
             <tr>
                 <th>PurchasedAt</th>
-                <td>{{ bike.purchasedAt ? bike.purchasedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td>
             </tr>
             {% endif %}
             {# <tr>
@@ -47,11 +47,11 @@
             </tr> #}
             <tr>
                 <th>Date de création</th>
-                <td>{{ bike.createdAt ? bike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td>
             </tr>
             <tr>
                 <th>Date de mise à jour</th>
-                <td>{{ bike.updatedAt ? bike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
             {% if bike.mainPicture %}
             <tr>

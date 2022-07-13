@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche réparation {{ repair.name }}{% endblock %}
+
+{% block body %}
+<div class="container"> 
+    <h1>Fiche Reparation - {{ repair.name }}</h1>
+    <table class="table">
+        <tbody>
+            {# <tr>
+                <th>Id</th>
+                <td>{{ repair.id }}</td>
+            </tr> #}
+            <tr>
+                <th>Statut</th>
+                <td>{{ repair.status ? 'Active' : 'Archive' }}</td>
+            </tr>
+            <tr>
+            <tr>
+                <th>Référence</th>
+                <td>{{ repair.reference }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ repair.name }}</td>
+            </tr>
+            <tr>
+                <th>Description courte</th>
+                <td>{{ repair.shortDescription }}</td>
+            </tr>
+            <tr>
+                <th>Description longue</th>
+                <td>{{ repair.longDescription }}</td>
+            {# </tr>
+                <th>Slug</th>
+                <td>{{ repair.slug }}</td>
+            </tr> #}
+            {# <tr>
+                <th>CreatedAt</th>
+                <td>{{ repair.createdAt ? repair.createdAt|date("d/m/Y") : '' }}</td>
+            </tr> #}
+            <tr>
+                <th>Dernière mise à jour</th>
+                <td>{{ repair.updatedAt ? repair.updatedAt|date("d/m/Y") : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_repair_edit', {'id': repair.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier la réparation</button></a>
+    <a href="{{ path('app_repair_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des réparations</button></a>
+    {{ include('repair/_delete_form.html.twig') }}
+</div>
+{% endblock %}
