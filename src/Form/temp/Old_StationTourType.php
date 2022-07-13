@@ -20,7 +20,7 @@ class StationTourType extends AbstractType
                 'label' => 'Station',
                 'disabled' => true,
             ]) 
-            ->add('tourOrder', ChoiceType::class, [
+            ->add('number', ChoiceType::class, [
                 'label' => 'Définir l\'ordre de la staion sur la tournée',
                 'choices'  => [
                     '1' => '1',
@@ -42,7 +42,7 @@ class StationTourType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci choisir un ordre sur la tournée pour la station sélectionnée !',
+                        'message' => 'Merci choisir un numéro pour la station sélectionnée !',
                     ]),
                 ],
             ]) 

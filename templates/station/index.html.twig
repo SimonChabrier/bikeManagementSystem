@@ -10,12 +10,12 @@
             <tr>
                 {# <th>Id</th> #}
                 <th>Statut</th>
-                <th>Ordre sur tournée</th>
-                <th>Reference</th>
-                <th>Station</th>
+                <th>Numéro Tempo</th>
+                {# <th>Reference</th> #}
+                <th>Nom Tempo</th>
                 {# <th>Address</th> #}
                 {# <th>Zip</th> #}
-                {# <th>City</th> #}
+                <th>Ville</th>
                 {# <th>Lat</th> #}
                 {# <th>Lng</th> #}
                 {# <th>Slug</th> #}
@@ -29,18 +29,18 @@
         {% for station in stations %}
             <tr>
                 {# <td>{{ station.id }}</td> #}
-                <td>{{ station.status ? 'Activé' : 'Désactivé' }}</td>
-                <td>{{ station.tourOrder }}</td>
-                <td>{{ station.reference }}</td>
+                <td>{{ station.status ? 'Active' : 'Inactive' }}</td>
+                <td>{{ station.number }}</td>
+                {# <td>{{ station.reference }}</td> #}
                 <td>{{ station.name }}</td>
                 {# <td>{{ station.address }}</td> #}
                 {# <td>{{ station.zip }}</td> #}
-                {# <td>{{ station.city }}</td> #}
+                <td>{{ station.city }}</td>
                 {# <td>{{ station.lat }}</td> #}
                 {# <td>{{ station.lng }}</td> #}
                 {# <td>{{ station.slug }}</td> #}
-                {# <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
-                {# <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ station.createdAt ? station.createdAt|date("m/d/Y") : '' }}</td> #}
+                {# <td>{{ station.updatedAt ? station.updatedAt|date("m/d/Y") : '' }}</td> #}
                 {# <td>{{ station.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_station_show', {'id': station.id}) }}">Afficher</a>
@@ -51,7 +51,7 @@
         {% else %}
              <tr>
                 <td colspan="19"><div class="alert alert-danger" role="alert">
-                Pas d'enregistrement d'utilisateurs en Base de Données !
+                Pas d'enregistrement de station en Base de Données !
                 </div>
                 </td>
             </tr>

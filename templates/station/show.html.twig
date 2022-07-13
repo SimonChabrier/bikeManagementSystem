@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Administrer la station{% endblock %}
+{% block title %}Fiche station {{ station.name }}{% endblock %}
 
 {% block body %}
 <div class="container"> 
@@ -15,17 +15,17 @@
                 <td>{{ station.status ? 'Activé' : 'Désactivé' }}</td>
             </tr>
             <tr>
-                <th>Ordre sur la tournée</th>
-                <td>N° {{ station.tourOrder }}</td>
+                <th>Numéro Tempo</th>
+                <td>N° {{ station.number }}</td>
             </tr>
-            {# <tr>
-                <th>Reference</th>
-                <td>{{ station.reference }}</td>
-            </tr> #}
-            <tr>
-                <th>Nom</th>
+                <th>Nom Tempo</th>
                 <td>{{ station.name }}</td>
             </tr>
+            <tr>
+                <th>Ref Agnelis</th>
+                <td>{{ station.reference }}</td>
+            </tr>
+            <tr>
             <tr>
                 <th>Addresse</th>
                 <td>{{ station.address }}</td>
@@ -52,11 +52,11 @@
             </tr> #}
             {# <tr>
                 <th>CreatedAt</th>
-                <td>{{ station.createdAt ? station.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ station.createdAt ? station.createdAt|date("m/d/Y") : '' }}</td>
             </tr> #}
             <tr>
                 <th>Dernière mise à jour</th>
-                <td>{{ station.updatedAt ? station.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ station.updatedAt ? station.updatedAt|date("m/d/Y") : '' }}</td>
             </tr>
             {% if station.mainPicture %}
             <tr>

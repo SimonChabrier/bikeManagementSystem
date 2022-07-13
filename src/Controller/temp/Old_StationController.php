@@ -32,12 +32,12 @@ class StationController extends AbstractController
      */
     public function showAllStations(StationRepository $stationRepository):Response
     {
-        $stationListOrder = $stationRepository->findAllOrderedByTourOrder();
+        $stationListOrder = $stationRepository->findAllOrderedBynumber();
         $stationListOrderByName = $stationRepository->findAllOrderedByName();
         $stationListOrderByCity = $stationRepository->findAllOrderedByCity();
         $stationUnactiveList = $stationRepository->findAllInactiveStation();
         
-        return $this->render('front/tourOrder.html.twig', [
+        return $this->render('front/number.html.twig', [
             'stationsOrdered' => $stationListOrder,
             'stationsByName' => $stationListOrderByName,
             'stationsByCity' => $stationListOrderByCity,
@@ -99,7 +99,7 @@ class StationController extends AbstractController
     /**
      * @Route("/station/update/tour/{slug}", name="order_station")
      */
-    public function adminTourOrder(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager)
+    public function adminnumber(StationRepository $stationRepository, Request $request, EntityManagerInterface $entityManager)
     {
 
         $station = $stationRepository->findOneBy(['slug' => $request->get('slug')]);
