@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Temp;
 
 use App\Entity\Bike;
 use App\Repository\BikeRepository;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class BikeController extends AbstractController
+class OldBikeController extends AbstractController
 {
     /**
      * @Route("/bike/{slug}", name="show_bike")
