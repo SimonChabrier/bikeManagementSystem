@@ -64,11 +64,11 @@
             </tr>
             <tr>
                 <th>Date de création</th>
-                <td>{{ user.createdAt ? user.createdAt|date("d/m/Y") : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Date de mise à jour</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date("d/m/Y") : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Rôles sur l'application</th>
@@ -82,8 +82,8 @@
             {% endif %}
         </tbody>
     </table>
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier l'utilisateur</button></a>
-    <a href="{{ path('app_user_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des utilisateur</button></a>
+    <button class="btn btn-lg btn-success" type="submit"><a href="{{ path('app_user_edit', {'id': user.id}) }}">modifier l'utilisateur</a></button>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_user_index') }}">retour à la liste des utilisateur</a></button>
     {{ include('user/_delete_form.html.twig') }}
     </div>
 {% endblock %}

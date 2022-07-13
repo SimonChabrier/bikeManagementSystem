@@ -30,7 +30,7 @@
   <tbody>
     {% for station in stationsByName %}
     <tr>
-      <td>{% if station.number %}{{station.number}}{% else %}Pas de N° renseigné !{% endif %}</td>
+      <td>{% if station.tourOrder %}{{station.tourOrder}}{% else %}Pas de N° renseigné !{% endif %}</td>
       <td><a class="" href="{{ path('order_station', { slug: station.slug}) }}" role="button">Ordre</a></td>
       <td>{{ station.name }}</td>
       <td><a class="" href="{{ path('update_station', { slug: station.slug}) }}" role="button">Station</a></td>

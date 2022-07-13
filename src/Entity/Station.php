@@ -34,7 +34,7 @@ class Station
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
      */
-    private $number;
+    private $tourOrder;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
@@ -181,14 +181,14 @@ class Station
         return $this;
     }
 
-    public function getNumber(): ?string
+    public function getTourOrder(): ?string
     {
-        return $this->number;
+        return $this->tourOrder;
     }
 
-    public function setNumber(?string $number): self
+    public function setTourOrder(?string $tourOrder): self
     {
-        $this->number = $number;
+        $this->tourOrder = $tourOrder;
 
         return $this;
     }

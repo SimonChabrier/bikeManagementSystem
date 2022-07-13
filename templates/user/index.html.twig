@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Admin Utilisateurs{% endblock %}
+{% block title %}Administration des utilisateurs{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -47,8 +47,8 @@
                 {# <td>{{ user.city }}</td> #}
                 <td>{{ user.phone }}</td>
                 {# <td>{{ user.slug }}</td> #}
-                {# <td>{{ user.createdAt ? user.createdAt|date("d/m/Y") : '' }}</td> #}
-                {# <td>{{ user.updatedAt ? user.updatedAt|date("d/m/Y") : '' }}</td> #}
+                {# <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                {# <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
                 {# <td>{{ user.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">Afficher</a>
@@ -66,6 +66,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_user_new') }}"><button class="btn btn-lg btn-primary" type="submit">Créer un nouvel utilisateur</button></a>
+    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a></button>
 </div>
 {% endblock %}
