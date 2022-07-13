@@ -52,11 +52,11 @@
             </tr> #}
             {# <tr>
                 <th>CreatedAt</th>
-                <td>{{ station.createdAt ? station.createdAt|date("m/d/Y") : '' }}</td>
+                <td>{{ station.createdAt ? station.createdAt|date("d/m/Y") : '' }}</td>
             </tr> #}
             <tr>
                 <th>Dernière mise à jour</th>
-                <td>{{ station.updatedAt ? station.updatedAt|date("m/d/Y") : '' }}</td>
+                <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
             {% if station.mainPicture %}
             <tr>

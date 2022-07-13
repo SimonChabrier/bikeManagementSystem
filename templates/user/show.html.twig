@@ -64,11 +64,11 @@
             </tr>
             <tr>
                 <th>Date de création</th>
-                <td>{{ user.createdAt ? user.createdAt|date("m/d/Y") : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date("d/m/Y") : '' }}</td>
             </tr>
             <tr>
                 <th>Date de mise à jour</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date("m/d/Y") : '' }}</td>
+                <td>{{ user.updatedAt ? user.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
             <tr>
                 <th>Rôles sur l'application</th>

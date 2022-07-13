@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Administration des stations{% endblock %}
+{% block title %}Admin Stations{% endblock %}
 
 {% block body %}
 <div class="container"> 
@@ -39,8 +39,8 @@
                 {# <td>{{ station.lat }}</td> #}
                 {# <td>{{ station.lng }}</td> #}
                 {# <td>{{ station.slug }}</td> #}
-                {# <td>{{ station.createdAt ? station.createdAt|date("m/d/Y") : '' }}</td> #}
-                {# <td>{{ station.updatedAt ? station.updatedAt|date("m/d/Y") : '' }}</td> #}
+                {# <td>{{ station.createdAt ? station.createdAt|date("d/m/Y") : '' }}</td> #}
+                {# <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td> #}
                 {# <td>{{ station.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_station_show', {'id': station.id}) }}">Afficher</a>

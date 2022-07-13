@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Administration des utilisateurs{% endblock %}
+{% block title %}Admin Utilisateurs{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -47,8 +47,8 @@
                 {# <td>{{ user.city }}</td> #}
                 <td>{{ user.phone }}</td>
                 {# <td>{{ user.slug }}</td> #}
-                {# <td>{{ user.createdAt ? user.createdAt|date("m/d/Y") : '' }}</td> #}
-                {# <td>{{ user.updatedAt ? user.updatedAt|date("m/d/Y") : '' }}</td> #}
+                {# <td>{{ user.createdAt ? user.createdAt|date("d/m/Y") : '' }}</td> #}
+                {# <td>{{ user.updatedAt ? user.updatedAt|date("d/m/Y") : '' }}</td> #}
                 {# <td>{{ user.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">Afficher</a>
