@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container"> 
-    <h1>Fiche Vélo</h1>
+    <h1>Fiche Vélo - N° Tempo {{ bike.number }}</h1>
     <table class="table">
         <tbody>
             {# <tr>
@@ -61,8 +61,8 @@
             {% endif %}
         </tbody>
     </table>
-    <button class="btn btn-lg btn-success" type="submit"><a href="{{ path('app_bike_edit', {'id': bike.id}) }}">modifier le vélo</a></button>
-    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_bike_index') }}">retour à la liste des vélos</a></button>
+    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier le vélo</button></a>
+   <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
     {{ include('bike/_delete_form.html.twig') }}
 </div>
 {% endblock %}

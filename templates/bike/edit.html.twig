@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Edition Vélo{% endblock %}
+{% block title %}Edition Vélo - {{ bike.number }}{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Modifier ce vélo</h1>
+    <h1>Modifier le vélo - {{ bike.number }}</h1>
     {{ include('bike/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_bike_index') }}">Retour liste vélos</a></button>
+    <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour liste vélos</button></a>
     <hr>
     {{ include('bike/_delete_form.html.twig') }}
 </div>
