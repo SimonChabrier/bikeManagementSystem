@@ -7,4 +7,10 @@
 /var/
 /vendor/
 /sql/
+*.DS_Store
+/public/assets/upload/
 ###< symfony/framework-bundle ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
