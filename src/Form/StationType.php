@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StationType extends AbstractType
 {
@@ -24,14 +24,6 @@ class StationType extends AbstractType
                     'placeholder' => 'Eg : MaReférence'
                 ]),
             ]) 
-            ->add('status', ChoiceType::class, [
-                'label' => 'Statut de la Station',
-                'choices'  => [
-                    'Active' => true,
-                    'Inactive' => false,
-                ],
-                
-            ])
             ->add('name', TextType::class, [
                 'label' => 'Saisir le nom de la Station',
                 'attr' => ([
@@ -91,6 +83,13 @@ class StationType extends AbstractType
                     ]),
                 ],
             ]) 
+            ->add('status', ChoiceType::class, [
+                'label' => 'Statut de la Station',
+                'choices'  => [
+                    'Active' => true,
+                    'Inactive' => false,
+                ],  
+            ])
             //->add('lat')
             //->add('lng')
             //->add('slug')

@@ -5,7 +5,7 @@
 <div class="container"> 
     <h1>Modifier cette station</h1>
     {{ include('station/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('app_station_index') }}">Retour liste stations</a></button>
+    <a href="{{ path('app_station_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour liste stations</button></a>
     <hr>
     {{ include('station/_delete_form.html.twig') }}
 </div>
