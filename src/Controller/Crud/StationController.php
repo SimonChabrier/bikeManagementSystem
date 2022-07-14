@@ -60,7 +60,7 @@ class StationController extends AbstractController
      */
     public function edit(Request $request, Station $station, StationRepository $stationRepository): Response
     {
-        $form = $this->createForm(StationType::class, $station, ['edit_mode' => true ]);
+        $form = $this->createForm(StationType::class, $station);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

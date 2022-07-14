@@ -43,6 +43,7 @@ class Station
      */
     private $reference;
 
+
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
      * this is for station item capacity from 0 to 999
@@ -190,18 +191,6 @@ class Station
         return $this;
     }
 
-    public function getCapacity(): ?string
-    {
-        return $this->capacity;
-    }
-
-    public function setCapacity(string $capacity): self
-    {
-        $this->capacity = $capacity;
-
-        return $this;
-    }
-
     public function getNumber(): ?string
     {
         return $this->number;
@@ -291,9 +280,8 @@ class Station
     }
 
     /**
-     * Property to string used ti display converted object value to a string value
-     * Used in Forms using EntityType::class for exemple
-     * or in Views if need.
+     * Property to string for Form using EntityType::class
+     * on property
      *
      * @return string
      */
@@ -302,5 +290,16 @@ class Station
         return $this->name;
     }
 
+    public function getCapacity(): ?string
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(string $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
 
 }

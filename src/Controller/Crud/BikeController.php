@@ -32,7 +32,6 @@ class BikeController extends AbstractController
     {
         $bike = new Bike();
         $form = $this->createForm(BikeType::class, $bike);
-        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,7 +60,7 @@ class BikeController extends AbstractController
      */
     public function edit(Request $request, Bike $bike, BikeRepository $bikeRepository): Response
     {
-        $form = $this->createForm(BikeType::class, $bike, ['edit_mode' => true ]);
+        $form = $this->createForm(BikeType::class, $bike);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

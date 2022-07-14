@@ -60,8 +60,7 @@ class RepairController extends AbstractController
      */
     public function edit(Request $request, Repair $repair, RepairRepository $repairRepository): Response
     {
-        $form = $this->createForm(RepairType::class, $repair, ['edit_mode' => true ]);
-
+        $form = $this->createForm(RepairType::class, $repair);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
