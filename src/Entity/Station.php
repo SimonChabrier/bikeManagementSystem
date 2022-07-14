@@ -43,7 +43,6 @@ class Station
      */
     private $reference;
 
-
     /**
      * @ORM\Column(type="string", length=3, nullable=true)
      * this is for station item capacity from 0 to 999
