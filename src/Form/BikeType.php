@@ -13,6 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class BikeType extends AbstractType
 {
+    /**
+     * Bike Form used on create and update a Bike
+     * Note :'number' field is desabled on update using $options params
+     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -25,6 +33,7 @@ class BikeType extends AbstractType
             ]) 
             ->add('number', NumberType::class, [
                 'label' => 'Saisir le numéro identifiant Tempo du vélo',
+                'disabled' => $options['edit_mode'],
                 'attr' => ([
                     'placeholder' => 'Eg : 100'
                 ]),
@@ -68,10 +77,17 @@ class BikeType extends AbstractType
         ;
     }
 
+    /**
+     * Set method createForm() options values used in Controller side
+     * on route app_bike_edit
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Bike::class,
+            'edit_mode' => false,
         ]);
     }
 }

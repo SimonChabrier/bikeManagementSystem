@@ -10,10 +10,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StationType extends AbstractType
-{
+{   
+    /**
+     * Station Form used on create and update a Station
+     * Note :'number' field is desabled on update using $options params
+     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -74,6 +81,7 @@ class StationType extends AbstractType
             ])
             ->add('number', NumberType::class, [
                 'label' => 'Saisir le numéro identifiant la Station',
+                'disabled' => $options['edit_mode'],
                 'attr' => ([
                     'placeholder' => 'Eg : 121'
                 ]),
@@ -106,16 +114,20 @@ class StationType extends AbstractType
             //->add('slug')
             //->add('createdAt')
             //->add('updatedAt')
-            // ->add('Enregister', SubmitType::class, [
-            //     'attr' => ['class' => 'Enregistrer la Station'],
-            // ]);
         ;
     }
 
+    /**
+     * Set method createForm() options values used in Controller side 
+     * on route app_station_edit
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Station::class,
+            'edit_mode' => false,
         ]);
     }
 }

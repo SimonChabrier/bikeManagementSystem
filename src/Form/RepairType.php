@@ -13,6 +13,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class RepairType extends AbstractType
 {
+    /**
+     * Repair Form used on create and update a Repair
+     * Note :'name' field is desabled on update using $options params
+     * 
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -22,14 +30,15 @@ class RepairType extends AbstractType
                     'placeholder' => 'Eg : MaReférence'
                 ]),
             ]) 
-            ->add('name', TextType::class, [
+            ->add('name', TextType::class,[
                 'label' => 'Saisir le nom de la Réparation',
+                'disabled' => $options['edit_mode'],
                 'attr' => ([
                     'placeholder' => 'Eg : Dérailleur'
                 ]),
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de saisir le nom de la Station !',
+                        'message' => 'Merci de saisir le nom de la réparation !',
                     ]),
                 ],
             ]) 
@@ -55,10 +64,17 @@ class RepairType extends AbstractType
         ;
     }
 
+    /**
+     * Set method createForm() options values used in Controller sidel
+     * on route app_repair_edit
+     * @param OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Repair::class,
+            'edit_mode' => false,
         ]);
     }
 }

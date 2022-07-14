@@ -43,12 +43,12 @@ class Bike
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $reference = "ref_";
+    private $reference;
 
     /**
      * @ORM\Column(type="string", length=4)
      */
-    private $number = 0;
+    private $number;
 
     /**
      * @ORM\Column(type="string", length=2)
@@ -85,6 +85,18 @@ class Bike
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
     }
 
     public function getStatus(): ?bool
@@ -220,18 +232,6 @@ class Bike
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
-    }
-
-    public function getMainPicture(): ?string
-    {
-        return $this->mainPicture;
-    }
-
-    public function setMainPicture(?string $mainPicture): self
-    {
-        $this->mainPicture = $mainPicture;
-
-        return $this;
     }
 
 }
