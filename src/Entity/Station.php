@@ -14,7 +14,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"name"}, message="Une station porte déjà ce nom !")
  * @UniqueEntity(fields={"reference"}, message="Une station porte déjà cette référence !")
- * @UniqueEntity(fields={"address"}, message="Une station existe déjà à cette adresse !")
  */
 class Station
 {
