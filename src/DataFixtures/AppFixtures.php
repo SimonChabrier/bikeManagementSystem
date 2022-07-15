@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {   
 
-        $this->truncate();
+        $this->truncate(); 
 
         //USER
 
@@ -95,8 +95,29 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i);
             $bike->setNumber($i);
-            $bike->setRate(mt_rand(5, 10));
+            $bike->setRate(mt_rand(2, 5));
             $bike->setStatus(mt_rand(0, 1));
+
+            // set random value for $avalability
+            $avalability = mt_rand(1, 5);
+
+            if($avalability === 1 ){
+                $avalability = "Disponible";
+            };
+            if($avalability === 2 ){
+                $avalability = "Bloqué - Maintenance";
+            };
+            if($avalability === 3 ){
+                $avalability = "Dépôt - Panne";
+            };
+            if($avalability === 4 ){
+                $avalability = "Dépôt - Stock";
+            };
+            if($avalability === 5 ){
+                $avalability = "Disparu";
+            };
+
+            $bike->setAvailablity($avalability);
 
             $manager->persist($bike);
         }
@@ -105,7 +126,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i);
             $bike->setNumber($i);
-            $bike->setRate(mt_rand(5, 10));
+            $bike->setRate(mt_rand(3, 5));
             $bike->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
@@ -115,8 +136,29 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i);
             $bike->setNumber($i);
-            $bike->setRate(mt_rand(5, 10));
+            $bike->setRate(mt_rand(2, 4));
             $bike->setStatus(mt_rand(0, 1));
+
+            // set random value for $avalability
+            $avalability = mt_rand(1, 5);
+
+            if($avalability === 1 ){
+                $avalability = "Disponible";
+            };
+            if($avalability === 2 ){
+                $avalability = "Bloqué - Maintenance";
+            };
+            if($avalability === 3 ){
+                $avalability = "Dépôt - Panne";
+            };
+            if($avalability === 4 ){
+                $avalability = "Dépôt - Stock";
+            };
+            if($avalability === 5 ){
+                $avalability = "Disparu";
+            };
+
+          $bike->setAvailablity($avalability);
 
             $manager->persist($bike);
         }
@@ -125,7 +167,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i);
             $bike->setNumber($i);
-            $bike->setRate(mt_rand(5, 10));
+            $bike->setRate(mt_rand(3, 5));
             $bike->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
@@ -135,7 +177,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i);
             $bike->setNumber($i);
-            $bike->setRate(mt_rand(5, 10));
+            $bike->setRate(mt_rand(3, 5));
             $bike->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
