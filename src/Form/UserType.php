@@ -31,6 +31,7 @@ class UserType extends AbstractType
         ->add('password')
         ->add('company', ChoiceType::class, [
             'label' => 'Choisir votre entreprise dans la liste',
+            'mapped' => true,
             'choices'  => [
                 'Voir la liste' => null,
                 'Agnelis' => 'agnelis',
@@ -46,6 +47,7 @@ class UserType extends AbstractType
         ])
         ->add('job', ChoiceType::class, [
             'label' => 'Choisir votre fonction dans la liste',
+            'mapped' => true,
             'choices'  => [
                 'Voir la liste' => null,
                 'Administrateur' => 'administrateur',
@@ -110,6 +112,7 @@ class UserType extends AbstractType
         ])  
         ->add('status', ChoiceType::class, [
             'label' => 'Statut de l\'utilisateur',
+            'mapped' => true,
             'choices'  => [
                 'Actif' => true,
                 'Archivé' => false,
