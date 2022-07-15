@@ -31,6 +31,11 @@ class Bike
     private $status = true;
 
     /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $availablity = "Disponible";
+
+    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $lat;
@@ -51,9 +56,9 @@ class Bike
     private $number;
 
     /**
-     * @ORM\Column(type="string", length=2)
+     * @ORM\Column(type="string", length=1)
      */
-    private $rate = 10;
+    private $rate = 5;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -107,6 +112,18 @@ class Bike
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAvailablity(): ?string
+    {
+        return $this->availablity;
+    }
+
+    public function setAvailablity(string $availablity): self
+    {
+        $this->availablity = $availablity;
 
         return $this;
     }
