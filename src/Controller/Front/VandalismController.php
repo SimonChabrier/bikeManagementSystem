@@ -3,7 +3,7 @@
 namespace App\Controller\Front;
 
 use App\Entity\Vandalism;
-use App\Form\VandalimType;
+use App\Form\VandalismType;
 use App\Repository\VandalismRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,21 +30,21 @@ class VandalismController extends AbstractController
     /**
      * @Route("/new", name="app_vandalism_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, VandalismRepository $vandalismRepository): Response
     {
-        $vandalim = new Vandalism();
-
-        $form = $this->createForm(VandalismType::class, $vandalim);  
+        $vandalism = new Vandalism();
+        $form = $this->createForm(VandalismType::class, $vandalism);  
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $vandalim = $form->getData();
-
-            $entityManager->persist($vandalim);
-            $entityManager->flush();
-
+            $vandalismRepository->add($vandalism);
             return $this->redirectToRoute('app_vandalism_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        return $this->renderForm('vandalism/new.html.twig', [
+            'vandalism' => $vandalism,
+            'form' => $form,
+        ]);
+
     }
 }
