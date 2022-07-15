@@ -8,7 +8,7 @@
     <h5>liste l'ensemble des vandalismes constatés</h5>
     <ul>
     {% for vadalism in vandalisms %}
-        <li>N° {{ vadalism.id }} : {{ vadalism.content | slice(0, 100) ~ ' ...'  }} le {{ vadalism.createdAt|date("d/m/Y") }}</li>
+        <li class='my-3'>N° {{ vadalism.id }} : {{ vadalism.content | slice(0, 100) ~ ' ...'  }} le {{ vadalism.createdAt|date("d/m/Y") }}</li>
     {% endfor %}
     </ul>
 </div>
