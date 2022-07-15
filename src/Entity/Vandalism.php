@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\VandalismRepository;
+use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=VandalismRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Vandalism
 {
@@ -54,5 +56,15 @@ class Vandalism
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $setDateTime = new DateTimeImmutable('now');
+        $this->setCreatedAt($setDateTime);
     }
 }

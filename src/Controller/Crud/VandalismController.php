@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Front;
+namespace App\Controller\Crud;
 
 use App\Entity\Vandalism;
 use App\Form\VandalismType;
