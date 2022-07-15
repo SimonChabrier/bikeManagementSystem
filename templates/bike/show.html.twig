@@ -12,8 +12,12 @@
                 <td>{{ bike.id }}</td>
             </tr> #}
             <tr>
-                <th>Statut</th>
-                <td>{{ bike.status ? 'Activé' : 'Désactivé' }}</td>
+                <th>Statut de gestion</th>
+                <td>{{ bike.status ? 'En gestion' : 'Archivé' }}</td>
+            </tr>
+             <tr>
+                <th>Disponibilité sur station</th>
+                <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
             {# <tr>
                 <th>Lat</th>

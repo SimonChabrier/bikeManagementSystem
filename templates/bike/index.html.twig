@@ -10,7 +10,8 @@
         <thead>
             <tr>
                 {# <th>Id</th> #}
-                <th>Statut</th>
+                {# <th>Statut</th> #}
+                <th>Disponibilité</th>
                 {# <th>Lat</th>
                 <th>Lng</th> #}
                 {# <th>Reference</th> #}
@@ -28,7 +29,8 @@
         {% for bike in bikes %}
             <tr>
                 {# <td>{{ bike.id }}</td> #}
-                <td>{{ bike.status ? 'Visible' : 'Archivé' }}</td>
+                {# <td>{{ bike.status ? 'Visible' : 'Archivé' }}</td> #}
+                <td>{{ bike.availablity ? bike.availablity  : 'Non renseigné !' }}</td>
                 {# <td>{{ bike.lat }}</td> #}
                 {# <td>{{ bike.lng }}</td> #}
                 {# <td>{{ bike.reference }}</td> #}

@@ -43,6 +43,22 @@ class BikeType extends AbstractType
                     ]),
                 ],
             ]) 
+            ->add('availablity', ChoiceType::class, [
+                'label' => 'Etat de disponibilité du vélo',
+                'choices'  => [
+                    'Choisir dans la liste' => null,
+                    'Disponible' => 'Disponible',
+                    'Bloqué pour maintenance' => 'Bloqué - Maintenance',
+                    'En dépôt pour panne' => 'Dépôt - Panne',
+                    'En dépôt pour stock' => 'Dépôt - Stock',
+                    'Disparu' => 'Disparu',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Choisir l\'état de disponibilité du vélo !',
+                    ]),
+                ],
+            ]) 
             ->add('rate', ChoiceType::class, [
                 'label' => 'Attribuer une note d\'état du vélo (facultatif)',
                 'choices'  => [
