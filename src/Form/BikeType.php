@@ -45,8 +45,9 @@ class BikeType extends AbstractType
             ]) 
             ->add('availablity', ChoiceType::class, [
                 'label' => 'Etat de disponibilité du vélo',
+                'mapped' => true,
                 'choices'  => [
-                    'Choisir dans la liste' => null,
+                    'Choisir dans la liste' => 'null',
                     'Disponible' => 'Disponible',
                     'Bloqué pour maintenance' => 'Bloqué - Maintenance',
                     'En dépôt pour panne' => 'Dépôt - Panne',
@@ -60,19 +61,15 @@ class BikeType extends AbstractType
                 ],
             ]) 
             ->add('rate', ChoiceType::class, [
-                'label' => 'Attribuer une note d\'état du vélo (facultatif)',
+                'label' => 'Appréciation vélo',
+                'mapped' => true,
                 'choices'  => [
-                    'Attribuer une note d\'état du vélo' => null,
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                    '5' => '5',
-                    '6' => '6',
-                    '7' => '7',
-                    '8' => '8',
-                    '9' => '9',
-                    '10' => '10'
+                    'Choisir dans la liste' => null,
+                    'Neuf' => '5',
+                    'Bon' => '4',
+                    'Passable' => '3',
+                    'Mauvais' => '2',
+                    'A renouveller' => '1',
                 ],
             ]) 
             ->add('status', ChoiceType::class, [

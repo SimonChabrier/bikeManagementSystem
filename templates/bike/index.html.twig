@@ -16,7 +16,7 @@
                 <th>Lng</th> #}
                 {# <th>Reference</th> #}
                 <th>N° Tempo</th>
-                <th>Note d'état général</th>
+                <th>Etat général</th>
                 {# <th>Date d'achat</th> #}
                 {# <th>Slug</th> #}
                 {# <th>Date de création</th> #}
@@ -35,7 +35,17 @@
                 {# <td>{{ bike.lng }}</td> #}
                 {# <td>{{ bike.reference }}</td> #}
                 <td>{{ bike.number }}</td>
-                <td>{{ bike.rate }}</td>
+
+                <td>
+                        {% for i in range(1, 5) %}
+                            {% set starClass = bike.rate - i >= 0 ? '-fill' : (bike.rate - i >= 0.5 ? '-half' : '') %}
+                            {# code bellow if need to set finest interval display to fill stars #}
+                            {# {% set starClass = bike.rate - i >= 0 ? '-fill' : (bike.rate - i >= 0.5 ? '-half' : '') %} #}
+                            <span class="bi bi-star{{ starClass }}"></span>
+                        {% endfor %}
+                <td>
+
+                {# <td>{{ bike.rate }}</td> #}
                 {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td> #}
                 {# <td>{{ bike.slug }}</td> #}
                 {# <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td> #}

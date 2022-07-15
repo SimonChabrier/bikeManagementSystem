@@ -56,9 +56,9 @@ class Bike
     private $number;
 
     /**
-     * @ORM\Column(type="string", length=2)
+     * @ORM\Column(type="string", length=1)
      */
-    private $rate = 10;
+    private $rate = 5;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
