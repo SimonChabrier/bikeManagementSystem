@@ -7,13 +7,14 @@ use App\Form\StationType;
 use App\Repository\StationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// 4 Use for post fileType
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 
 /**
  * @Route("/station")
@@ -50,7 +51,7 @@ class StationController extends AbstractController
 
                 try {
                     $mainPicture->move(
-                        $this->getParameter('stations_directory'),
+                        $this->getParameter('main_picture_param'),
                         $newFilename
                     );
                 } catch (FileException $e) {
@@ -99,7 +100,7 @@ class StationController extends AbstractController
 
                 try {
                     $mainPicture->move(
-                        $this->getParameter('stations_directory'),
+                        $this->getParameter('main_picture_param'),
                         $newFilename
                     );
                 } catch (FileException $e) {
