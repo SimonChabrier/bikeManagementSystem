@@ -6,6 +6,7 @@ use App\Entity\Bike;
 use App\Entity\User;
 use App\Entity\Repair;
 use App\Entity\Station;
+use App\Entity\Vandalism;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -33,6 +34,7 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE bike');
         $this->connexion->executeQuery('TRUNCATE TABLE station');
         $this->connexion->executeQuery('TRUNCATE TABLE repair');
+        $this->connexion->executeQuery('TRUNCATE TABLE vandalism');
     }
 
     public function load(ObjectManager $manager): void
@@ -239,7 +241,19 @@ class AppFixtures extends Fixture
         }
 
 
-        // PERSIST ALL IN DATA BASE
+        //VANDALISM
+
+        for ($i = 1; $i <= 30; $i++){
+            $vandalism = new Vandalism();
+            $vandalism->setContent('Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+            
+            $manager->persist($vandalism);
+        }
+
+
+        // PERSIST ALL ACTIONS IN DATA BASE
         $manager->flush();
 
     }
