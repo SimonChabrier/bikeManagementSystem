@@ -29,6 +29,12 @@ class Vandalism
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * Persist file name
+     */
+    private $mainPicture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,5 +71,17 @@ class Vandalism
     public function updatedTimestamps(): void
     {
         $this->setCreatedAt(new DateTimeImmutable('now'));
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
     }
 }

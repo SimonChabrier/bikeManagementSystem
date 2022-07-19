@@ -83,6 +83,7 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * Persist file name
      */
     private $mainPicture;
 

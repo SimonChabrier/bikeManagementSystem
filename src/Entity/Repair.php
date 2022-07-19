@@ -64,6 +64,12 @@ class Repair
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * Persist file name
+     */
+    private $mainPicture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -178,6 +184,18 @@ class Repair
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
     }
 
 }
