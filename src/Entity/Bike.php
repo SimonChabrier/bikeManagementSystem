@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BikeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -86,6 +88,16 @@ class Bike
      * Persist file name
      */
     private $mainPicture;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
+     */
+    private $inventories;
+
+    public function __construct()
+    {
+        $this->inventories = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -250,6 +262,33 @@ class Bike
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    /**
+     * @return Collection<int, Inventory>
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): self
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories[] = $inventory;
+            $inventory->addBike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): self
+    {
+        if ($this->inventories->removeElement($inventory)) {
+            $inventory->removeBike($this);
+        }
+
+        return $this;
     }
 
 }
