@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inventory{% endblock %}
+{% block title %}Fiche Inventaire {{ inventory.id }}{% endblock %}
 
 {% block body %}
-    <h1>Inventory</h1>
+<div class="container"> 
+    <h1>Inventaire N° {{ inventory.id }} - Station {{ inventory.station.name }}</h1>
 
     
 
 {# {{dump (inventory.station.inventories)}} #}
 
-Vélo présents sur l'inventaire de la station : 
-<li>{{ inventory.station.name }}</li>
-<li>du {{ inventory.createdAt ? inventory.createdAt|date('Y-m-d à H:i:s') }}:</li>
+<h5>Vélo recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
 {% for bike in inventory.bikes %}
+<br>
 <li>N° {{ bike.number }}</li>
 {% endfor %}
 <br>
@@ -34,9 +34,8 @@ Vélo présents sur l'inventaire de la station :
         </tbody>
     </table> #}
 
-    <a href="{{ path('app_inventory_index') }}">back to list</a>
-
-    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">edit</a>
-
+    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier cet inventaire</button></a>
+    <a href="{{ path('app_inventory_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des inventaires</button></a>
     {{ include('inventory/_delete_form.html.twig') }}
+</div>
 {% endblock %}
