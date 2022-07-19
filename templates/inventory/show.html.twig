@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block body %}
+    <h1>Inventory</h1>
+
+    
+
+{# {{dump (inventory.station.inventories)}} #}
+
+Vélo présents sur l'inventaire de la station : 
+<li>{{ inventory.station.name }}</li>
+<li>du {{ inventory.createdAt ? inventory.createdAt|date('Y-m-d à H:i:s') }}:</li>
+{% for bike in inventory.bikes %}
+<li>N° {{ bike.number }}</li>
+{% endfor %}
+<br>
+
+    {# <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ inventory.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ inventory.createdAt ? inventory.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ inventory.updatedAt ? inventory.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table> #}
+
+    <a href="{{ path('app_inventory_index') }}">back to list</a>
+
+    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">edit</a>
+
+    {{ include('inventory/_delete_form.html.twig') }}
+{% endblock %}

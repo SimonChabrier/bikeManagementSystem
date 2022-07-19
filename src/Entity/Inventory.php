@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=InventoryRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Inventory
 {
@@ -32,12 +33,12 @@ class Inventory
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="inventories")
+     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="inventories", fetch="EAGER")
      */
     private $station;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Bike::class, inversedBy="inventories")
+     * @ORM\ManyToMany(targetEntity=Bike::class, inversedBy="inventories", fetch="EAGER")
      */
     private $bikes;
 
@@ -125,4 +126,5 @@ class Inventory
 
         return $this;
     }
+
 }
