@@ -1,37 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inventory index{% endblock %}
+{% block title %}Admin Inventaires{% endblock %}
 
 {% block body %}
-    <h1>Inventory index</h1>
+<div class ="container">
+    <h1>Administration des inventaires</h1>
+    <h5>liste l'ensemble des inventaires</h5>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Inventaire</th>
+                <th>Station</th>
+                <th>Réalisé le</th>
+                {# <th>UpdatedAt</th> #}
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for inventory in inventories %}
             <tr>
-                <td>{{ inventory.id }}</td>
-                <td>{{ inventory.createdAt ? inventory.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ inventory.updatedAt ? inventory.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>N° {{ inventory.id }}</td>
+                <td>{{ inventory.station.name }}</td>
+                <td>{{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') : '' }}</td>
+                {# <td>{{ inventory.updatedAt ? inventory.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
                 <td>
-                    <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">show</a>
-                    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">edit</a>
+                    <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement de réparation en Base de Données !
+                </div>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_inventory_new') }}">Create new</a>
+    <a href="{{ path('app_inventory_new') }}"><button class="btn btn-lg btn-primary" type="submit">Créer une nouvel inventaire</button></a>
+    </div>
 {% endblock %}

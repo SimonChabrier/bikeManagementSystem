@@ -24,7 +24,7 @@ class InventoryController extends AbstractController
 
         $inventories = $inventoryRepository->findAll();
         foreach($inventories as $inventory){
-            dump($inventory->getBikes());
+            dump($inventory->getStation());
         }
 
         return $this->render('inventory/index.html.twig', [
