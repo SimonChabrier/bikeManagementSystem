@@ -7,9 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class StationType extends AbstractType
 {   
@@ -108,6 +110,15 @@ class StationType extends AbstractType
                     'Active' => true,
                     'Inactive' => false,
                 ],  
+            ])
+            ->add('mainPicture', FileType::class, [
+                'label' => 'Photo',
+                'mapped' => false, 
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5M'
+                    ])
+                ],
             ])
             //->add('lat')
             //->add('lng')

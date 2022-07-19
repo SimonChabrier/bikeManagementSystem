@@ -4,6 +4,11 @@
 {% block body %}
 <div class="container"> 
     <h1>Fiche Station - {{ station.name }}</h1>
+    {% if station.mainPicture %}
+    <img src = "{{ asset('uploads/main_pictures/' ~ station.mainPicture) }}" style="width: 100%; height: 400px; object-fit: cover" alt="photographie de la station montrant les vélos de la {{ station.name }} d'{{ station.city }} ">
+    <hr>
+    {% endif %}
+
     <table class="table">
         <tbody>
             {# <tr>
@@ -61,12 +66,12 @@
                 <th>Dernière mise à jour</th>
                 <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
-            {% if station.mainPicture %}
+            {# {% if station.mainPicture %}
             <tr>
                 <th>Image pricipale</th>
                 <td>{{ station.mainPicture }}</td>
             </tr>
-            {% endif %}
+            {% endif %} #}
         </tbody>
     </table>
     <a href="{{ path('app_station_edit', {'id': station.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier la station</button></a>

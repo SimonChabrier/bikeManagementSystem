@@ -6,6 +6,7 @@ use App\Entity\Bike;
 use App\Entity\User;
 use App\Entity\Repair;
 use App\Entity\Station;
+use App\Entity\Vandalism;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -33,6 +34,7 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE bike');
         $this->connexion->executeQuery('TRUNCATE TABLE station');
         $this->connexion->executeQuery('TRUNCATE TABLE repair');
+        $this->connexion->executeQuery('TRUNCATE TABLE vandalism');
     }
 
     public function load(ObjectManager $manager): void
@@ -43,21 +45,21 @@ class AppFixtures extends Fixture
         //USER
 
         $user = new User();
-        $user->setStatus(1);
-        $user->setRoles(["ROLE_ADMINISTRATEUR"]);
-        $user->setEmail("admin@admin.fr");
-        $user->setIsVerified(1);
-        $user->setPassword($this->hasher->hashPassword($user,"simon"));
-        $user->setCompany("autre");
-        $user->setJob("partenaire");
-        $user->setFirstName("Simon");
-        $user->setLastName("Chabrier");
-        $user->setAddress("168 Quai Baudin");
-        $user->setZip("47000");
-        $user->setCity("Agen");
-        $user->setPhone("0556667543");
+        $user->setStatus(1)
+            ->setRoles(["ROLE_ADMINISTRATEUR"])
+            ->setEmail("admin@admin.fr")
+            ->setIsVerified(1)
+            ->setPassword($this->hasher->hashPassword($user,"simon"))
+            ->setCompany("autre")
+            ->setJob("partenaire")
+            ->setFirstName("Simon")
+            ->setLastName("Chabrier")
+            ->setAddress("168 Quai Baudin")
+            ->setZip("47000")
+            ->setCity("Agen")
+            ->setPhone("0556667543");
 
-        $manager->persist($user);
+        $manager->persist($user);    
         
         //REPAIR
 
@@ -83,8 +85,8 @@ class AppFixtures extends Fixture
 
         foreach ($repairList as $key => $repairName) {
         $repair = new Repair();
-        $repair->setReference('ref_' . $key);
-        $repair->setName($repairName);
+        $repair->setReference('ref_' . $key)
+                ->setName($repairName);
 
         $manager->persist($repair);
         }
@@ -93,10 +95,10 @@ class AppFixtures extends Fixture
 
         for ($i = 425; $i <= 434; $i++){
             $bike = new Bike();
-            $bike->setReference('ref_' . $i);
-            $bike->setNumber($i);
-            $bike->setRate(mt_rand(2, 5));
-            $bike->setStatus(mt_rand(0, 1));
+            $bike->setReference('ref_' . $i)
+            ->setNumber($i)
+            ->setRate(mt_rand(2, 5))
+            ->setStatus(mt_rand(0, 1));
 
             // set random value for $avalability
             $avalability = mt_rand(1, 5);
@@ -124,20 +126,20 @@ class AppFixtures extends Fixture
 
         for ($i = 473; $i <= 484; $i++){
             $bike = new Bike();
-            $bike->setReference('ref_' . $i);
-            $bike->setNumber($i);
-            $bike->setRate(mt_rand(3, 5));
-            $bike->setStatus(mt_rand(0, 1));
+            $bike->setReference('ref_' . $i)
+                ->setNumber($i)
+                ->setRate(mt_rand(3, 5))
+                ->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
         }
 
         for ($i = 538; $i <= 552; $i++){
             $bike = new Bike();
-            $bike->setReference('ref_' . $i);
-            $bike->setNumber($i);
-            $bike->setRate(mt_rand(2, 4));
-            $bike->setStatus(mt_rand(0, 1));
+            $bike->setReference('ref_' . $i)
+                ->setNumber($i)
+                ->setRate(mt_rand(2, 4))
+                ->setStatus(mt_rand(0, 1));
 
             // set random value for $avalability
             $avalability = mt_rand(1, 5);
@@ -165,20 +167,20 @@ class AppFixtures extends Fixture
 
         for ($i = 554; $i <= 560; $i++){
             $bike = new Bike();
-            $bike->setReference('ref_' . $i);
-            $bike->setNumber($i);
-            $bike->setRate(mt_rand(3, 5));
-            $bike->setStatus(mt_rand(0, 1));
+            $bike->setReference('ref_' . $i)
+                ->setNumber($i)
+                ->setRate(mt_rand(3, 5))
+                ->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
         }
         
         for ($i = 1272; $i <= 1310; $i++){
             $bike = new Bike();
-            $bike->setReference('ref_' . $i);
-            $bike->setNumber($i);
-            $bike->setRate(mt_rand(3, 5));
-            $bike->setStatus(mt_rand(0, 1));
+            $bike->setReference('ref_' . $i)
+                ->setNumber($i)
+                ->setRate(mt_rand(3, 5))
+                ->setStatus(mt_rand(0, 1));
 
             $manager->persist($bike);
         }
@@ -206,11 +208,10 @@ class AppFixtures extends Fixture
         
         foreach ($stationList as $key => $stationName) {
             $station = new Station();
-            $station->setNumber($key);
-            $station->setReference('ref_' . $key);
-            $station->setName($stationName);
-            $station->setCapacity(mt_rand(3, 20));
-            
+            $station->setNumber($key)
+                ->setReference('ref_' . $key)
+                ->setName($stationName)
+                ->setCapacity(mt_rand(3, 20));
 
             if ($key != 14 || $key != 15 || $key != 16 ) {
                 $station->setZip("47000");
@@ -240,7 +241,19 @@ class AppFixtures extends Fixture
         }
 
 
-        // PERSIST ALL IN DATA BASE
+        //VANDALISM
+
+        for ($i = 1; $i <= 30; $i++){
+            $vandalism = new Vandalism();
+            $vandalism->setContent('Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+            
+            $manager->persist($vandalism);
+        }
+
+
+        // PERSIST ALL ACTIONS IN DATA BASE
         $manager->flush();
 
     }
