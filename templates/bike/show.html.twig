@@ -23,7 +23,7 @@
                 <th>Station du derniere inventaire</th>
                 {% for inventory in bike.inventories %}
                         {% if loop.last %}
-                        <td>{{ inventory.station.name }}</td>
+                        <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
                         {% endif %}
                     {% else %}
                 <td>Non inventorié</td>
