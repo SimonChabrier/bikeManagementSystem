@@ -13,7 +13,11 @@ class VandalismType extends AbstractType
     {
         $builder
             ->add('content')
-            //->add('createdAt')
+            ->add('status')
+            ->add('createdAt')
+            ->add('mainPicture')
+            ->add('bike')
+            ->add('station')
         ;
     }
 

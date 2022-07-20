@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Vandalism{% endblock %}
+
+{% block body %}
+    <h1>Edit Vandalism</h1>
+
+    {{ include('vandalism/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_vandalism_index') }}">back to list</a>
+
+    {{ include('vandalism/_delete_form.html.twig') }}
+{% endblock %}

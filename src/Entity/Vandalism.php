@@ -25,6 +25,13 @@ class Vandalism
     private $content;
 
     /**
+     * @ORM\Column(type="boolean")
+     * this is for set vandalim has been read status
+     */
+    private $status = true;
+
+
+    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
@@ -35,6 +42,17 @@ class Vandalism
      */
     private $mainPicture;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Bike::class, inversedBy="vandalisms")
+     */
+    private $bike;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="vandalisms")
+     */
+    private $station;
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -48,6 +66,18 @@ class Vandalism
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -73,6 +103,11 @@ class Vandalism
         $this->setCreatedAt(new DateTimeImmutable('now'));
     }
 
+    public function getBike(): ?Bike
+    {
+        return $this->bike;
+    }
+
     public function getMainPicture(): ?string
     {
         return $this->mainPicture;
@@ -84,4 +119,24 @@ class Vandalism
 
         return $this;
     }
+
+    public function setBike(?Bike $bike): self
+    {
+        $this->bike = $bike;
+
+        return $this;
+    }
+
+    public function getStation(): ?Station
+    {
+        return $this->station;
+    }
+
+    public function setStation(?Station $station): self
+    {
+        $this->station = $station;
+
+        return $this;
+    }
+
 }

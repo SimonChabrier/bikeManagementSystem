@@ -107,9 +107,15 @@ class Station
      */
     private $inventories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="station")
+     */
+    private $vandalisms;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
+        $this->vandalisms = new ArrayCollection();
     }
 
 
@@ -338,6 +344,36 @@ class Station
             // set the owning side to null (unless already changed)
             if ($inventory->getStation() === $this) {
                 $inventory->setStation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vandalism>
+     */
+    public function getVandalisms(): Collection
+    {
+        return $this->vandalisms;
+    }
+
+    public function addVandalism(Vandalism $vandalism): self
+    {
+        if (!$this->vandalisms->contains($vandalism)) {
+            $this->vandalisms[] = $vandalism;
+            $vandalism->setStation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVandalism(Vandalism $vandalism): self
+    {
+        if ($this->vandalisms->removeElement($vandalism)) {
+            // set the owning side to null (unless already changed)
+            if ($vandalism->getStation() === $this) {
+                $vandalism->setStation(null);
             }
         }
 
