@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer Inventaire{% endblock %}
+
+{% block body %}
+<div class="container"> 
+    <h1>Créer un nouvel inventaire</h1>
+    {{ include('inventory/_form.html.twig') }}
+    <a href="{{ path('app_inventory_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour à la liste</button></a>
+</div>
+{% endblock %}
