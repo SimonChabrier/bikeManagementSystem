@@ -79,11 +79,11 @@
             {% endfor %}
             </tr>
             <tr>
-                <th><a href="{{ path('app_vandalism_index') }}">Vandalismes</a></th>
+                <th>Liste des <a href="{{ path('app_vandalism_index') }}">vandalismes</a></th>
                 <td>
                     {% for vandalism in bike.vandalisms %}
                     <ul>
-                        <li class='mt-2'><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">N° {{vandalism.id}}</a></li>
+                        <li class='mb-2'><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">N° {{vandalism.id}}</a></li>
                     </ul>
                     {% endfor %}
                 </td>
