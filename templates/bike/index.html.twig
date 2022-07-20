@@ -34,7 +34,7 @@
                 <td>{{ bike.availablity ? bike.availablity  : 'Non renseigné !' }}</td>
                 {% for inventory in bike.inventories %}
                         {% if loop.last %}
-                        <td>{{ inventory.station.name }}</td>
+                        <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
                         {% endif %}
                     {% else %}
                 <td>Non inventorié</td>
@@ -42,7 +42,7 @@
                 {# <td>{{ bike.lat }}</td> #}
                 {# <td>{{ bike.lng }}</td> #}
                 {# <td>{{ bike.reference }}</td> #}
-                <td>{{ bike.number }}</td>
+                <td><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{ bike.number }}</a></td>
 
                 <td>
                 {% for i in range(1, 5) %}

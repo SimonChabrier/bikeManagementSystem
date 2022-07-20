@@ -8,7 +8,7 @@
 <h5>Vélo recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
 {% for bike in inventory.bikes %}
 <br>
-<li>N° {{ bike.number }}</li>
+<a href="{{ path('app_bike_show', {'id': bike.id}) }}"><li>N° {{ bike.number }}</li></a>
 {% endfor %}
 <br>
     {# <table class="table">
