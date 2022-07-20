@@ -12,6 +12,7 @@
                 {# <th>Id</th> #}
                 {# <th>Statut</th> #}
                 <th>Disponibilité</th>
+                <th>Dernière Station</th>
                 {# <th>Lat</th>
                 <th>Lng</th> #}
                 {# <th>Reference</th> #}
@@ -31,6 +32,13 @@
                 {# <td>{{ bike.id }}</td> #}
                 {# <td>{{ bike.status ? 'Visible' : 'Archivé' }}</td> #}
                 <td>{{ bike.availablity ? bike.availablity  : 'Non renseigné !' }}</td>
+                {% for inventory in bike.inventories %}
+                        {% if loop.last %}
+                        <td>{{ inventory.station.name }}</td>
+                        {% endif %}
+                    {% else %}
+                <td>Non inventorié</td>
+                {% endfor %}
                 {# <td>{{ bike.lat }}</td> #}
                 {# <td>{{ bike.lng }}</td> #}
                 {# <td>{{ bike.reference }}</td> #}
