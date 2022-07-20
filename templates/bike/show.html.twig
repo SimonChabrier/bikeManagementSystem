@@ -26,7 +26,8 @@
                         <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
                         {% endif %}
                     {% else %}
-                <td>Non inventorié</td>
+                <th>Etat Inventaire</th>
+                <td>Aucun inventaire</td>
                 {% endfor %}
             </tr>
             {# <tr>
