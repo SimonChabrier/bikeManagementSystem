@@ -8,7 +8,6 @@
     <img src = "{{ asset('uploads/main_pictures/' ~ station.mainPicture) }}" style="width: 100%; height: 400px; object-fit: cover" alt="photographie de la station montrant les vélos de la {{ station.name }} d'{{ station.city }} ">
     <hr>
     {% endif %}
-
     <table class="table">
         <tbody>
             {# <tr>
@@ -63,8 +62,18 @@
                 <td>{{ station.createdAt ? station.createdAt|date("d/m/Y") : '' }}</td>
             </tr> #}
             <tr>
-                <th>Dernière mise à jour</th>
+                <th>Station mise à jour le</th>
                 <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td>
+            </tr>
+             <tr>
+                <th>Inventaires associés</th>
+                <td>
+                    {% for inventories in station.inventories %}
+                    <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N°  {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
+                    <hr>
+                    {% endfor %}
+                {# {{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }} #}
+                </td>
             </tr>
             {# {% if station.mainPicture %}
             <tr>
