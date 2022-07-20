@@ -20,8 +20,8 @@
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
             <tr>
-                <th>Station du derniere inventaire</th>
-                {% for inventory in bike.inventories %}
+            {% for inventory in bike.inventories %}
+                <th>Station du derniere <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th>
                         {% if loop.last %}
                         <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
                         {% endif %}
