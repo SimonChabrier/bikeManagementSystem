@@ -90,7 +90,7 @@ class Bike
     private $mainPicture;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
      */
     private $inventories;
 

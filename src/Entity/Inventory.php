@@ -33,14 +33,19 @@ class Inventory
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="inventories", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="inventories")
      */
     private $station;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Bike::class, inversedBy="inventories", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Bike::class, inversedBy="inventories")
      */
     private $bikes;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status = true;
 
     public function __construct()
     {
@@ -123,6 +128,18 @@ class Inventory
     public function removeBike(Bike $bike): self
     {
         $this->bikes->removeElement($bike);
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

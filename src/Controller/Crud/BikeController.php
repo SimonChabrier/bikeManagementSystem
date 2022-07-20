@@ -50,7 +50,7 @@ class BikeController extends AbstractController
      * @Route("/{id}", name="app_bike_show", methods={"GET"})
      */
     public function show(Bike $bike): Response
-    {
+    {   
         return $this->render('bike/show.html.twig', [
             'bike' => $bike,
         ]);

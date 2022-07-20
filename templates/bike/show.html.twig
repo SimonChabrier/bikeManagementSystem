@@ -19,7 +19,7 @@
                 <th>Disponibilité sur station</th>
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
-              <tr>
+            <tr>
                 <th>Station du derniere inventaire</th>
                 {% for inventory in bike.inventories %}
                         {% if loop.last %}

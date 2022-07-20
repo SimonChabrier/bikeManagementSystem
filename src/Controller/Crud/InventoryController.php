@@ -30,9 +30,7 @@ class InventoryController extends AbstractController
     /**
      * @Route("/new", name="app_inventory_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, 
-    InventoryRepository $inventoryRepository,
-    EntityManagerInterface $manager): Response
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $inventory = new Inventory();
         $form = $this->createForm(InventoryType::class, $inventory);
