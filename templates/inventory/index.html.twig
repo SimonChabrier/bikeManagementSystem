@@ -27,19 +27,19 @@
                 <td>
                     <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">Afficher</a>
                     <div class="vr"></div>
-                    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">Editer</a>
+                    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="19"><div class="alert alert-danger" role="alert">
-                Pas d'enregistrement de réparation en Base de Données !
+                Pas d'enregistrement d'inventaire en Base de Données !
                 </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_inventory_new') }}"><button class="btn btn-lg btn-primary" type="submit">Créer une nouvel inventaire</button></a>
+    <a href="{{ path('app_inventory_new') }}"><button class="btn btn-lg btn-primary" type="submit">Créer un nouvel inventaire</button></a>
     </div>
 {% endblock %}

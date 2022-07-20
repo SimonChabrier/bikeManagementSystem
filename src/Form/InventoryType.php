@@ -15,16 +15,17 @@ class InventoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            //->add('createdAt')
-            //->add('updatedAt')
+        
             ->add('station', EntityType::class, [
                 'class' => Station::class,
+                'label' => 'Selectionner la station',
                 'choice_label' => function ($station) {
                     return $station->getName();
                 }
             ])
             ->add('bikes', EntityType::class,[
                 'class' => Bike::class,
+                'label' => 'Selectionner les vélos présents sur la station',
                 'mapped' => true,
                 'multiple' => true,
                 'expanded' => true,

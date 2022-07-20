@@ -4,19 +4,13 @@
 
 {% block body %}
 <div class="container"> 
-    <h1>Inventaire N° {{ inventory.id }} - Station {{ inventory.station.name }}</h1>
-
-    
-
-{# {{dump (inventory.station.inventories)}} #}
-
+<h1>Inventaire N° {{ inventory.id }} - Station {{ inventory.station.name }}</h1>
 <h5>Vélo recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
 {% for bike in inventory.bikes %}
 <br>
 <li>N° {{ bike.number }}</li>
 {% endfor %}
 <br>
-
     {# <table class="table">
         <tbody>
             <tr>
