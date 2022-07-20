@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container"> 
-    <h1>Modifier l'inventaire' - {{ inventory.id }}</h1>
+    <h1>Modifier l'inventaire - {{ inventory.id }}</h1>
     {{ include('inventory/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     <a href="{{ path('app_inventory_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour liste inventaires</button></a>
     <hr>
