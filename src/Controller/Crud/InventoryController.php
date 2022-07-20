@@ -38,12 +38,12 @@ class InventoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //ici j'ai la station je la passe à l'inventaire
+            //get and add station to inventory
             $station = $form['station']->getData();
             $station->addInventory($inventory);
             $manager->persist($station);
 
-            //j'ai des objets vélo je boucle dessus pour associer chaque vélo à l'inventaire
+            //get bikes for loop on and add each bike to inventory 
             $bikes = $form['bikes']->getData();
             foreach($bikes as $bike){
                 $inventory->addBike($bike);
@@ -51,8 +51,6 @@ class InventoryController extends AbstractController
             }
 
             $manager->flush();
-            //ici j'ajoute l'inventaire soummis avec le numéro de station
-            //$inventoryRepository->add($inventory);
 
             return $this->redirectToRoute('app_inventory_index', [], Response::HTTP_SEE_OTHER);
         }
