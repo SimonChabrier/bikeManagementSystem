@@ -47,7 +47,11 @@
             </tr>
             <tr>
                 <th>Etat général</th>
-                <td>{{ bike.rate }}</td>
+                <td>
+                {% for i in range(1, 5) %}
+                    {% set starClass = bike.rate - i >= 0 ? '-fill' : (bike.rate - i >= 0.5 ? '-half' : '') %}<span class="bi bi-star{{ starClass }}"></span>
+                {% endfor %}
+                </td>
             </tr>
             {% if bike.purchasedAt%}
             <tr>
