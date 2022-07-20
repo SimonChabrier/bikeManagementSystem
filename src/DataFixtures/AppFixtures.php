@@ -252,7 +252,6 @@ class AppFixtures extends Fixture
             $manager->persist($vandalism);
         }
 
-
         // PERSIST ALL ACTIONS IN DATA BASE
         $manager->flush();
 
