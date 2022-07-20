@@ -4,11 +4,12 @@ namespace App\Controller\Crud;
 
 use App\Entity\Vandalism;
 use App\Form\VandalismType;
+use App\Service\MainPictureUploader;
 use App\Repository\VandalismRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/vandalism")
@@ -28,13 +29,20 @@ class VandalismController extends AbstractController
     /**
      * @Route("/new", name="app_vandalism_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, VandalismRepository $vandalismRepository): Response
+    public function new(Request $request, VandalismRepository $vandalismRepository, MainPictureUploader $MainPictureUploader): Response
     {
         $vandalism = new Vandalism();
         $form = $this->createForm(VandalismType::class, $vandalism);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $mainPictureFile = $form->get('mainPicture')->getData();
+            if ($mainPictureFile) {
+                $mainPicture = $MainPictureUploader->uploadPictureService($mainPictureFile);
+                $vandalism->setMainPicture($mainPicture);   
+            }
+
             $vandalismRepository->add($vandalism);
             return $this->redirectToRoute('app_vandalism_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,12 +66,19 @@ class VandalismController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_vandalism_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Vandalism $vandalism, VandalismRepository $vandalismRepository): Response
+    public function edit(Request $request, Vandalism $vandalism, VandalismRepository $vandalismRepository, MainPictureUploader $MainPictureUploader): Response
     {
         $form = $this->createForm(VandalismType::class, $vandalism);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $mainPictureFile = $form->get('mainPicture')->getData();
+            if ($mainPictureFile) {
+                $mainPicture = $MainPictureUploader->uploadPictureService($mainPictureFile);
+                $vandalism->setMainPicture($mainPicture);   
+            }
+
             $vandalismRepository->add($vandalism);
             return $this->redirectToRoute('app_vandalism_index', [], Response::HTTP_SEE_OTHER);
         }

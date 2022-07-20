@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Vandalism{% endblock %}
+{% block title %}Créer Vandalisme{% endblock %}
 
 {% block body %}
-    <h1>Create new Vandalism</h1>
-
+<div class="container"> 
+    <h1>Décalarer un nouveau vandalisme</h1>
     {{ include('vandalism/_form.html.twig') }}
-
-    <a href="{{ path('app_vandalism_index') }}">back to list</a>
+    <a href="{{ path('app_vandalism_index') }}"<button class="btn btn-lg btn-primary" type="submit">Retour à la liste</button></a>
+</div>
 {% endblock %}

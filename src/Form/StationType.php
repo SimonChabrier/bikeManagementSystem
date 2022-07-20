@@ -51,7 +51,7 @@ class StationType extends AbstractType
                 ]),
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de saisir \'adresse de la Station !',
+                        'message' => 'Merci de saisir l\'adresse de la Station !',
                     ]),
                 ],
             ]) 
