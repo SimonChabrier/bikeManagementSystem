@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Fiche vélo {{ bike.number }}{% endblock %}
-
 {% block body %}
+
 <div class="container"> 
     <h1>Fiche Vélo - N° Tempo {{ bike.number }}</h1>
     <table class="table">
@@ -18,6 +18,16 @@
              <tr>
                 <th>Disponibilité sur station</th>
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
+            </tr>
+              <tr>
+                <th>Station du derniere inventaire</th>
+                {% for inventory in bike.inventories %}
+                        {% if loop.last %}
+                        <td>{{ inventory.station.name }}</td>
+                        {% endif %}
+                    {% else %}
+                <td>Non inventorié</td>
+                {% endfor %}
             </tr>
             {# <tr>
                 <th>Lat</th>
