@@ -45,6 +45,23 @@ class InventoryRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Inventory[]
+     */
+    public function findAllOrderedByDESC(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT i
+            FROM App\Entity\Inventory i
+            ORDER BY i.createdAt DESC'
+        );
+
+        // returns an array of Station objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Inventory[] Returns an array of Inventory objects
     //  */

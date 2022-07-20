@@ -22,13 +22,8 @@ class InventoryController extends AbstractController
     public function index(InventoryRepository $inventoryRepository): Response
     {   
 
-        $inventories = $inventoryRepository->findAll();
-        foreach($inventories as $inventory){
-            dump($inventory->getStation());
-        }
-
         return $this->render('inventory/index.html.twig', [
-            'inventories' => $inventoryRepository->findAll(),
+            'inventories' => $inventoryRepository->findAllOrderedByDESC(),
         ]);
     }
 
