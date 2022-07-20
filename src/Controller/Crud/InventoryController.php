@@ -43,7 +43,7 @@ class InventoryController extends AbstractController
             $station->addInventory($inventory);
             $manager->persist($station);
 
-            //get bikes for loop on and add each bike to inventory 
+            //get bikes collection to loop on and add each bike to inventory 
             $bikes = $form['bikes']->getData();
             foreach($bikes as $bike){
                 $inventory->addBike($bike);
