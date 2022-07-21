@@ -2,11 +2,15 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Bike;
 use App\Entity\User;
 use App\Entity\Repair;
 use App\Entity\Station;
+use App\Entity\Inventory;
 use App\Entity\Vandalism;
+use Faker\Factory as Faker;
+//  https://fakerphp.github.io/
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,6 +20,7 @@ class AppFixtures extends Fixture
 {
     private $hasher;
     private $connexion;
+    protected $faker;
 
     public function __construct(Connection $connexion, UserPasswordHasherInterface $hasher)
     {
@@ -25,22 +30,29 @@ class AppFixtures extends Fixture
 
     private function truncate()
     {
-        //  on désactive la vérification des FK
+        // On désactive la vérification des FK
         // Sinon les truncate ne fonctionne pas.
         $this->connexion->executeQuery('SET foreign_key_checks = 0');
-
         // la requete TRUNCATE remet l'auto increment à 1
         $this->connexion->executeQuery('TRUNCATE TABLE user');
         $this->connexion->executeQuery('TRUNCATE TABLE bike');
         $this->connexion->executeQuery('TRUNCATE TABLE station');
         $this->connexion->executeQuery('TRUNCATE TABLE repair');
         $this->connexion->executeQuery('TRUNCATE TABLE vandalism');
+        $this->connexion->executeQuery('TRUNCATE TABLE inventory');
+        $this->connexion->executeQuery('TRUNCATE TABLE inventory_bike');
     }
 
     public function load(ObjectManager $manager): void
     {   
-
+        // empty all database entitities before start
         $this->truncate(); 
+
+        // https://fakerphp.github.io/#localization
+        $faker = Faker::create('fr_FR');
+
+        $allStationEntity = [];
+        $allBikeEntity = [];
 
         //USER
 
@@ -100,6 +112,8 @@ class AppFixtures extends Fixture
             ->setRate(mt_rand(2, 5))
             ->setStatus(mt_rand(0, 1));
 
+            $allBikeEntity[] = $bike;
+
             // set random value for $avalability
             $avalability = mt_rand(1, 5);
 
@@ -131,6 +145,8 @@ class AppFixtures extends Fixture
                 ->setRate(mt_rand(3, 5))
                 ->setStatus(mt_rand(0, 1));
 
+            $allBikeEntity[] = $bike;
+
             $manager->persist($bike);
         }
 
@@ -141,6 +157,7 @@ class AppFixtures extends Fixture
                 ->setRate(mt_rand(2, 4))
                 ->setStatus(mt_rand(0, 1));
 
+            $allBikeEntity[] = $bike;
             // set random value for $avalability
             $avalability = mt_rand(1, 5);
 
@@ -172,6 +189,8 @@ class AppFixtures extends Fixture
                 ->setRate(mt_rand(3, 5))
                 ->setStatus(mt_rand(0, 1));
 
+            $allBikeEntity[] = $bike;
+
             $manager->persist($bike);
         }
         
@@ -181,6 +200,8 @@ class AppFixtures extends Fixture
                 ->setNumber($i)
                 ->setRate(mt_rand(3, 5))
                 ->setStatus(mt_rand(0, 1));
+
+            $allBikeEntity[] = $bike;
 
             $manager->persist($bike);
         }
@@ -212,6 +233,8 @@ class AppFixtures extends Fixture
                 ->setReference('ref_' . $key)
                 ->setName($stationName)
                 ->setCapacity(mt_rand(3, 20));
+            
+            $allStationEntity[] = $station;
 
             if ($key != 14 || $key != 15 || $key != 16 ) {
                 $station->setZip("47000");
@@ -240,16 +263,43 @@ class AppFixtures extends Fixture
             $manager->persist($station);
         }
 
-
         //VANDALISM
+        //! Unactive and Reactive setCreatedAt in Entity 
 
         for ($i = 1; $i <= 30; $i++){
+
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-30 days', 'now'));
+            $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
+            $randomBike = $allBikeEntity[mt_rand(1, count($allBikeEntity) - 1)];
+            
             $vandalism = new Vandalism();
-            $vandalism->setContent('Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, 
-            when an unknown printer took a galley of type and scrambled it to make a type specimen book.');
+            $vandalism->setMainPicture('https://picsum.photos/id/'.mt_rand(1, 100).'/400/400')
+            ->setContent($faker->sentence(10))
+            ->setStation($randomStation)
+            ->setBike($randomBike)
+            ->setCreatedAt($date);
             
             $manager->persist($vandalism);
+        }
+
+        //INVENTORY
+        //! Unactive and Reactive setCreatedAt in Entity 
+        for ($i = 1; $i <= 30; $i++){
+
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-30 days', 'now'));
+            $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
+
+            $inventory = New Inventory();
+            $inventory->setCreatedAt($date);
+            $inventory->setStation($randomStation);
+            $manager->persist($inventory);
+
+            for ($j = 1; $j <= 10; $j++){
+                $randomBike = $allBikeEntity[array_rand($allBikeEntity)];
+                $inventory->addBike($randomBike);
+                $manager->persist($inventory);
+            
+            };
         }
 
         // PERSIST ALL ACTIONS IN DATA BASE
