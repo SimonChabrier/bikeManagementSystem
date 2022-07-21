@@ -90,7 +90,7 @@
     <ol>
         {% for vandalism in bike.vandalisms %}
         {% if vandalism is defined %}
-        <li><a href="{{ path('app_inventory_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
+        <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
         <hr>
         {% endif %}
         {% else %}
