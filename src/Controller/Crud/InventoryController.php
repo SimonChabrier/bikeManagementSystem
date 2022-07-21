@@ -38,18 +38,7 @@ class InventoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //get and add station to inventory
-            $station = $form['station']->getData();
-            $station->addInventory($inventory);
-            $manager->persist($station);
-
-            //get bikes collection to loop on and add each bike to inventory 
-            $bikes = $form['bikes']->getData();
-            foreach($bikes as $bike){
-                $inventory->addBike($bike);
-                $manager->persist($inventory);
-            }
-
+            $manager->persist($inventory);
             $manager->flush();
 
             return $this->redirectToRoute('app_inventory_index', [], Response::HTTP_SEE_OTHER);
