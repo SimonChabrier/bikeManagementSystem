@@ -78,26 +78,26 @@
                 <td>Aucun inventaire</td>
             {% endfor %}
             </tr>
-            <tr>
-                <th>Liste des <a href="{{ path('app_vandalism_index') }}">vandalismes</a></th>
-                <td>
-                    {% for vandalism in bike.vandalisms %}
-                    <ul>
-                        {% if vandalism is defined %}
-                        <li class='mb-2'><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">N° {{vandalism.id}}</a></li>
-                        {% endif %}
-                    </ul>
-                        {% else %}
-                     <ul>
-                        <li class='mb-2'>Aucun vandalisme</li>
-                    </ul>
-                    {% endfor %}
-                </td>
-            </tr>
         </tbody>
     </table>
     <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier le vélo</button></a>
     <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
     {{ include('bike/_delete_form.html.twig') }}
+</div>
+
+<div class="container"> 
+<h5><a href="{{ path('app_vandalism_index') }}">Vandalismes</a> associés au vélo - {{ bike.number }}</h5>
+    <ol>
+        {% for vandalism in bike.vandalisms %}
+        {% if vandalism is defined %}
+        <li><a href="{{ path('app_inventory_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
+        <hr>
+        {% endif %}
+        {% else %}
+        <ul>
+            <li class='mb-2'>Aucun vandalisme déclaré</li>
+        </ul>
+        {% endfor %}
+    </ol>
 </div>
 {% endblock %}

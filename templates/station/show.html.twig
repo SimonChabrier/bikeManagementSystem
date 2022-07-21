@@ -76,8 +76,13 @@
 <h5><a href="{{ path('app_inventory_index') }}">Inventaires</a> associés à la station - {{ station.name }}</h5>
     <ol>
         {% for inventories in station.inventories %}
+        {% if inventories is defined %}
         <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N°  {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
-        <hr>
+        {% endif %}
+        {% else %}
+        <ul>
+            <li class='mb-2'>Aucun inventaire</li>
+        </ul>
         {% endfor %}
     </ol>
 </div>
