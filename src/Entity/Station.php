@@ -104,6 +104,7 @@ class Station
 
     /**
      * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="station")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $inventories;
 
