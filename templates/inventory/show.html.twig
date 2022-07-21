@@ -4,8 +4,8 @@
 
 {% block body %}
 <div class="container"> 
-<h1>Inventaire N° {{ inventory.id }} - Station {{ inventory.station.name }}</h1>
-<h5>Vélo recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
+<h1>Inventaire N° {{ inventory.id }} - Station <a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></h1>
+<h5>Vélos recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
 {% for bike in inventory.bikes %}
 <br>
 <a href="{{ path('app_bike_show', {'id': bike.id}) }}"><li>N° {{ bike.number }}</li></a>

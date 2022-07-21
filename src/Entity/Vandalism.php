@@ -99,10 +99,10 @@ class Vandalism
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    // public function updatedTimestamps(): void
-    // {
-    //     $this->setCreatedAt(new DateTimeImmutable('now'));
-    // }
+    public function updatedTimestamps(): void
+    {
+        $this->setCreatedAt(new DateTimeImmutable('now'));
+    }
 
     public function getBike(): ?Bike
     {

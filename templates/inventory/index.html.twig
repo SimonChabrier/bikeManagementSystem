@@ -10,17 +10,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Inventaire</th>
-                <th>Station</th>
+                {# <th>Inventaire</th> #}
+                <th>Inventaire Station</th>
                 <th>Réalisé le</th>
                 {# <th>UpdatedAt</th> #}
-                <th>actions</th>
+                <th>Inventaire</th>
             </tr>
         </thead>
         <tbody>
         {% for inventory in inventories %}
             <tr>
-                <td><a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">N° {{ inventory.id }}</a></td>
+                {# <td><a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">N° {{ inventory.id }}</a></td> #}
                 <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
                 <td>{{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') : '' }}</td>
                 {# <td>{{ inventory.updatedAt ? inventory.updatedAt|date('Y-m-d H:i:s') : '' }}</td> #}
