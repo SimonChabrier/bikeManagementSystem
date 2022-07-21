@@ -3,31 +3,28 @@
 
 {% block body %}
 <div class="container"> 
-<!-- this flash message is displayed after user click on verified email-link  --> 
-{% for message in app.flashes('isVerified') %}
+
+{% for message in app.flashes('isVerified') %}<!-- this flash message is displayed after user click on verified email-link  --> 
     <div class="container text-center alert alert-success">
         {{ message }}
     </div>
 {% endfor %}
 
 
-{% if app.user %}
+{# {% if app.user %} #}
     <a href="#"><button type="button" class="btn btn-primary btn-lg btn-block">Présence vélos</button></a>
     <a href="#"><button type="button" class="btn btn-primary btn-lg btn-block">Interventions</button></a>
-{% if is_granted('ROLE_MONITEUR')%}
+{# {% if is_granted('ROLE_MONITEUR')%} #}
     <button type="button" class="btn btn-success btn-lg btn-block">Tableau de bord</button>
     <a href="{{ path('app_bike_index') }}"><button type="button" class="btn btn-secondary btn-lg btn-block">Vélos</button></a>
     <a href="{{ path('app_station_index') }}"><button type="button" class="btn btn-secondary btn-lg btn-block">Stations</button></a>
-{% endif %}
+{# {% endif %} #}
     <a href="{{ path('app_repair_index') }}"><button type="button" class="btn btn-secondary btn-lg btn-block">Pannes</button></a>
-{% else %}
-<h1 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h1>
+{# {% else %} #}
+{# <h1 class="mt-5 mb-4 text-center">Identifiez vous pour commencer à utiliser l'application !<h1>
 <a class="link" data-toggle="modal" data-target=".Mylogin-modal"><button type="button" class="btn btn-primary btn-lg btn-block">Identification</button></a>
-{% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content -->
-{% endif %}
-
-
-
+{% include 'fragments/_modal_login.html.twig' %}<!-- include login form fragment inside modal content --> #}
+{# {% endif %} #}
 
 <!-- include slider fragment template + JQuery exemple for toggle option --> 
 {# {% include 'fragments/_slider.html.twig' %} #}

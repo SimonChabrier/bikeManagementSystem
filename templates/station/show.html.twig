@@ -65,26 +65,21 @@
                 <th>Station mise à jour le</th>
                 <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
-             <tr>
-                <th>Inventaires associés</th>
-                <td>
-                    {% for inventories in station.inventories %}
-                    <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N°  {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
-                    <hr>
-                    {% endfor %}
-                {# {{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }} #}
-                </td>
-            </tr>
-            {# {% if station.mainPicture %}
-            <tr>
-                <th>Image pricipale</th>
-                <td>{{ station.mainPicture }}</td>
-            </tr>
-            {% endif %} #}
         </tbody>
     </table>
     <a href="{{ path('app_station_edit', {'id': station.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier la station</button></a>
     <a href="{{ path('app_station_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des stations</button></a>
     {{ include('station/_delete_form.html.twig') }}
 </div>
+
+<div class="container"> 
+<h5><a href="{{ path('app_inventory_index') }}">Inventaires</a> associés à la station - {{ station.name }}</h5>
+    <ol>
+        {% for inventories in station.inventories %}
+        <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N°  {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
+        <hr>
+        {% endfor %}
+    </ol>
+</div>
+
 {% endblock %}

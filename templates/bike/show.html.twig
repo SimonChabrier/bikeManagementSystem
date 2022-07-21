@@ -19,17 +19,6 @@
                 <th>Disponibilité sur station</th>
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
-            <tr>
-            {% for inventory in bike.inventories %}
-                <th>Station du derniere <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th>
-                        {% if loop.last %}
-                        <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
-                        {% endif %}
-                    {% else %}
-                <th>Etat Inventaire</th>
-                <td>Aucun inventaire</td>
-                {% endfor %}
-            </tr>
             {# <tr>
                 <th>Lat</th>
                 <td>{{ bike.lat }}</td>
@@ -64,24 +53,51 @@
                 <th>Slug</th>
                 <td>{{ bike.slug }}</td>
             </tr> #}
-            <tr>
+            {# <tr>
                 <th>Date de création</th>
                 <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td>
-            </tr>
-            <tr>
+            </tr> #}
+            {# <tr>
                 <th>Date de mise à jour</th>
                 <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td>
-            </tr>
-            {% if bike.mainPicture %}
+            </tr> #}
+            {# {% if bike.mainPicture %}
             <tr>
                 <th>Image pricipale</th>
                 <td>{{ bike.mainPicture }}</td>
             </tr>
+            {% endif %} #}
+            <tr>
+            {% for inventory in bike.inventories %}
+            {% if loop.last %}
+                <th>Station du derniere <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th> 
+                <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
             {% endif %}
+            {% else %}
+                <th>Etat Inventaire</th>
+                <td>Aucun inventaire</td>
+            {% endfor %}
+            </tr>
+            <tr>
+                <th>Liste des <a href="{{ path('app_vandalism_index') }}">vandalismes</a></th>
+                <td>
+                    {% for vandalism in bike.vandalisms %}
+                    <ul>
+                        {% if vandalism is defined %}
+                        <li class='mb-2'><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">N° {{vandalism.id}}</a></li>
+                        {% endif %}
+                    </ul>
+                        {% else %}
+                     <ul>
+                        <li class='mb-2'>Aucun vandalisme</li>
+                    </ul>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
     <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier le vélo</button></a>
-   <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
+    <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
     {{ include('bike/_delete_form.html.twig') }}
 </div>
 {% endblock %}

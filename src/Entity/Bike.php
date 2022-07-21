@@ -94,9 +94,15 @@ class Bike
      */
     private $inventories;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
+     */
+    private $vandalisms;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
+        $this->vandalisms = new ArrayCollection();
     }
 
 
@@ -286,6 +292,36 @@ class Bike
     {
         if ($this->inventories->removeElement($inventory)) {
             $inventory->removeBike($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vandalism>
+     */
+    public function getVandalisms(): Collection
+    {
+        return $this->vandalisms;
+    }
+
+    public function addVandalism(Vandalism $vandalism): self
+    {
+        if (!$this->vandalisms->contains($vandalism)) {
+            $this->vandalisms[] = $vandalism;
+            $vandalism->setBike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVandalism(Vandalism $vandalism): self
+    {
+        if ($this->vandalisms->removeElement($vandalism)) {
+            // set the owning side to null (unless already changed)
+            if ($vandalism->getBike() === $this) {
+                $vandalism->setBike(null);
+            }
         }
 
         return $this;
