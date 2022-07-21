@@ -15,7 +15,8 @@
         <li class='my-4'> {{ vandalism.content }}</li>
         {% if vandalism.mainPicture %}
         <hr>
-        <img src = "{{ asset('uploads/main_pictures/' ~ vandalism.mainPicture) }}" style="width: 400px%; height: 400px; object-fit: cover" alt="photographie de la station montrant un vélo vandalisé">
+        {# <img src = "{{ asset('uploads/main_pictures/' ~ vandalism.mainPicture) }}" style="width: 400px%; height: 400px; object-fit: cover" alt="photographie de la station montrant un vélo vandalisé"> #}
+        <img src = "{{ vandalism.mainPicture }}" style="width: 400px%; height: 400px; object-fit: cover" alt="photographie de la station montrant un vélo vandalisé">
         <hr>
         {% endif %}
     </ul>

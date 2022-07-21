@@ -83,7 +83,13 @@
                 <td>
                     {% for vandalism in bike.vandalisms %}
                     <ul>
+                        {% if vandalism is defined %}
                         <li class='mb-2'><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">N° {{vandalism.id}}</a></li>
+                        {% endif %}
+                    </ul>
+                        {% else %}
+                     <ul>
+                        <li class='mb-2'>Aucun vandalisme</li>
                     </ul>
                     {% endfor %}
                 </td>

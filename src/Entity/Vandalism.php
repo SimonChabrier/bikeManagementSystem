@@ -16,6 +16,7 @@ class Vandalism
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     private $id;
 
@@ -98,10 +99,10 @@ class Vandalism
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function updatedTimestamps(): void
-    {
-        $this->setCreatedAt(new DateTimeImmutable('now'));
-    }
+    // public function updatedTimestamps(): void
+    // {
+    //     $this->setCreatedAt(new DateTimeImmutable('now'));
+    // }
 
     public function getBike(): ?Bike
     {
