@@ -107,13 +107,12 @@
             <ol>
                 {% for repair in bike.repairs %}
                 {% if repair is defined %}
-                
                 <li><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{ repair.repair.name }} &#124; du {{ repair.createdAt |date("d/m/Y à H:m") }}</a></li>
                 <hr>
                 {% endif %}
                 {% else %}
                 <ul>
-                    <li class='mb-2'>Aucune réparation déclaréé</li>
+                    <li class='mb-2'>Aucune réparation déclarée</li>
                 </ul>
                 {% endfor %}
             </ol>
