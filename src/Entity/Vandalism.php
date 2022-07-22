@@ -31,7 +31,6 @@ class Vandalism
      */
     private $status = true;
 
-
     /**
      * @ORM\Column(type="datetime_immutable")
      */
@@ -95,15 +94,6 @@ class Vandalism
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $this->setCreatedAt(new DateTimeImmutable('now'));
-    }
-
     public function getBike(): ?Bike
     {
         return $this->bike;
@@ -138,6 +128,15 @@ class Vandalism
         $this->station = $station;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $this->setCreatedAt(new DateTimeImmutable('now'));
     }
 
 }

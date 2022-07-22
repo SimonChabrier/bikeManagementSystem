@@ -171,6 +171,18 @@ class Repair
         return $this;
     }
 
+    public function getMainPicture(): ?string
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?string $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
+
+        return $this;
+    }
+    
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -185,17 +197,4 @@ class Repair
             $this->setCreatedAt($setDateTime);
         }
     }
-
-    public function getMainPicture(): ?string
-    {
-        return $this->mainPicture;
-    }
-
-    public function setMainPicture(?string $mainPicture): self
-    {
-        $this->mainPicture = $mainPicture;
-
-        return $this;
-    }
-
 }

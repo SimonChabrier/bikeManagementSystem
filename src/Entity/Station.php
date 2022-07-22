@@ -281,7 +281,6 @@ class Station
         return $this;
     }
 
-   
     public function getMainPicture(): ?string
     {
         return $this->mainPicture;
@@ -292,33 +291,6 @@ class Station
         $this->mainPicture = $mainPicture;
 
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
-
-    /**
-     * Property to string used ti display converted object value to a string value
-     * Used in Forms using EntityType::class for exemple
-     * or in Views if need.
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->name;
     }
 
     /**
@@ -379,6 +351,33 @@ class Station
         }
 
         return $this;
+    }
+
+    /**
+     * Property to string used ti display converted object value to a string value
+     * Used in Forms using EntityType::class for exemple
+     * or in Views if need.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $setDateTime = new DateTimeImmutable('now');
+
+        $this->setUpdatedAt($setDateTime);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($setDateTime);
+        }
     }
 
 

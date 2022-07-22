@@ -105,7 +105,6 @@ class Bike
         $this->vandalisms = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -256,21 +255,6 @@ class Bike
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
-
-    /**
      * @return Collection<int, Inventory>
      */
     public function getInventories(): Collection
@@ -326,5 +310,19 @@ class Bike
 
         return $this;
     }
+    
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $setDateTime = new DateTimeImmutable('now');
 
+        $this->setUpdatedAt($setDateTime);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($setDateTime);
+        }
+    }
 }
