@@ -70,7 +70,7 @@
             <tr>
             {% for inventory in bike.inventories %}
             {% if loop.last %}
-                <th>Station du derniere <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th> 
+                <th>Station du dernier <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th> 
                 <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
             {% endif %}
             {% else %}
