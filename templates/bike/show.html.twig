@@ -70,7 +70,7 @@
             <tr>
             {% for inventory in bike.inventories %}
             {% if loop.last %}
-                <th>Station du dernier <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th> 
+                <th>Station du <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">dernier inventaire</a></th> 
                 <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
             {% endif %}
             {% else %}
@@ -88,7 +88,7 @@
 <div class="container"> 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_vandalism_index') }}">Vandalismes</a> associés au vélo - {{ bike.number }}</h5>
+        <h5><a href="{{ path('app_vandalism_index') }}">{{ bike.vandalisms|length }} &#124; Vandalismes</a> associés au vélo - N° {{ bike.number }}</h5>
             <ol>
                 {% for vandalism in bike.vandalisms %}
                 {% if vandalism is defined %}
@@ -103,11 +103,12 @@
             </ol>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_repair_act_index') }}">Réparations</a> associées au vélo - {{ bike.number }}</h5>
+        <h5><a href="{{ path('app_repair_act_index') }}">{{ bike.repairs|length }} &#124; Réparations</a> associées au vélo - N°{{ bike.number }}</h5>
             <ol>
                 {% for repair in bike.repairs %}
                 {% if repair is defined %}
-                <li><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{ repair.repair.name }} du {{ repair.createdAt |date("d/m/Y à H:m") }}</a></li>
+                
+                <li><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{ repair.repair.name }} &#124; du {{ repair.createdAt |date("d/m/Y à H:m") }}</a></li>
                 <hr>
                 {% endif %}
                 {% else %}
