@@ -86,18 +86,37 @@
 </div>
 
 <div class="container"> 
-<h5><a href="{{ path('app_vandalism_index') }}">Vandalismes</a> associés au vélo - {{ bike.number }}</h5>
-    <ol>
-        {% for vandalism in bike.vandalisms %}
-        {% if vandalism is defined %}
-        <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
-        <hr>
-        {% endif %}
-        {% else %}
-        <ul>
-            <li class='mb-2'>Aucun vandalisme déclaré</li>
-        </ul>
-        {% endfor %}
-    </ol>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h5><a href="{{ path('app_vandalism_index') }}">Vandalismes</a> associés au vélo - {{ bike.number }}</h5>
+            <ol>
+                {% for vandalism in bike.vandalisms %}
+                {% if vandalism is defined %}
+                <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucun vandalisme déclaré</li>
+                </ul>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h5><a href="{{ path('app_repair_act_index') }}">Réparations</a> associées au vélo - {{ bike.number }}</h5>
+            <ol>
+                {% for repair in bike.repairs %}
+                {% if repair is defined %}
+                <li><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{ repair.repair.name }} du {{ repair.createdAt |date("d/m/Y à H:m") }}</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucune réparation déclaréé</li>
+                </ul>
+                {% endfor %}
+            </ol>
+         </div>
+    </div>
 </div>
 {% endblock %}

@@ -16,6 +16,7 @@
                 <th>N° Vélo</th>
                 <th>Réparation</th>
                 <th>Date</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@
         {% endfor %}
         </tbody>
     </table>
-
     <a href="{{ path('app_repair_act_new') }}"><button class="btn btn-lg btn-primary" type="submit">Déclarer un acte de réparation</button></a>
+<div>
 {% endblock %}
+
