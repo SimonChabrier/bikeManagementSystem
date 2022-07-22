@@ -81,21 +81,6 @@ class Inventory
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
-
     public function getStation(): ?Station
     {
         return $this->station;
@@ -143,5 +128,21 @@ class Inventory
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $setDateTime = new DateTimeImmutable('now');
+
+        $this->setUpdatedAt($setDateTime);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($setDateTime);
+        }
+    }
+
 
 }
