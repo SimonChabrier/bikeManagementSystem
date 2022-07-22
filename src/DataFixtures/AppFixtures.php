@@ -232,7 +232,8 @@ class AppFixtures extends Fixture
             $station->setNumber($key)
                 ->setReference('ref_' . $key)
                 ->setName($stationName)
-                ->setCapacity(mt_rand(3, 20));
+                ->setCapacity(mt_rand(3, 20))
+                ->setMainPicture('https://picsum.photos/id/'.mt_rand(1, 100).'/400/400');
             
             $allStationEntity[] = $station;
 

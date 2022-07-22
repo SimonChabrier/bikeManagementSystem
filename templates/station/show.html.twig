@@ -5,7 +5,8 @@
 <div class="container"> 
     <h1>Fiche Station - {{ station.name }}</h1>
     {% if station.mainPicture %}
-    <img src = "{{ asset('uploads/main_pictures/' ~ station.mainPicture) }}" style="width: 100%; height: 400px; object-fit: cover" alt="photographie de la station montrant les vélos de la {{ station.name }} d'{{ station.city }} ">
+    {# <img src = "{{ asset('uploads/main_pictures/' ~ station.mainPicture) }}" style="width: 100%; height: 400px; object-fit: cover" alt="photographie de la station montrant les vélos de la {{ station.name }} d'{{ station.city }} "> #}
+   <img src = "{{ station.mainPicture }}" style="width: 100%; height: 400px; object-fit: cover" alt="photographie de la station montrant les vélos">
     <hr>
     {% endif %}
     <table class="table">
