@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RepairRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Monolog\DateTimeImmutable;
@@ -69,6 +71,16 @@ class Repair
      * Persist file name
      */
     private $mainPicture;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="repair")
+     */
+    private $bikes;
+
+    public function __construct()
+    {
+        $this->bikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -196,5 +208,35 @@ class Repair
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    /**
+     * @return Collection<int, RepairAct>
+     */
+    public function getBikes(): Collection
+    {
+        return $this->bikes;
+    }
+
+    public function addBike(RepairAct $bike): self
+    {
+        if (!$this->bikes->contains($bike)) {
+            $this->bikes[] = $bike;
+            $bike->setRepair($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBike(RepairAct $bike): self
+    {
+        if ($this->bikes->removeElement($bike)) {
+            // set the owning side to null (unless already changed)
+            if ($bike->getRepair() === $this) {
+                $bike->setRepair(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepairAct{% endblock %}
+
+{% block body %}
+    <h1>RepairAct</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ repair_act.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ repair_act.createdAt ? repair_act.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ repair_act.updatedAt ? repair_act.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_repair_act_index') }}">back to list</a>
+
+    <a href="{{ path('app_repair_act_edit', {'id': repair_act.id}) }}">edit</a>
+
+    {{ include('repair_act/_delete_form.html.twig') }}
+{% endblock %}

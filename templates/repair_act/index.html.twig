@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RepairAct index{% endblock %}
+
+{% block body %}
+
+<div class ="container">
+    <h1>Réparations réalisées</h1>
+    <h5>liste l'ensemble des réparations réalisées par les travailleurs</h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Station</th>
+                <th>N° Vélo</th>
+                <th>Réparation</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for repair_act in repair_acts %}
+            <tr>
+                {# <td>{{ repair_act.id }}</td> #}
+                <td>{{ repair_act.station.name }}</td>
+                <td>{{ repair_act.bike.number }}</td>
+                <td>{{ repair_act.repair.name }}</td>
+                <td>{{ repair_act.createdAt ? repair_act.createdAt|date('d/m/Y à H:i') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_repair_act_show', {'id': repair_act.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_repair_act_edit', {'id': repair_act.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas de réparations en Base de Données !
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_repair_act_new') }}"><button class="btn btn-lg btn-primary" type="submit">Déclarer un acte de réparation</button></a>
+{% endblock %}
