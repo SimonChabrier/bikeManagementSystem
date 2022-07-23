@@ -77,7 +77,7 @@ class BalanceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_balance_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Balance $balance, Station $station, EntityManagerInterface $manager, BalanceRepository $balanceRepository, int $id): Response
+    public function edit(Request $request, Balance $balance, Station $station, EntityManagerInterface $manager): Response
     {   
 
         $form = $this->createForm(BalanceType::class, $balance);
@@ -85,14 +85,14 @@ class BalanceController extends AbstractController
       
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //Get the balance to update
-            $currentBalance = $balanceRepository->findOneBy(['id' => $id]);
-            $currentStations = $currentBalance->getStations();
+            // get statiosn collection from $balance Id
+            $stations = $balance->getStations();
+            $stations->removeElement($balance);
 
                 //Clean the current balanced values before update
-                if ($currentStations) {
-                    foreach ($currentStations as $station) {
-                        $station->removeBalance($currentBalance);
+                if ($stations) {
+                    foreach ($stations as $station) {
+                        $station->removeBalance($balance);
                         $manager->flush();
                     }
                 }
