@@ -7,10 +7,6 @@
     <h1>Fiche Vélo - N° Tempo {{ bike.number }}</h1>
     <table class="table">
         <tbody>
-            {# <tr>
-                <th>Id</th>
-                <td>{{ bike.id }}</td>
-            </tr> #}
             <tr>
                 <th>Statut de gestion</th>
                 <td>{{ bike.status ? 'En gestion' : 'Archivé' }}</td>
@@ -19,18 +15,6 @@
                 <th>Disponibilité sur station</th>
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
-            {# <tr>
-                <th>Lat</th>
-                <td>{{ bike.lat }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Lng</th>
-                <td>{{ bike.lng }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Reference</th>
-                <td>{{ bike.reference }}</td>
-            </tr> #}
             <tr>
                 <th>N° Tempo</th>
                 <td>{{ bike.number }}</td>
@@ -49,28 +33,10 @@
                 <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td>
             </tr>
             {% endif %}
-            {# <tr>
-                <th>Slug</th>
-                <td>{{ bike.slug }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Date de création</th>
-                <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Date de mise à jour</th>
-                <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td>
-            </tr> #}
-            {# {% if bike.mainPicture %}
-            <tr>
-                <th>Image pricipale</th>
-                <td>{{ bike.mainPicture }}</td>
-            </tr>
-            {% endif %} #}
             <tr>
             {% for inventory in bike.inventories %}
             {% if loop.last %}
-                <th>Station du dernier <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">inventaire</a></th> 
+                <th>Station du <a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">dernier inventaire</a></th> 
                 <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></td>
             {% endif %}
             {% else %}
@@ -80,24 +46,53 @@
             </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier le vélo</button></a>
-    <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
-    {{ include('bike/_delete_form.html.twig') }}
-</div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">Modifier vélo</button></a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">Liste vélos</button></a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            {{ include('bike/_delete_form.html.twig') }}
+        </div>
+    </div><!-- end row -->
+
+</div><!-- end container -->
 
 <div class="container"> 
-<h5><a href="{{ path('app_vandalism_index') }}">Vandalismes</a> associés au vélo - {{ bike.number }}</h5>
-    <ol>
-        {% for vandalism in bike.vandalisms %}
-        {% if vandalism is defined %}
-        <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
-        <hr>
-        {% endif %}
-        {% else %}
-        <ul>
-            <li class='mb-2'>Aucun vandalisme déclaré</li>
-        </ul>
-        {% endfor %}
-    </ol>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h2><a href="{{ path('app_vandalism_index') }}">{{ bike.vandalisms|length }} &#124; Vandalismes</a> associés au vélo - N° {{ bike.number }}</h2>
+            <ol>
+                {% for vandalism in bike.vandalisms %}
+                {% if vandalism is defined %}
+                <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Vandalisme N°  {{ vandalism.id }} du {{ vandalism.createdAt |date("d/m/Y à H:m") }}</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucun vandalisme déclaré</li>
+                </ul>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h2><a href="{{ path('app_repair_act_index') }}">{{ bike.repairs|length }} &#124; Réparations</a> associées au vélo - N°{{ bike.number }}</h2>
+            <ol>
+                {% for repair in bike.repairs %}
+                {% if repair is defined %}
+                <li><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{ repair.repair.name }} &#124; du {{ repair.createdAt |date("d/m/Y à H:m") }}</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucune réparation déclarée</li>
+                </ul>
+                {% endfor %}
+            </ol>
+         </div>
+    </div>
 </div>
 {% endblock %}

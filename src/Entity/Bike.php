@@ -91,18 +91,27 @@ class Bike
 
     /**
      * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $inventories;
 
     /**
      * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $vandalisms;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="bike")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+     */
+    private $repairs;
 
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
         $this->vandalisms = new ArrayCollection();
+        $this->repairs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -324,5 +333,35 @@ class Bike
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    /**
+     * @return Collection<int, RepairAct>
+     */
+    public function getRepairs(): Collection
+    {
+        return $this->repairs;
+    }
+
+    public function addRepair(RepairAct $repair): self
+    {
+        if (!$this->repairs->contains($repair)) {
+            $this->repairs[] = $repair;
+            $repair->setBike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepair(RepairAct $repair): self
+    {
+        if ($this->repairs->removeElement($repair)) {
+            // set the owning side to null (unless already changed)
+            if ($repair->getBike() === $this) {
+                $repair->setBike(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Déclarer une réparation{% endblock %}
+
+{% block body %}
+<div class="container"> 
+    <h1>Déclarer une nouvelle réparation</h1>
+    {{ include('repair_act/_form.html.twig') }}
+    <a href="{{ path('app_repair_act_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour à la liste des réparations</button></a>
+{% endblock %}

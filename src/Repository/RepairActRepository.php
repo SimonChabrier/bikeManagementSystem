@@ -2,33 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\Vandalism;
+use App\Entity\RepairAct;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-// Doctrine pagination
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
- * @method Vandalism|null find($id, $lockMode = null, $lockVersion = null)
- * @method Vandalism|null findOneBy(array $criteria, array $orderBy = null)
- * @method Vandalism[]    findAll()
- * @method Vandalism[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method RepairAct|null find($id, $lockMode = null, $lockVersion = null)
+ * @method RepairAct|null findOneBy(array $criteria, array $orderBy = null)
+ * @method RepairAct[]    findAll()
+ * @method RepairAct[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VandalismRepository extends ServiceEntityRepository
+class RepairActRepository extends ServiceEntityRepository
 {
-
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Vandalism::class);
+        parent::__construct($registry, RepairAct::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Vandalism $entity, bool $flush = true): void
+    public function add(RepairAct $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -40,7 +37,7 @@ class VandalismRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Vandalism $entity, bool $flush = true): void
+    public function remove(RepairAct $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,17 +45,16 @@ class VandalismRepository extends ServiceEntityRepository
         }
     }
 
-
     // /**
-    //  * @return Vandalism[] Returns an array of Vandalism objects
+    //  * @return RepairAct[] Returns an array of RepairAct objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
+            ->orderBy('r.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -67,10 +63,10 @@ class VandalismRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Vandalism
+    public function findOneBySomeField($value): ?RepairAct
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()
