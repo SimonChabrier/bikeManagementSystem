@@ -8,8 +8,10 @@ use App\Entity\User;
 use App\Entity\Repair;
 use App\Entity\Station;
 use App\Entity\Inventory;
+use App\Entity\Balance;
 use App\Entity\Vandalism;
 use App\Entity\RepairAct;
+
 //  https://fakerphp.github.io/
 use Faker\Factory as Faker;
 use Doctrine\DBAL\Connection;
@@ -43,6 +45,8 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE inventory');
         $this->connexion->executeQuery('TRUNCATE TABLE inventory_bike');
         $this->connexion->executeQuery('TRUNCATE TABLE repair_act');
+        $this->connexion->executeQuery('TRUNCATE TABLE Balance');
+        $this->connexion->executeQuery('TRUNCATE TABLE balance_station');
     }
 
     public function load(ObjectManager $manager): void
@@ -310,6 +314,30 @@ class AppFixtures extends Fixture
             
             };
         }
+
+        //BALANCE
+        for ($i = 1; $i <= 1000; $i++){
+
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $randomBike = $allBikeEntity[array_rand($allBikeEntity)];
+            
+            $balance = New Balance();
+            $balance->setCreatedAt($date)
+            ->setBike($randomBike);
+
+            $manager->persist($balance);
+
+            for ($j = 1; $j <= 2; $j++){
+
+                $randomStation = $allStationEntity[shuffle($allStationEntity)];
+                $balance->addStation($randomStation);
+
+                $manager->persist($balance);
+            
+            };
+        }
+
+
 
         //REPAIR ACT
         for ($i = 1; $i <= 1000; $i++){
