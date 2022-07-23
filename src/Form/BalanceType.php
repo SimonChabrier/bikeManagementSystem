@@ -8,7 +8,9 @@ use App\Entity\Station;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class BalanceType extends AbstractType
 {
@@ -26,7 +28,7 @@ class BalanceType extends AbstractType
                     return $bike->getNumber();
                 }
             ])
-            ->add('pickup', EntityType::class, [
+            ->add('stationPickUp', EntityType::class, [
                 'class' => Station::class,
                 'label' => 'Station d\'enlèvement',
                 //'mapped' => true,
@@ -37,7 +39,7 @@ class BalanceType extends AbstractType
                     return $station->getName();
                 }
             ])
-            ->add('delivery', EntityType::class, [
+            ->add('stationDelivery', EntityType::class, [
                 'class' => Station::class,
                 'label' => 'Station de destination',
                 //'mapped' => true,

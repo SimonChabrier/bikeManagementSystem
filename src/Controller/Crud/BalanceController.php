@@ -37,8 +37,8 @@ class BalanceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-                $stationPickUp = $form['pickup']->getData();
-                $stationDelivery = $form['delivery']->getData();
+                $stationPickUp = $form['stationPickUp']->getData();
+                $stationDelivery = $form['stationDelivery']->getData();
 
                 if($stationPickUp === $stationDelivery) 
                 {
