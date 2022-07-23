@@ -91,16 +91,19 @@ class Bike
 
     /**
      * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $inventories;
 
     /**
      * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $vandalisms;
 
     /**
      * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="bike")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $repairs;
 

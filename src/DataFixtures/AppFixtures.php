@@ -9,11 +9,13 @@ use App\Entity\Repair;
 use App\Entity\Station;
 use App\Entity\Inventory;
 use App\Entity\Vandalism;
-use Faker\Factory as Faker;
+use App\Entity\RepairAct;
 //  https://fakerphp.github.io/
+use Faker\Factory as Faker;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use PhpParser\Node\Expr\New_;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -30,10 +32,9 @@ class AppFixtures extends Fixture
 
     private function truncate()
     {
-        // On désactive la vérification des FK
-        // Sinon les truncate ne fonctionne pas.
+        // Unactive foreign key check to make truncate command working
+        // TRUNCATE set Auto Increment and Id start at 1
         $this->connexion->executeQuery('SET foreign_key_checks = 0');
-        // la requete TRUNCATE remet l'auto increment à 1
         $this->connexion->executeQuery('TRUNCATE TABLE user');
         $this->connexion->executeQuery('TRUNCATE TABLE bike');
         $this->connexion->executeQuery('TRUNCATE TABLE station');
@@ -41,6 +42,7 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE vandalism');
         $this->connexion->executeQuery('TRUNCATE TABLE inventory');
         $this->connexion->executeQuery('TRUNCATE TABLE inventory_bike');
+        $this->connexion->executeQuery('TRUNCATE TABLE repair_act');
     }
 
     public function load(ObjectManager $manager): void
@@ -48,11 +50,12 @@ class AppFixtures extends Fixture
         // empty all database entitities before start
         $this->truncate(); 
 
-        // https://fakerphp.github.io/#localization
         $faker = Faker::create('fr_FR');
 
+        // prepare table for use later
         $allStationEntity = [];
         $allBikeEntity = [];
+        $allRepairEntity = [];
 
         //USER
 
@@ -99,6 +102,8 @@ class AppFixtures extends Fixture
         $repair = new Repair();
         $repair->setReference('ref_' . $key)
                 ->setName($repairName);
+
+        $allRepairEntity[] = $repair;
 
         $manager->persist($repair);
         }
@@ -267,9 +272,9 @@ class AppFixtures extends Fixture
         //VANDALISM
         //! Unactive and Reactive setCreatedAt in Entity 
 
-        for ($i = 1; $i <= 30; $i++){
+        for ($i = 1; $i <= 1000; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-30 days', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
             $randomBike = $allBikeEntity[mt_rand(1, count($allBikeEntity) - 1)];
             
@@ -285,22 +290,42 @@ class AppFixtures extends Fixture
 
         //INVENTORY
         //! Unactive and Reactive setCreatedAt in Entity 
-        for ($i = 1; $i <= 30; $i++){
+        for ($i = 1; $i <= 1000; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-30 days', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
 
             $inventory = New Inventory();
-            $inventory->setCreatedAt($date);
-            $inventory->setStation($randomStation);
+            $inventory->setCreatedAt($date)
+            ->setStation($randomStation);
+
             $manager->persist($inventory);
 
             for ($j = 1; $j <= 10; $j++){
+
                 $randomBike = $allBikeEntity[array_rand($allBikeEntity)];
                 $inventory->addBike($randomBike);
+
                 $manager->persist($inventory);
             
             };
+        }
+
+        //REPAIR ACT
+        for ($i = 1; $i <= 1000; $i++){
+
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
+            $randomBike = $allBikeEntity[mt_rand(1, count($allBikeEntity) - 1)];
+            $randomRepair = $allRepairEntity[mt_rand(1, count($allRepairEntity) - 1)];
+
+            $repairAct = New RepairAct();
+            $repairAct->setCreatedAt($date)
+            ->setStation($randomStation)
+            ->setBike($randomBike)
+            ->setRepair($randomRepair);
+
+            $manager->persist($repairAct);
         }
 
         // PERSIST ALL ACTIONS IN DATA BASE

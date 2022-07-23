@@ -136,7 +136,11 @@ class Vandalism
      */
     public function updatedTimestamps(): void
     {
-        $this->setCreatedAt(new DateTimeImmutable('now'));
+        $setDateTime = new DateTimeImmutable('now');
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($setDateTime);
+        }
     }
 
 }
