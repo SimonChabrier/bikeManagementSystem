@@ -53,8 +53,8 @@ const app = {
                                 <div class="card" style="width: 15rem;">
                                     <div class="card-body">
                                     <img src="${picture}" class="card-img-top" alt="" title="">
-                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h5>
-                                    <h5><span class="badge bg-warning">${response.results[i].section}</span></h5>
+                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h2>
+                                    <h2><span class="badge bg-warning">${response.results[i].section}</span></h2>
                                         <p class="card-text">${response.results[i].abstract.slice(0, 80)}<a href="${response.results[i].url}"> ...</a></p>
                                         <p class="card-text"><small class="text-muted">Date : ${response.results[i].updated}</small></p>
                                     <a href="${response.results[i].url}" class="btn btn-primary">Lire</a>  
@@ -71,8 +71,8 @@ const app = {
                                 <div class="card" style="width: 15rem;">
                                     <div class="card-body">
                                     <img src="${response.results[i]['media'][0]['media-metadata'][2].url}" class="card-img-top" alt="${response.results[i]['media'][0].caption}" title="${response.results[i]['media'][0].caption}">
-                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h5>
-                                    <h5><span class="badge bg-warning">${response.results[i].section}</span></h5>
+                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h2>
+                                    <h2><span class="badge bg-warning">${response.results[i].section}</span></h2>
                                         <p class="card-text">${response.results[i].abstract.slice(0, 80)}<a href="${response.results[i].url}"> ...</a></p>
                                         <p class="card-text"><small class="text-muted">Date : ${response.results[i].updated}</small></p>
                                     <a href="${response.results[i].url}" class="btn btn-primary">Lire</a>  

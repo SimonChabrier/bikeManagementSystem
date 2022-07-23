@@ -5,7 +5,7 @@
 {% block body %}
 <div class ="container">
     <h1>Administration des inventaires</h1>
-    <h5>liste l'ensemble des inventaires</h5>
+    <h2>{{ inventories|length }} - inventaires</h2>
 
     <table class="table">
         <thead>
@@ -40,5 +40,5 @@
         </tbody>
     </table>
     <a href="{{ path('app_inventory_new') }}"><button class="btn btn-lg btn-primary" type="submit">Créer un nouvel inventaire</button></a>
-    </div>
+</div>
 {% endblock %}

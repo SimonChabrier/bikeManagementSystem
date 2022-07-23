@@ -113,10 +113,16 @@ class Station
      */
     private $vandalisms;
 
+    /**
+     * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="station")
+     */
+    private $repairs;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
         $this->vandalisms = new ArrayCollection();
+        $this->repairs = new ArrayCollection();
     }
 
 
@@ -378,6 +384,36 @@ class Station
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt($setDateTime);
         }
+    }
+
+    /**
+     * @return Collection<int, RepairAct>
+     */
+    public function getRepairs(): Collection
+    {
+        return $this->repairs;
+    }
+
+    public function addRepair(RepairAct $repair): self
+    {
+        if (!$this->repairs->contains($repair)) {
+            $this->repairs[] = $repair;
+            $repair->setStation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepair(RepairAct $repair): self
+    {
+        if ($this->repairs->removeElement($repair)) {
+            // set the owning side to null (unless already changed)
+            if ($repair->getStation() === $this) {
+                $repair->setStation(null);
+            }
+        }
+
+        return $this;
     }
 
 

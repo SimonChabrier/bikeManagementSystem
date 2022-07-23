@@ -4,32 +4,15 @@
 
 {% block body %}
 <div class="container"> 
-<h1>Inventaire N° {{ inventory.id }} - Station <a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></h1>
-<h5>Vélos recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h5>
-{% for bike in inventory.bikes %}
-<br>
-<a href="{{ path('app_bike_show', {'id': bike.id}) }}"><li>N° {{ bike.number }}</li></a>
-{% endfor %}
-<br>
-    {# <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ inventory.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ inventory.createdAt ? inventory.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ inventory.updatedAt ? inventory.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table> #}
-
-    <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier cet inventaire</button></a>
-    <a href="{{ path('app_inventory_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des inventaires</button></a>
-    {{ include('inventory/_delete_form.html.twig') }}
+    <h1>Inventaire N° {{ inventory.id }} - Station <a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name }}</a></h1>
+    <h2>Vélos recensés le - {{ inventory.createdAt ? inventory.createdAt|date('d/m/Y à H:i') }}</h2>
+        <ol>    
+            {% for bike in inventory.bikes %}
+            <h2><a href="{{ path('app_bike_show', {'id': bike.id}) }}"><li>N° {{ bike.number }}</li></a></h2>
+            {% endfor %}
+        </ol>
+        <a href="{{ path('app_inventory_edit', {'id': inventory.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier cet inventaire</button></a>
+        <a href="{{ path('app_inventory_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des inventaires</button></a>
+        {{ include('inventory/_delete_form.html.twig') }}
 </div>
 {% endblock %}
