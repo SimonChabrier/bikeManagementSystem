@@ -11,10 +11,6 @@
     {% endif %}
     <table class="table">
         <tbody>
-            {# <tr>
-                <th>Id</th>
-                <td>{{ station.id }}</td>
-            </tr> #}
             <tr>
                 <th>Statut</th>
                 <td>{{ station.status ? 'Activé' : 'Désactivé' }}</td>
@@ -46,47 +42,59 @@
                 <th>Ville</th>
                 <td>{{ station.city }}</td>
             </tr>
-            {# <tr>
-                <th>Lat</th>
-                <td>{{ station.lat }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Lng</th>
-                <td>{{ station.lng }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Slug</th>
-                <td>{{ station.slug }}</td>
-            </tr> #}
-            {# <tr>
-                <th>CreatedAt</th>
-                <td>{{ station.createdAt ? station.createdAt|date("d/m/Y") : '' }}</td>
-            </tr> #}
             <tr>
                 <th>Station mise à jour le</th>
                 <td>{{ station.updatedAt ? station.updatedAt|date("d/m/Y") : '' }}</td>
             </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_station_edit', {'id': station.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier la station</button></a>
-    <a href="{{ path('app_station_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des stations</button></a>
-    {{ include('station/_delete_form.html.twig') }}
-</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <a href="{{ path('app_station_edit', {'id': station.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier la station</button></a>
+    </div>  
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <a href="{{ path('app_station_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des stations</button></a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        {{ include('station/_delete_form.html.twig') }}
+    </div>
+</div><!-- end row -->
+
 
 <div class="container"> 
-<h5><a href="{{ path('app_inventory_index') }}">Inventaires</a> associés à la station - {{ station.name }}</h5>
-    <ol>
-        {% for inventories in station.inventories %}
-        {% if inventories is defined %}
-        <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N°  {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
-        <hr>
-        {% endif %}
-        {% else %}
-        <ul>
-            <li class='mb-2'>Aucun inventaire</li>
-        </ul>
-        {% endfor %}
-    </ol>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h5><a href="{{ path('app_inventory_index') }}">{{ station.inventories|length }} &#124; Inventaires</a> associés à la station - {{ station.name }}</h5>
+            <ol>
+                {% for inventories in station.inventories %}
+                {% if inventories is defined %}
+                <li><a href="{{ path('app_inventory_show', {'id': inventories.id}) }}">Inventaire N° {{ inventories.id }} du {{ inventories.createdAt |date("d/m/Y à H:m") }}</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucun inventaire</li>
+                </ul>
+                {% endfor %}
+            </ol>
+    </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <h5><a href="{{ path('app_vandalism_index') }}">{{ station.vandalisms|length }} &#124; Vandalismes</a> associées à la station - N°{{ station.name }}</h5>
+            <ol>
+                {% for vandalism in station.vandalisms %}
+                {% if vandalism is defined %}
+                <li><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">Le {{ vandalism.createdAt |date("d/m/Y") }} &#124; {{ vandalism.content |slice(0, 30) }} ...</a></li>
+                <hr>
+                {% endif %}
+                {% else %}
+                <ul>
+                    <li class='mb-2'>Aucun vandalime déclarée</li>
+                </ul>
+                {% endfor %}
+            </ol>
+         </div>
+    </div>
 </div>
 
 {% endblock %}
