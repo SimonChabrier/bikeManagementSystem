@@ -21,7 +21,7 @@ class BalanceType extends AbstractType
             ->add('bike', EntityType::class,[
                 'class' => Bike::class,
                 'label' => 'Selectionner le vélo à déplacer',
-                //'mapped' => true,
+                'mapped' => true,
                 'multiple' => false,
                 'expanded' => false,
                 'choice_label' => function ($bike) {

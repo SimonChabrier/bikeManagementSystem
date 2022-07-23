@@ -3,6 +3,7 @@
 namespace App\Controller\Crud;
 
 use App\Entity\Balance;
+use App\Entity\Station;
 use App\Form\BalanceType;
 use App\Repository\BalanceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -76,13 +77,46 @@ class BalanceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_balance_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Balance $balance, BalanceRepository $balanceRepository): Response
-    {
+    public function edit(Request $request, Balance $balance, Station $station, EntityManagerInterface $manager, BalanceRepository $balanceRepository, int $id): Response
+    {   
+
         $form = $this->createForm(BalanceType::class, $balance);
         $form->handleRequest($request);
-
+      
         if ($form->isSubmitted() && $form->isValid()) {
-            $balanceRepository->add($balance);
+
+            //Get the balance to update
+            $currentBalance = $balanceRepository->findOneBy(['id' => $id]);
+            $currentStations = $currentBalance->getStations();
+
+                //Clean the current balanced values before update
+                if ($currentStations) {
+                    foreach ($currentStations as $station) {
+                        $station->removeBalance($currentBalance);
+                        $manager->flush();
+                    }
+                }
+
+                //Get the new submited values   
+                $stationPickUp = $form['stationPickUp']->getData();
+                $stationDelivery = $form['stationDelivery']->getData();
+            
+                //Unautorize choice the same station in form fields  
+                if($stationPickUp === $stationDelivery) 
+                {
+                    $this->addFlash('error', 'La station d\'enlèvement ne peut pas être la même que la station de destination !');
+                    return $this->redirectToRoute('app_balance_new', [], Response::HTTP_SEE_OTHER);
+                }
+
+                //If stations choices are different, persist new balance state 
+                else {
+                $balance->addStation($stationPickUp);
+                $balance->addStation($stationDelivery);
+
+                $manager->persist($balance);
+                $manager->flush();
+                }
+
             return $this->redirectToRoute('app_balance_index', [], Response::HTTP_SEE_OTHER);
         }
 

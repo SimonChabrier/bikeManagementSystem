@@ -43,7 +43,7 @@ class Balance
     private $bike;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Station::class, inversedBy="balances")
+     * @ORM\ManyToMany(targetEntity=Station::class, inversedBy="balances", fetch="EAGER")
      */
     private $stations;
 
@@ -122,8 +122,10 @@ class Balance
         return $this;
     }
 
+
     public function removeStation(Station $station): self
     {
+
         $this->stations->removeElement($station);
 
         return $this;
