@@ -85,9 +85,8 @@ class BalanceController extends AbstractController
       
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // get statiosn collection from $balance Id
+            // get stations collection from $balance Id
             $stations = $balance->getStations();
-            $stations->removeElement($balance);
 
                 //Clean the current balanced values before update
                 if ($stations) {
@@ -113,7 +112,6 @@ class BalanceController extends AbstractController
                 $balance->addStation($stationPickUp);
                 $balance->addStation($stationDelivery);
 
-                $manager->persist($balance);
                 $manager->flush();
                 }
 
