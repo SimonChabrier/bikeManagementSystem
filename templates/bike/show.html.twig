@@ -7,10 +7,6 @@
     <h1>Fiche Vélo - N° Tempo {{ bike.number }}</h1>
     <table class="table">
         <tbody>
-            {# <tr>
-                <th>Id</th>
-                <td>{{ bike.id }}</td>
-            </tr> #}
             <tr>
                 <th>Statut de gestion</th>
                 <td>{{ bike.status ? 'En gestion' : 'Archivé' }}</td>
@@ -19,18 +15,6 @@
                 <th>Disponibilité sur station</th>
                 <td>{{ bike.availablity ? bike.availablity : 'Non renseigné !' }}</td>
             </tr>
-            {# <tr>
-                <th>Lat</th>
-                <td>{{ bike.lat }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Lng</th>
-                <td>{{ bike.lng }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Reference</th>
-                <td>{{ bike.reference }}</td>
-            </tr> #}
             <tr>
                 <th>N° Tempo</th>
                 <td>{{ bike.number }}</td>
@@ -49,24 +33,6 @@
                 <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td>
             </tr>
             {% endif %}
-            {# <tr>
-                <th>Slug</th>
-                <td>{{ bike.slug }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Date de création</th>
-                <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td>
-            </tr> #}
-            {# <tr>
-                <th>Date de mise à jour</th>
-                <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td>
-            </tr> #}
-            {# {% if bike.mainPicture %}
-            <tr>
-                <th>Image pricipale</th>
-                <td>{{ bike.mainPicture }}</td>
-            </tr>
-            {% endif %} #}
             <tr>
             {% for inventory in bike.inventories %}
             {% if loop.last %}
@@ -80,10 +46,20 @@
             </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">modifier le vélo</button></a>
-    <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">retour à la liste des vélos</button></a>
-    {{ include('bike/_delete_form.html.twig') }}
-</div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a href="{{ path('app_bike_edit', {'id': bike.id}) }}"><button class="btn btn-lg btn-success" type="submit">Modifier vélo</button></a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a href="{{ path('app_bike_index') }}"><button class="btn btn-lg btn-primary" type="submit">Liste vélos</button></a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            {{ include('bike/_delete_form.html.twig') }}
+        </div>
+    </div><!-- end row -->
+
+</div><!-- end container -->
 
 <div class="container"> 
     <div class="row">
