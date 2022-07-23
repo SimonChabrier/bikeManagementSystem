@@ -316,7 +316,7 @@ class AppFixtures extends Fixture
         }
 
         //BALANCE
-        for ($i = 1; $i <= 1000; $i++){
+        for ($i = 1; $i <= 2; $i++){
 
             $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
             $randomBike = $allBikeEntity[array_rand($allBikeEntity)];
