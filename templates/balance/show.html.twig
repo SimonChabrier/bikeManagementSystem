@@ -4,28 +4,26 @@
 
 {% block body %}
 <div class="container"> 
- <h1>Fiche équilibrage {{ balance.id }}</h1>
+ <h1>Fiche équilibrage N° {{ balance.id }}</h1>
     <table class="table">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Vélo</th>
-                <th>Enlevé</th>
-                <th>Déposé</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ balance.createdAt ? balance.createdAt|date('d/m/Y à H:i') : '' }}</td>
-                <td>{{ balance.bike.number }}</td>
 
+            <ul>
+                <li>Réalisé le {{ balance.createdAt ? balance.createdAt|date('d/m/Y à H:i') : '' }}</li>
+                <hr>
+                <li>Vélo N° {{ balance.bike.number }}</li>
+                <hr>
                 {% for station in balance.stations %}
-                <td>{{ station.name }}</td>
+                {% if loop.first %}
+                <li>Enlevé - {{ station.name }}</li>
+                <hr>
+                {% endif %}
+                {% if loop.last %}
+                <li>Déposé - {{ station.name }}</li>
+                {% endif %}
                 {% endfor %}
-        </tbody>
-</table>
+                <hr>
+             </ul>
 
     <a href="{{ path('app_balance_edit', {'id': balance.id}) }}"><button class="btn btn-lg btn-success" type="submit">Modifier équilibrage</button></a>
     <a href="{{ path('app_balance_index') }}"><button class="btn btn-lg btn-primary" type="submit">Liste équilibrages</button></a>
