@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RepairAct index{% endblock %}
+{% block title %}Liste réparations effectuées{% endblock %}
 
 {% block body %}
 
 <div class ="container">
-    <h1>Réparations réalisées</h1>
-    <h5>liste l'ensemble des réparations réalisées par les travailleurs</h5>
-
+    <h1>Réparations effectuées</h1>
+    <h2>{{ repair_acts|length }} - réparations</h2>
     <table class="table">
         <thead>
             <tr>
-                {# <th>Id</th> #}
+                <th>Réparation</th>
                 <th>Station</th>
                 <th>N° Vélo</th>
-                <th>Réparation</th>
                 <th>Date</th>
                 <th>Action</th>
             </tr>
@@ -22,10 +20,9 @@
         <tbody>
         {% for repair_act in repair_acts %}
             <tr>
-                {# <td>{{ repair_act.id }}</td> #}
-                <td>{{ repair_act.station.name }}</td>
-                <td>{{ repair_act.bike.number }}</td>
-                <td>{{ repair_act.repair.name }}</td>
+                <td><a href="{{ path('app_station_show', {'id': repair_act.repair.id}) }}">{{ repair_act.repair.name }}</a></td>
+                <td><a href="{{ path('app_station_show', {'id': repair_act.station.id}) }}">{{ repair_act.station.name }}</a></td>
+                <td><a href="{{ path('app_bike_show', {'id': repair_act.bike.id}) }}">{{ repair_act.bike.number }}</a></td>
                 <td>{{ repair_act.createdAt ? repair_act.createdAt|date('d/m/Y à H:i') : '' }}</td>
                 <td>
                     <a href="{{ path('app_repair_act_show', {'id': repair_act.id}) }}">Afficher</a>

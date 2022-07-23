@@ -21,7 +21,7 @@ class RepairActController extends AbstractController
     public function index(RepairActRepository $repairActRepository): Response
     {
         return $this->render('repair_act/index.html.twig', [
-            'repair_acts' => $repairActRepository->findAll(),
+            'repair_acts' => $repairActRepository->findBy([],['createdAt' => 'DESC']),
         ]);
     }
 

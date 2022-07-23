@@ -1,30 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}RepairAct{% endblock %}
+{% block title %}Déclaration réparation {{ repair_act.id }}{% endblock %}
 
 {% block body %}
-    <h1>RepairAct</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ repair_act.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ repair_act.createdAt ? repair_act.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ repair_act.updatedAt ? repair_act.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_repair_act_index') }}">back to list</a>
-
-    <a href="{{ path('app_repair_act_edit', {'id': repair_act.id}) }}">edit</a>
-
+<div class="container"> 
+    <h1>Réparation N° {{ repair_act.id }} - Vélo <a href="{{ path('app_bike_show', {'id': repair_act.bike.id}) }}">{{ repair_act.bike.number }}</a></h1>
+    <h2>Effectuée le - {{ repair_act.createdAt ? repair_act.createdAt|date('d/m/Y à H:i') }}</h2>
+        <ol>    
+            <h2><a href="{{ path('app_bike_show', {'id': repair_act.bike.id}) }}"><li>Vélo N° {{ repair_act.bike.number }}</li></a></h2>
+            <h2><a href="{{ path('app_repair_show', {'id': repair_act.repair.id}) }}"><li>Réparation - {{ repair_act.repair.name }}</li></a></h2>
+        </ol>
+    <a href="{{ path('app_repair_act_edit', {'id': repair_act.id}) }}"><button class="btn btn-lg btn-primary" type="submit">Modifier cette fiche réparation</button></a>
+    <a href="{{ path('app_repair_act_index') }}"><button class="btn btn-lg btn-success" type="submit">Retour à la liste des réparations</button></a>
     {{ include('repair_act/_delete_form.html.twig') }}
+</div>
 {% endblock %}

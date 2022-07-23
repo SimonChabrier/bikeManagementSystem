@@ -64,7 +64,7 @@
 <div class="container"> 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_vandalism_index') }}">{{ bike.vandalisms|length }} &#124; Vandalismes</a> associés au vélo - N° {{ bike.number }}</h5>
+        <h2><a href="{{ path('app_vandalism_index') }}">{{ bike.vandalisms|length }} &#124; Vandalismes</a> associés au vélo - N° {{ bike.number }}</h2>
             <ol>
                 {% for vandalism in bike.vandalisms %}
                 {% if vandalism is defined %}
@@ -79,7 +79,7 @@
             </ol>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_repair_act_index') }}">{{ bike.repairs|length }} &#124; Réparations</a> associées au vélo - N°{{ bike.number }}</h5>
+        <h2><a href="{{ path('app_repair_act_index') }}">{{ bike.repairs|length }} &#124; Réparations</a> associées au vélo - N°{{ bike.number }}</h2>
             <ol>
                 {% for repair in bike.repairs %}
                 {% if repair is defined %}

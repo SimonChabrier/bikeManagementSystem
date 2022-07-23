@@ -65,7 +65,7 @@
 <div class="container"> 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_inventory_index') }}">{{ station.inventories|length }} &#124; Inventaires</a> associés à la station - {{ station.name }}</h5>
+        <h2><a href="{{ path('app_inventory_index') }}">{{ station.inventories|length }} &#124; Inventaires</a> associés à la station - {{ station.name }}</h2>
             <ol>
                 {% for inventories in station.inventories %}
                 {% if inventories is defined %}
@@ -80,7 +80,7 @@
             </ol>
     </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <h5><a href="{{ path('app_vandalism_index') }}">{{ station.vandalisms|length }} &#124; Vandalismes</a> associées à la station - N°{{ station.name }}</h5>
+        <h2><a href="{{ path('app_vandalism_index') }}">{{ station.vandalisms|length }} &#124; Vandalismes</a> associées à la station - N°{{ station.name }}</h2>
             <ol>
                 {% for vandalism in station.vandalisms %}
                 {% if vandalism is defined %}

@@ -20,9 +20,11 @@ class VandalismController extends AbstractController
      * @Route("/", name="app_vandalism_index", methods={"GET"})
      */
     public function index(VandalismRepository $vandalismRepository): Response
-    {
+    {   
+ 
+     
         return $this->render('vandalism/index.html.twig', [
-            'vandalisms' => $vandalismRepository->findAll(),
+            'vandalisms' => $vandalismRepository->findBy([],['createdAt' => 'DESC']),
         ]);
     }
 

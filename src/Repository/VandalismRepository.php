@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+// Doctrine pagination
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Vandalism|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,6 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class VandalismRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Vandalism::class);
@@ -44,6 +47,7 @@ class VandalismRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
 
     // /**
     //  * @return Vandalism[] Returns an array of Vandalism objects
