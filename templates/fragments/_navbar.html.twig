@@ -1,74 +1,43 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="{{ path('app_home') }}">Accueil</a>  {# Bouton home à styliser #}
+    
     <!-- burger button -->
     <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>  
+    </button> 
+
     <div class="collapse navbar-collapse collapsed" id="navbarSupportedContent"><!-- nav content start -->   
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"><!-- nav items start -->
-      <li><a class="dropdown-item" href="{{ path('app_station_index') }}">Admin Stations</a></li>
-      <li><a class="dropdown-item" href="{{ path('app_bike_index') }}">Admin Vélos</a></li>
-      <li><a class="dropdown-item" href="{{ path('app_repair_index') }}">Admin Reparations</a></li>
-       <li><a class="dropdown-item" href="{{ path('app_repair_act_index') }}">Réparations</a></li>
-      <li><a class="dropdown-item" href="{{ path('app_inventory_index') }}">Inventaires</a></li>
-      <li><a class="dropdown-item" href="{{ path('app_vandalism_index') }}">Vandalismes</a></li>
+  
+<div class="dropdown show">
+  <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuLink_admin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <a class="dropdown-item" href="{{ path('app_station_index') }}">Admin Stations</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_bike_index') }}">Admin Vélos</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_repair_index') }}">Admin Reparations</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_balance_index') }}">Admin Equilibrages</a>
+  </div>
 
-         {# {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Tournée</a></li>{% endif %}
-         {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Interventions</a></li>{% endif %}
-         {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Tableau de bord</a></li>{% endif %}
-         {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Vélos</a></li>{% endif %}
-         {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Stations</a></li>{% endif %}
-         {% if app.user %}<li><a class="dropdown-item" href="{{ path('list_stations') }}">Pannes</a></li>{% endif %} #}
-       
-        
-       
-        {# <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Utilisateur
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% if app.user %}
-            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-            <li><hr class="dropdown-divider"></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{{ path('app_login') }}">Identification</a></li>
-            {% endif %}
+</div>
 
-            {% if app.user %}
-            {% else %}
-            <li><a class="dropdown-item" href="{{ path('app_register') }}">Créer un compte utilisateur</a></li>
-            <li><hr class="dropdown-divider"></li>
-            {% endif %}
+<div class="dropdown show">
+  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuLink_worker" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tournée</button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <a class="dropdown-item" href="{{ path('app_repair_act_new') }}">Réparations</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_inventory_new') }}">Inventaires</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_balance_new') }}">Equilibrage</a>
+    <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{ path('app_vandalism_new') }}">Vandalismes</a>
+  </div>
+</div>
 
-            {% if app.user %}
-            <li><a class="dropdown-item" href="{{ path('app_forgot_password_request') }}">Changer de mot de passe !</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié !</a></li>
-            {% endif %}
-          </ul>
-          <!-- Pages -->
-          {% if app.user %}
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Pages
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-         
-          <li><hr class="dropdown-divider"></li>
-          </ul>
-          {% endif %}
-          <!-- End Pages -->      
-        </li> #}
-
-        
       </ul><!-- nav items end --> 
     </div><!-- nav content end --> 
   </div><!-- container end -->
 </nav>
-
-{# add a link source code :
-<li class="nav-item">
-<a class="nav-link" href="#">Add a Link</a>
-</li>
-#}

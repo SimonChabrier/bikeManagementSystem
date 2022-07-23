@@ -9,28 +9,16 @@
     <table class="table">
         <thead>
             <tr>
-                {# <th>Id</th> #}
-                {# <th>Statut</th> #}
                 <th>Disponibilité</th>
                 <th>Dernière Station</th>
-                {# <th>Lat</th>
-                <th>Lng</th> #}
-                {# <th>Reference</th> #}
                 <th>N° Tempo</th>
                 <th>Etat général</th>
-                {# <th>Date d'achat</th> #}
-                {# <th>Slug</th> #}
-                {# <th>Date de création</th> #}
-                {# <th>Date de mise à jour</th> #}
-                {# <th>Image principale</th> #}
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for bike in bikes %}
             <tr>
-                {# <td>{{ bike.id }}</td> #}
-                {# <td>{{ bike.status ? 'Visible' : 'Archivé' }}</td> #}
                 <td>{{ bike.availablity ? bike.availablity  : 'Non renseigné !' }}</td>
                 {% for inventory in bike.inventories %}
                         {% if loop.last %}
@@ -39,11 +27,7 @@
                     {% else %}
                 <td>Non inventorié</td>
                 {% endfor %}
-                {# <td>{{ bike.lat }}</td> #}
-                {# <td>{{ bike.lng }}</td> #}
-                {# <td>{{ bike.reference }}</td> #}
                 <td><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{ bike.number }}</a></td>
-
                 <td>
                 {% for i in range(1, 5) %}
                     {% set starClass = bike.rate - i >= 0 ? '-fill' : (bike.rate - i >= 0.5 ? '-half' : '') %}
@@ -52,13 +36,6 @@
                     <span class="bi bi-star{{ starClass }}"></span>
                 {% endfor %}
                 </td>
-
-                {# <td>{{ bike.rate }}</td> #}
-                {# <td>{{ bike.purchasedAt ? bike.purchasedAt|date("d/m/Y") : '' }}</td> #}
-                {# <td>{{ bike.slug }}</td> #}
-                {# <td>{{ bike.createdAt ? bike.createdAt|date("d/m/Y") : '' }}</td> #}
-                {# <td>{{ bike.updatedAt ? bike.updatedAt|date("d/m/Y") : '' }}</td> #}
-                {# <td>{{ bike.mainPicture }}</td> #}
                 <td>
                     <a href="{{ path('app_bike_show', {'id': bike.id}) }}">Afficher</a>
                     <div class="vr"></div>

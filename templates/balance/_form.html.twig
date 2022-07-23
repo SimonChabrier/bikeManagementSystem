@@ -1,4 +1,7 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    {{ form_row(form.bike) }}
+    {{ form_row(form.stationPickUp) }}      
+    {{ form_row(form.stationDelivery) }}   
+    <hr>
+    <button class="btn btn-lg btn-success" type="submit">Enregistrer l'équilibrage</button>
 {{ form_end(form) }}

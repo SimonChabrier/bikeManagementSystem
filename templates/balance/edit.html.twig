@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Balance{% endblock %}
+{% block title %}Edition Equilibrage - N° {{ balance.id }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Balance</h1>
-
+<div class="container"> 
+    <h1>Modifier l'équilibrage - N° {{ balance.id }}</h1>
+    <h5>Du {{ balance.createdAt ? balance.createdAt|date('d-m-Y à H:i') : '' }}</h5>
     {{ include('balance/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_balance_index') }}">back to list</a>
-
+    <a href="{{ path('app_balance_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour liste équilibrages</button></a>
+    <hr>
     {{ include('balance/_delete_form.html.twig') }}
 {% endblock %}

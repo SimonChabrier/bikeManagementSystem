@@ -1,34 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Balance{% endblock %}
+{% block title %}Equilibrage {{ balance.id }}{% endblock %}
 
 {% block body %}
-    <h1>Balance</h1>
+<div class="container"> 
+ <h1>Fiche équilibrage {{ balance.id }}</h1>
+    <table class="table">
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Vélo</th>
+                <th>Enlevé</th>
+                <th>Déposé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ balance.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ balance.createdAt ? balance.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ balance.updatedAt ? balance.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ balance.status ? 'Yes' : 'No' }}</td>
-            </tr>
+                <td>{{ balance.createdAt ? balance.createdAt|date('d/m/Y à H:i') : '' }}</td>
+                <td>{{ balance.bike.number }}</td>
+
+                {% for station in balance.stations %}
+                <td>{{ station.name }}</td>
+                {% endfor %}
         </tbody>
-    </table>
+</table>
 
-    <a href="{{ path('app_balance_index') }}">back to list</a>
-
-    <a href="{{ path('app_balance_edit', {'id': balance.id}) }}">edit</a>
-
+    <a href="{{ path('app_balance_edit', {'id': balance.id}) }}"><button class="btn btn-lg btn-success" type="submit">Modifier équilibrage</button></a>
+    <a href="{{ path('app_balance_index') }}"><button class="btn btn-lg btn-primary" type="submit">Liste équilibrages</button></a>
     {{ include('balance/_delete_form.html.twig') }}
+</div>
 {% endblock %}
