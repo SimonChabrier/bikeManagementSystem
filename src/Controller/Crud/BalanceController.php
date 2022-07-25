@@ -23,7 +23,8 @@ class BalanceController extends AbstractController
     public function index(BalanceRepository $balanceRepository): Response
     {
         return $this->render('balance/index.html.twig', [
-            'balances' => $balanceRepository->findAll(),
+            'balances' => $balanceRepository->findBy([],['createdAt'=> 'DESC']),
+            //'balances' => $balanceRepository->findAll(),
         ]);
     }
 

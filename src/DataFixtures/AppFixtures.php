@@ -350,6 +350,7 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 100; $i++){
 
             $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
 
             $inventory = New Inventory();
@@ -378,16 +379,14 @@ class AppFixtures extends Fixture
             $balance->setCreatedAt($date)
             ->setBike($randomBike);
 
-            $manager->persist($balance);
-
-            for ($j = 1; $j <= 2; $j++){
-
-                $randomStation = $allStationEntity[shuffle($allStationEntity)];
-                $balance->addStation($randomStation);
-
-                $manager->persist($balance);
+                $randomStationFrom = $allStationEntity[mt_rand(8, count($allStationEntity) - 1)];
+                $balance->addStation($randomStationFrom);
             
-            };
+                $randomStationTo = $allStationEntity[mt_rand(1, 7 - 1)];
+                $balance->addStation($randomStationTo);
+            
+
+            $manager->persist($balance);
         }
 
         //REPAIR ACT
