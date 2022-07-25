@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Tournées{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <table class="table table-striped">
+    <thead>
+        <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Station Inventaire</th>
+        <th scope="col">Intervenant</th>
+        <th scope="col">Velo</th>
+        <th scope="col">Disponibilité</th>
+        <th scope="col">Intervention</th>
+        <th scope="col">Destination Equilibrage</th>
+        <th scope="col">Réparation</th>
+        <th scope="col">Commentaire</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for bike in bikes %}
+        <tr>
+            <th scope="row">Date</th>
+
+             {# <td><td>{{ repair.updatedAt ? repair.updatedAt|date("d/m/Y") : '' }}</td></td> #}
+
+            {% for inventory in bike.inventories %}
+                {% if loop.last %}
+                    <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name ? inventory.station.name  : 'Pas d\'information !' }}</a></td>
+                {% endif %}
+            {% endfor %}
+
+                    <td>User</td>
+
+                    <td><a href="{{ path('app_bike_show', {'id': bike.id}) }}">N° {{bike.number ? bike.number : 'Pas d\'information !' }}</a></td>
+
+                    <td>{{ bike.availablity ? bike.availablity  : 'Pas d\'information !' }}</td>
+
+                <td> -- </td>
+
+
+                        {# {% if loop.last %} #}
+                <td> 
+                {% for balances in bike.balances %}
+                    {% if loop.last %}
+                    <select>
+                        {% for station in balances.stations  %}
+                            {% if loop.first %}
+                                <option>De : <a href="{{ path('app_station_show', {'id': station.id}) }}">{{ station.name ? station.name  : 'Pas d\'information !' }}</a> </option>
+                            {% endif %}
+                            {% if loop.last %}
+                                <option>Vers : <a href="{{ path('app_station_show', {'id': station.id}) }}">{{ station.name ? station.name  : 'Pas d\'information !' }}</a></option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                    {% else %}
+                    -- 
+                    {% endfor %}
+                </td>
+        
+
+              {% for bikeRepair in bike.repairs %}
+                {% if loop.last %}
+                    <td><a href="{{ path('app_repair_show', {'id': bikeRepair.repair.id}) }}"> {{ bikeRepair.repair.name }}</a></td>
+                {% endif %}
+                {% else %}
+                <td> -- </td>
+            {% endfor %}
+
+            <td>-- Commentaire --</td>
+        </tr>
+     {% endfor %}    
+    </tbody>
+    </table>
+</div>
+{% endblock %}
