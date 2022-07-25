@@ -62,15 +62,14 @@ class AppFixtures extends Fixture
         $allRepairEntity = [];
 
         //USER
-
         $user = new User();
         $user->setStatus(1)
             ->setRoles(["ROLE_ADMINISTRATEUR"])
             ->setEmail("admin@admin.fr")
             ->setIsVerified(1)
-            ->setPassword($this->hasher->hashPassword($user,"simon"))
+            ->setPassword($this->hasher->hashPassword($user,"password"))
             ->setCompany("autre")
-            ->setJob("partenaire")
+            ->setJob("developpeur")
             ->setFirstName("Simon")
             ->setLastName("Chabrier")
             ->setAddress("168 Quai Baudin")
@@ -79,41 +78,90 @@ class AppFixtures extends Fixture
             ->setPhone("0556667543");
 
         $manager->persist($user);    
+
+        $user = new User();
+        $user->setStatus(1)
+            ->setRoles(["ROLE_MONITEUR"])
+            ->setEmail('moniteur@moniteur.fr')
+            ->setIsVerified(1)
+            ->setPassword($this->hasher->hashPassword($user,"password"))
+            ->setCompany("Serbat")
+            ->setJob("Moniteur")
+            ->setFirstName("Moniteur")
+            ->setLastName("Le Moniteur")
+            ->setAddress("16 rue de jonquilles")
+            ->setZip("47000")
+            ->setCity("Agen")
+            ->setPhone("0556567389");
+
+        $manager->persist($user);   
+
+        $user = new User();
+        $user->setStatus(1)
+            ->setRoles(["ROLE_PARTENAIRE"])
+            ->setEmail('partenaire@partenaire.fr')
+            ->setIsVerified(1)
+            ->setPassword($this->hasher->hashPassword($user,"password"))
+            ->setCompany("Tempo")
+            ->setJob("Partenaire")
+            ->setFirstName("Partenaire")
+            ->setLastName("Le Partenaire")
+            ->setAddress("16 rue de jonquilles")
+            ->setZip("47000")
+            ->setCity("Agen")
+            ->setPhone("0556567389");
+
+        $manager->persist($user);   
+
+        $user = new User();
+        $user->setStatus(1)
+            ->setRoles(["ROLE_TRAVAILLEUR"])
+            ->setEmail('travailleur@travailleur.fr')
+            ->setIsVerified(1)
+            ->setPassword($this->hasher->hashPassword($user,"password"))
+            ->setCompany("Serbat")
+            ->setJob("Travailleur")
+            ->setFirstName("Travailleur")
+            ->setLastName("Le Travailleur")
+            ->setAddress("16 rue de jonquilles")
+            ->setZip("47000")
+            ->setCity("Agen")
+            ->setPhone("0556567389");
+
+        $manager->persist($user);    
         
         //REPAIR
-
         $repairList = [
-        "Serrure", 
-        "Boitier de commande", 
-        "Garde-boue AV", 
-        "Eclairage AV", 
-        "Roue AR crevée", 
-        "Eclairage AR", 
-        "Pédalier", 
-        "Batterie", 
-        "Garde-boue AR",
-        "Roue AV crevée",
-        "Assistance électrique",
-        "Dérailleur",
-        "Selle",
-        "Catadioptre manquant",
-        "Autre",
-        "Bouton activation clavier gelé",
-        "Buée intérieure sur tableau de bord vélo",
+            "Serrure", 
+            "Boitier de commande", 
+            "Garde-boue AV", 
+            "Eclairage AV", 
+            "Roue AR crevée", 
+            "Eclairage AR", 
+            "Pédalier", 
+            "Batterie", 
+            "Garde-boue AR",
+            "Roue AV crevée",
+            "Assistance électrique",
+            "Dérailleur",
+            "Selle",
+            "Catadioptre manquant",
+            "Autre",
+            "Bouton activation clavier gelé",
+            "Buée intérieure sur tableau de bord vélo",
         ];
 
         foreach ($repairList as $key => $repairName) {
-        $repair = new Repair();
-        $repair->setReference('ref_' . $key)
-                ->setName($repairName);
+            $repair = new Repair();
+            $repair->setReference('ref_' . $key)
+                    ->setName($repairName);
 
-        $allRepairEntity[] = $repair;
+            $allRepairEntity[] = $repair;
 
-        $manager->persist($repair);
+            $manager->persist($repair);
         }
 
         //BIKE
-
         for ($i = 425; $i <= 434; $i++){
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
@@ -196,7 +244,7 @@ class AppFixtures extends Fixture
           $bike->setAvailablity($avalability);
 
           $allBikeEntity[] = $bike;
-          
+
             $manager->persist($bike);
         }
 
@@ -225,7 +273,6 @@ class AppFixtures extends Fixture
         }
 
         //STATION
-
         $stationList = [
             1 => "Gare", 
             2 =>"Université", 
@@ -283,8 +330,6 @@ class AppFixtures extends Fixture
         }
 
         //VANDALISM
-        //! Unactive and Reactive setCreatedAt in Entity 
-
         for ($i = 1; $i <= 100; $i++){
 
             $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
@@ -302,7 +347,6 @@ class AppFixtures extends Fixture
         }
 
         //INVENTORY
-        //! Unactive and Reactive setCreatedAt in Entity 
         for ($i = 1; $i <= 100; $i++){
 
             $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
@@ -345,8 +389,6 @@ class AppFixtures extends Fixture
             
             };
         }
-
-
 
         //REPAIR ACT
         for ($i = 1; $i <= 100; $i++){
