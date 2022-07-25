@@ -107,11 +107,17 @@ class Bike
      */
     private $repairs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Balance::class, mappedBy="bike")
+     */
+    private $balances;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
         $this->vandalisms = new ArrayCollection();
         $this->repairs = new ArrayCollection();
+        $this->balances = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,6 +365,36 @@ class Bike
             // set the owning side to null (unless already changed)
             if ($repair->getBike() === $this) {
                 $repair->setBike(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Balance>
+     */
+    public function getBalances(): Collection
+    {
+        return $this->balances;
+    }
+
+    public function addBalance(Balance $balance): self
+    {
+        if (!$this->balances->contains($balance)) {
+            $this->balances[] = $balance;
+            $balance->setBike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBalance(Balance $balance): self
+    {
+        if ($this->balances->removeElement($balance)) {
+            // set the owning side to null (unless already changed)
+            if ($balance->getBike() === $this) {
+                $balance->setBike(null);
             }
         }
 

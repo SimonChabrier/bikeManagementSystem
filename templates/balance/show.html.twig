@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equilibrage {{ balance.id }}{% endblock %}
+
+{% block body %}
+<div class="container"> 
+ <h1>Fiche équilibrage N° {{ balance.id }}</h1>
+    <table class="table">
+
+
+            <ul>
+                <li>Réalisé le {{ balance.createdAt ? balance.createdAt|date('d/m/Y à H:i') : '' }}</li>
+                <hr>
+                <li>Vélo N° {{ balance.bike.number }}</li>
+                <hr>
+                {% for station in balance.stations %}
+                {% if loop.first %}
+                <li>Enlevé - {{ station.name }}</li>
+                <hr>
+                {% endif %}
+                {% if loop.last %}
+                <li>Déposé - {{ station.name }}</li>
+                {% endif %}
+                {% endfor %}
+                <hr>
+             </ul>
+
+    <a href="{{ path('app_balance_edit', {'id': balance.id}) }}"><button class="btn btn-lg btn-success" type="submit">Modifier équilibrage</button></a>
+    <a href="{{ path('app_balance_index') }}"><button class="btn btn-lg btn-primary" type="submit">Liste équilibrages</button></a>
+    {{ include('balance/_delete_form.html.twig') }}
+</div>
+{% endblock %}
