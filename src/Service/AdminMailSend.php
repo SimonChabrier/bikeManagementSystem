@@ -30,7 +30,7 @@ class AdminMailSend
         ->from('simonchabrier@gmail.com')
         ->to('simonchabrier@gmail.com') 
         ->subject('Vélo N° ' . $bike->getNumber() . ' - ' . $bike->getAvailablity()) 
-        ->text('Le vélo ' . $bike->getNumber() . ' a été déclaré ' . $bike->getAvailablity() . ' !'); 
+        ->text('Le vélo ' . $bike->getNumber() . ' a été déclaré : ' . $bike->getAvailablity() . ' le ' . $bike->getUpdatedAt()->format('d/m/Y à H:i')); 
         $mailer->send($new_bike_availabilty_status);
     }
 
