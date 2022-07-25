@@ -43,7 +43,7 @@ class Balance
     private $bike;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Station::class, inversedBy="balances", fetch="EAGER")
+     * @ORM\ManyToMany(targetEntity=Station::class, inversedBy="balances")
      */
     private $stations;
 

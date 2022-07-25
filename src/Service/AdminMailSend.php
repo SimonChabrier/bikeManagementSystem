@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Bike;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 
@@ -21,6 +22,16 @@ class AdminMailSend
         ->subject('Nouvel utilisateur') 
         ->text('Un nouvel utilisateur vient de créer un compte !'); 
         $mailer->send($new_user_register);
+    }
+
+    public function bikeAvalabilityAlert(MailerInterface $mailer, Bike $bike): void
+    {
+        $new_bike_availabilty_status = (new Email())
+        ->from('simonchabrier@gmail.com')
+        ->to('simonchabrier@gmail.com') 
+        ->subject('Vélo N° ' . $bike->getNumber() . ' - ' . $bike->getAvailablity()) 
+        ->text('Le vélo ' . $bike->getNumber() . ' a été déclaré : ' . $bike->getAvailablity() . ' le ' . $bike->getUpdatedAt()->format('d/m/Y à H:i')); 
+        $mailer->send($new_bike_availabilty_status);
     }
 
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Monolog\DateTimeImmutable;
+use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -30,7 +31,7 @@ class Bike
      * @ORM\Column(type="boolean")
      * this is for active or unactive bike
      */
-    private $status = true;
+    private $status;
 
     /**
      * @ORM\Column(type="string", length=30)

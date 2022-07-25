@@ -4,11 +4,13 @@ namespace App\Controller\Crud;
 
 use App\Entity\Bike;
 use App\Form\BikeType;
+use App\Service\AdminMailSend;
 use App\Repository\BikeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/bike")
@@ -59,13 +61,32 @@ class BikeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_bike_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Bike $bike, BikeRepository $bikeRepository): Response
+    public function edit(Request $request, Bike $bike, BikeRepository $bikeRepository, AdminMailSend $adminmail, MailerInterface $mailer): Response
     {
+        $currentBikeAvailability = $bike->getAvailablity();
+
         $form = $this->createForm(BikeType::class, $bike, ['edit_mode' => true ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $submitedBikeAvailability =  $form['availablity']->getData();
+
+            if ($currentBikeAvailability != $submitedBikeAvailability && $submitedBikeAvailability == 'Dépôt - Panne' || $submitedBikeAvailability == 'Dépôt - Stock') {
+                $adminmail->bikeAvalabilityAlert($mailer, $bike);
+                $bike->setStatus(false);
+            }
+
+            else if ($currentBikeAvailability == 'Disparu' || $currentBikeAvailability == 'Bloqué - Maintenance' ) {
+                $bike->setStatus(false);
+            }
+
+            else { 
+                $bike->setStatus(true);
+            }
+
             $bikeRepository->add($bike);
+
             return $this->redirectToRoute('app_bike_index', [], Response::HTTP_SEE_OTHER);
         }
 

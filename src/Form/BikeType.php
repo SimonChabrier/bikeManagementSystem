@@ -74,9 +74,10 @@ class BikeType extends AbstractType
             ]) 
             ->add('status', ChoiceType::class, [
                 'label' => 'Statut du vélo',
+                'disabled' => true,
                 'choices'  => [
-                    'Visible' => true,
-                    'Archivé' => false,
+                    'En circuit' => true,
+                    'Indisponible' => false,
                 ],
                 
             ])
