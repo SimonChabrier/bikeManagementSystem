@@ -169,7 +169,6 @@ class AppFixtures extends Fixture
                 ->setNumber($i)
                 ->setRate(mt_rand(2, 4));
 
-            $allBikeEntity[] = $bike;
             // set random value for $avalability
             $avalability = mt_rand(1, 5);
 
@@ -196,6 +195,8 @@ class AppFixtures extends Fixture
 
           $bike->setAvailablity($avalability);
 
+          $allBikeEntity[] = $bike;
+          
             $manager->persist($bike);
         }
 
