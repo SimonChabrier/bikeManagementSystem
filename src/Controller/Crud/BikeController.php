@@ -63,17 +63,16 @@ class BikeController extends AbstractController
      */
     public function edit(Request $request, Bike $bike, BikeRepository $bikeRepository, AdminMailSend $adminmail, MailerInterface $mailer): Response
     {
+        $currentBikeAvailability = $bike->getAvailablity();
 
         $form = $this->createForm(BikeType::class, $bike, ['edit_mode' => true ]);
         $form->handleRequest($request);
 
-        $currentAvailability = $bike->getAvailablity();
-
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $newAvailability =  $form['availablity']->getData();
+            $newBikeAvailability =  $form['availablity']->getData();
 
-            if($currentAvailability != $newAvailability && $newAvailability == 'Dépôt - Panne' || $newAvailability == 'Dépôt - Stock') {
+            if($currentBikeAvailability != $newBikeAvailability && $newBikeAvailability == 'Dépôt - Panne' || $newBikeAvailability == 'Dépôt - Stock') {
                 $adminmail->bikeAvalabilityAlert($mailer, $bike);
             }
 
