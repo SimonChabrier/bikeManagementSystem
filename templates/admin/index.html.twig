@@ -24,7 +24,7 @@
         <tr>
             {% for inventory in bike.inventories %}
                 {% if loop.last %}
-                    <td>{{ inventory.createdAt ? inventory.createdAt|date("d/m/Y") : '' }}</td>
+                    <td>{{ inventory.createdAt|date("d/m/Y") }}</td>
                     <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.number ? inventory.station.number  : 'Pas d\'information !' }}</a></td>
                     <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name ? inventory.station.name  : 'Pas d\'information !' }}</a></td>
                 {% endif %}

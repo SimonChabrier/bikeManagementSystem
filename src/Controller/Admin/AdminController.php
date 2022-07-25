@@ -19,7 +19,7 @@ class AdminController extends AbstractController
     public function index(BikeRepository $bikeRepository): Response
     {
         return $this->render('admin/index.html.twig', [
-            'bikes' => $bikeRepository->findAll(),
+            'bikes' => $bikeRepository->findall(),
         ]);
     }
 }
