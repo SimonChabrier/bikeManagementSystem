@@ -118,8 +118,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
             ->setNumber($i)
-            ->setRate(mt_rand(2, 5))
-            ->setStatus(mt_rand(0, 1));
+            ->setRate(mt_rand(2, 5));
 
             $allBikeEntity[] = $bike;
 
@@ -128,18 +127,23 @@ class AppFixtures extends Fixture
 
             if($avalability === 1 ){
                 $avalability = "Disponible";
+                $bike->setStatus(true);
             };
             if($avalability === 2 ){
                 $avalability = "Bloqué - Maintenance";
+                $bike->setStatus(false);
             };
             if($avalability === 3 ){
                 $avalability = "Dépôt - Panne";
+                $bike->setStatus(false);
             };
             if($avalability === 4 ){
                 $avalability = "Dépôt - Stock";
+                $bike->setStatus(false);
             };
             if($avalability === 5 ){
                 $avalability = "Disparu";
+                $bike->setStatus(false);
             };
 
             $bike->setAvailablity($avalability);
@@ -152,7 +156,7 @@ class AppFixtures extends Fixture
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
                 ->setRate(mt_rand(3, 5))
-                ->setStatus(mt_rand(0, 1));
+                ->setStatus(true);
 
             $allBikeEntity[] = $bike;
 
@@ -163,8 +167,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
-                ->setRate(mt_rand(2, 4))
-                ->setStatus(mt_rand(0, 1));
+                ->setRate(mt_rand(2, 4));
 
             $allBikeEntity[] = $bike;
             // set random value for $avalability
@@ -172,18 +175,23 @@ class AppFixtures extends Fixture
 
             if($avalability === 1 ){
                 $avalability = "Disponible";
+                $bike->setStatus(true);
             };
             if($avalability === 2 ){
                 $avalability = "Bloqué - Maintenance";
+                $bike->setStatus(false);
             };
             if($avalability === 3 ){
                 $avalability = "Dépôt - Panne";
+                $bike->setStatus(false);
             };
             if($avalability === 4 ){
                 $avalability = "Dépôt - Stock";
+                $bike->setStatus(false);
             };
             if($avalability === 5 ){
                 $avalability = "Disparu";
+                $bike->setStatus(false);
             };
 
           $bike->setAvailablity($avalability);
@@ -196,7 +204,7 @@ class AppFixtures extends Fixture
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
                 ->setRate(mt_rand(3, 5))
-                ->setStatus(mt_rand(0, 1));
+                ->setStatus(true);
 
             $allBikeEntity[] = $bike;
 
@@ -208,7 +216,7 @@ class AppFixtures extends Fixture
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
                 ->setRate(mt_rand(3, 5))
-                ->setStatus(mt_rand(0, 1));
+                ->setStatus(true);
 
             $allBikeEntity[] = $bike;
 

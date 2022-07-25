@@ -30,7 +30,7 @@ class Bike
      * @ORM\Column(type="boolean")
      * this is for active or unactive bike
      */
-    private $status = true;
+    private $status;
 
     /**
      * @ORM\Column(type="string", length=30)
