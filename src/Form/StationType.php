@@ -120,11 +120,6 @@ class StationType extends AbstractType
                     ])
                 ],
             ])
-            //->add('lat')
-            //->add('lng')
-            //->add('slug')
-            //->add('createdAt')
-            //->add('updatedAt')
         ;
     }
 

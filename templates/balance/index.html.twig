@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Equilibrages{% endblock %}
+
+{% block body %}
+
+<div class="container"> 
+<h1>Administration des équilibrages</h1>
+<h2>liste l'ensemble des équilibrages</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Vélo</th>
+                <th>Enlevé</th>
+                <th>Déposé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for balance in balances %}
+            <tr>
+                <td>{{ balance.createdAt ? balance.createdAt|date('d/m/Y à H:i') : '' }}</td>
+                <td>{{ balance.bike.number }}</td>
+
+                {% for station in balance.stations %}
+                <td>{{ station.name }}</td>
+                {% endfor %}
+
+                <td>
+                    <a href="{{ path('app_balance_show', {'id': balance.id}) }}">Afficher</a>
+                    <div class="vr"></div>
+                    <a href="{{ path('app_balance_edit', {'id': balance.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+           <tr>
+                <td colspan="19"><div class="alert alert-danger" role="alert">
+                Pas d'enregistrement d'équilibrages en Base de Données !
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_balance_new') }}"><button class="btn btn-lg btn-primary" type="submit">Enregistrer un équilibrage</button></a>
+{% endblock %}
