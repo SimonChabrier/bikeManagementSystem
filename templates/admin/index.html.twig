@@ -8,6 +8,7 @@
     <thead>
         <tr>
         <th scope="col">Date</th>
+        <th scope="col">N° Station</th>
         <th scope="col">Station Inventaire</th>
         <th scope="col">Intervenant</th>
         <th scope="col">Velo</th>
@@ -21,12 +22,10 @@
     <tbody>
     {% for bike in bikes %}
         <tr>
-            <th scope="row">Date</th>
-
-             {# <td><td>{{ repair.updatedAt ? repair.updatedAt|date("d/m/Y") : '' }}</td></td> #}
-
             {% for inventory in bike.inventories %}
                 {% if loop.last %}
+                    <td>{{ inventory.createdAt ? inventory.createdAt|date("d/m/Y") : '' }}</td>
+                    <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.number ? inventory.station.number  : 'Pas d\'information !' }}</a></td>
                     <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{ inventory.station.name ? inventory.station.name  : 'Pas d\'information !' }}</a></td>
                 {% endif %}
             {% endfor %}
@@ -39,8 +38,6 @@
 
                 <td> -- </td>
 
-
-                        {# {% if loop.last %} #}
                 <td> 
                 {% for balances in bike.balances %}
                     {% if loop.last %}
