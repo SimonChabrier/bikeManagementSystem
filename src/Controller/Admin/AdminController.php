@@ -27,9 +27,11 @@ class AdminController extends AbstractController
     VandalismRepository $vandalismRepository): Response
     {
 
-        //TODO - afficher l'ensemble des vélos mis à jour aujourd'hui
-        $bikes = $bikeRepository->findAllBikesUpdatedToday();
+        $allBikes = $bikeRepository->findAll();
 
+        //TODO - afficher l'ensemble des vélos mis à jour aujourd'hui
+        $updatedBikes = $bikeRepository->findAllBikesUpdatedToday();
+        dump($updatedBikes);
         //TODO - afficher l'ensemble des vélos déclarés indiponibles
         $unavalableBikes = $bikeRepository->findAllbikesUnavalable();
 
@@ -41,12 +43,13 @@ class AdminController extends AbstractController
 
         //TODO - afficher l'ensemble des réparations du jour
         $todayRepairs = $repairActRepository->findAllRepairsUpdatedToday();
-
+        dump($todayRepairs);
         //TODO - afficher l'ensemble des vandalimes du jour
         $todayVandalims = $vandalismRepository->findAllVandalimsUpdatedToday();
 
         return $this->render('admin/index.html.twig', 
-        compact('bikes', 
+        compact('allBikes',
+                'updatedBikes', 
                 'unavalableBikes', 
                 'todayInventories', 
                 'todayBalances', 
