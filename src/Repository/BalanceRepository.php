@@ -54,9 +54,9 @@ class BalanceRepository extends ServiceEntityRepository
           $date = date("Y-m-d");
   
           return $this->createQueryBuilder('b')
-              ->andWhere('b.updatedAt >= :val')
+              ->andWhere('b.createdAt >= :val')
               ->setParameter('val', $date)
-              ->orderBy('b.updatedAt', 'DESC')
+              ->orderBy('b.createdAt', 'DESC')
               //->setMaxResults(10)
               ->getQuery()
               ->getResult()

@@ -71,9 +71,9 @@ class InventoryRepository extends ServiceEntityRepository
         $date = date("Y-m-d");
 
         return $this->createQueryBuilder('i')
-            ->andWhere('i.updatedAt >= :val')
+            ->andWhere('i.createdAt >= :val')
             ->setParameter('val', $date)
-            ->orderBy('i.updatedAt', 'DESC')
+            ->orderBy('i.createdAt', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()

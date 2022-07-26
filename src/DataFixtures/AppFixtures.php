@@ -161,11 +161,18 @@ class AppFixtures extends Fixture
             $manager->persist($repair);
         }
 
+        
+
         //BIKE
         for ($i = 425; $i <= 434; $i++){
+
+           
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-8 days', 'now'));
+            
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
             ->setNumber($i)
+            ->setUpdatedAt($date)
             ->setRate(mt_rand(2, 5));
 
             $allBikeEntity[] = $bike;
@@ -204,6 +211,7 @@ class AppFixtures extends Fixture
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
                 ->setRate(mt_rand(3, 5))
+                ->setUpdatedAt($date)
                 ->setStatus(true);
 
             $allBikeEntity[] = $bike;
@@ -215,6 +223,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
+                ->setUpdatedAt($date)
                 ->setRate(mt_rand(2, 4));
 
             // set random value for $avalability
@@ -252,6 +261,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
+                ->setUpdatedAt($date)
                 ->setRate(mt_rand(3, 5))
                 ->setStatus(true);
 
@@ -264,6 +274,7 @@ class AppFixtures extends Fixture
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
+                ->setUpdatedAt($date)
                 ->setRate(mt_rand(3, 5))
                 ->setStatus(true);
 
@@ -332,7 +343,7 @@ class AppFixtures extends Fixture
         //VANDALISM
         for ($i = 1; $i <= 100; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-8 days', 'now'));
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
             $randomBike = $allBikeEntity[mt_rand(1, count($allBikeEntity) - 1)];
             
@@ -349,7 +360,7 @@ class AppFixtures extends Fixture
         //INVENTORY
         for ($i = 1; $i <= 100; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-8 days', 'now'));
 
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
 
@@ -372,7 +383,7 @@ class AppFixtures extends Fixture
         //BALANCE
         for ($i = 1; $i <= 100; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-8 days', 'now'));
             $randomBike = $allBikeEntity[array_rand($allBikeEntity)];
             
             $balance = New Balance();
@@ -392,7 +403,7 @@ class AppFixtures extends Fixture
         //REPAIR ACT
         for ($i = 1; $i <= 100; $i++){
 
-            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-5 years', 'now'));
+            $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-8 days', 'now'));
             $randomStation = $allStationEntity[mt_rand(1, count($allStationEntity) - 1)];
             $randomBike = $allBikeEntity[mt_rand(1, count($allBikeEntity) - 1)];
             $randomRepair = $allRepairEntity[mt_rand(1, count($allRepairEntity) - 1)];

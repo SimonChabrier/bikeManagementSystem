@@ -14,16 +14,16 @@
                 <h2>{{ updatedBikes|length }} vélos mis à jour</h2> 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayInventories|length }} inventaires réalisé</h2>   
+                <h2>{{ todayInventories|length }} inventaires réalisés</h2>   
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <h2>{{ todayBalances|length }} équilibrages déclarés</h2>  
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayRepairs|length }} réparation faite</h2>
+                <h2>{{ todayRepairs|length }} réparations faites</h2>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayVandalims|length }} vandalisme signalé</h2> 
+                <h2>{{ todayVandalims|length }} vandalismes signalés</h2> 
             </div>
         </div><!-- end row -->
 
@@ -49,7 +49,7 @@
                     <span class="bi bi-star{{ starClass }}"></span>
                 {% endfor %}
                 </td>
-                <td>{{bike.updatedAt | format_datetime(locale='FR_fr',pattern="H : mm")}}</td>
+                <td>{{bike.updatedAt|format_datetime('none', 'short', locale='fr')}}</td>
                 </tr>
             {% endfor %}
             </tbody>

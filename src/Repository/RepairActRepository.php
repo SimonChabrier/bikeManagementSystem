@@ -54,9 +54,9 @@ class RepairActRepository extends ServiceEntityRepository
         $date = date("Y-m-d");
 
         return $this->createQueryBuilder('r')
-            ->andWhere('r.updatedAt >= :val')
+            ->andWhere('r.createdAt >= :val')
             ->setParameter('val', $date)
-            ->orderBy('r.updatedAt', 'DESC')
+            ->orderBy('r.createdAt', 'DESC')
             //->setMaxResults(10)
             ->getQuery()
             ->getResult()

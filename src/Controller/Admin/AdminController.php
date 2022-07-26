@@ -31,7 +31,7 @@ class AdminController extends AbstractController
 
         //TODO - afficher l'ensemble des vélos mis à jour aujourd'hui
         $updatedBikes = $bikeRepository->findAllBikesUpdatedToday();
-        dump($updatedBikes);
+
         //TODO - afficher l'ensemble des vélos déclarés indiponibles
         $unavalableBikes = $bikeRepository->findAllbikesUnavalable();
 
@@ -43,7 +43,7 @@ class AdminController extends AbstractController
 
         //TODO - afficher l'ensemble des réparations du jour
         $todayRepairs = $repairActRepository->findAllRepairsUpdatedToday();
-        dump($todayRepairs);
+ 
         //TODO - afficher l'ensemble des vandalimes du jour
         $todayVandalims = $vandalismRepository->findAllVandalimsUpdatedToday();
 
