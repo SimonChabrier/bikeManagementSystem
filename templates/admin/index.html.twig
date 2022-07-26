@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Infos du {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>INFOS DU {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}</h1>
+
+        <div class="row mt-5">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ unavalableBikes|length }} vélos indisponibles sur {{ allBikes|length }} </h2>    
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ updatedBikes|length }} vélos mis à jour</h2> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayInventories|length }} inventaires réalisés</h2>   
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayBalances|length }} équilibrages déclarés</h2>  
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayRepairs|length }} réparations faites</h2>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayVandalims|length }} vandalismes signalés</h2> 
+            </div>
+        </div><!-- end row -->
+
+        <div class="row mt-5">
+        <h3>Vélos mis à jour</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° Vélo</th>
+                <th scope="col">Disponibilité</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Heure mise à jour</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for bike in updatedBikes %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{bike.number}}</a></th>
+                <td><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{bike.availablity}}</a></td>
+                <td>
+                {% for i in range(1, 5) %}
+                    {% set starClass = bike.rate - i >= 0 ? '-fill' : (bike.rate - i >= 0.5 ? '-half' : '') %}
+                    <span class="bi bi-star{{ starClass }}"></span>
+                {% endfor %}
+                </td>
+                <td>{{bike.updatedAt|format_datetime('none', 'short', locale='fr')}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 2-->
+
+        <div class="row mt-5">
+        <h3>Inventaires réalisés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° Inventaire</th>
+                <th scope="col">Station</th>
+                <th scope="col">Nbr vélos</th>
+                <th scope="col">Afficher</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for inventory in todayInventories %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">{{inventory.id}}</a></th>
+                <td><a href="{{ path('app_station_show', {'id': inventory.station.id}) }}">{{inventory.station.name}}</td>
+                <td scope="row"><a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">{{ inventory.bikes|length }}</a></td>
+                <td scope="row"><a href="{{ path('app_inventory_show', {'id': inventory.id}) }}">Détail Inventaire</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 3-->
+
+        <div class="row mt-5">
+        <h3>Equilibrages déclarés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° Equilibrage</th>
+                <th scope="col">N° Vélo</th>
+                <th scope="col">Enlevé de</th>
+                <th scope="col">Déposé à</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for balance in todayBalances %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_balance_show', {'id': balance.id}) }}">{{balance.id}}</a></th>
+                <th scope="row"><a href="{{ path('app_bike_show', {'id': balance.bike.id}) }}">{{balance.bike.number}}</a></th>
+                {% for station in balance.stations %}
+                <td><a href="{{ path('app_station_show', {'id': station.id}) }}">{{station}}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 4-->
+
+        <div class="row mt-5">
+        <h3>Vélos Enlevés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° intervention</th>
+                <th scope="col">Raison</th>
+                <th scope="col">N° Vélo</th>
+                <th scope="col">Station</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for repair in todayRepairs %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{repair.id}}</a></th>
+                <th scope="row"><a href="{{ path('app_repair_act_show', {'id': repair.id}) }}">{{repair.repair.name}}</a></th>
+                <th scope="row"><a href="{{ path('app_bike_show', {'id': repair.bike.id}) }}">{{repair.bike.number}}</a></th>
+                <th scope="row"><a href="{{ path('app_station_show', {'id': repair.station.id}) }}">{{repair.station.name}}</a></th>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 5-->
+
+        <div class="row mt-5">
+        <h3>vandalismes signalés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° vandalisme</th>
+                <th scope="col">Résumé</th>
+                <th scope="col">N° Vélo</th>
+                <th scope="col">Station</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for vandalism in todayVandalims %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">{{vandalism.id}}</a></th>
+                <td><a href="{{ path('app_vandalism_show', {'id': vandalism.id}) }}">{{ vandalism.content | slice(0, 150) ~ " ..." }}</a></td>
+                <td><a href="{{ path('app_bike_show', {'id': vandalism.bike.id}) }}">{{vandalism.bike.number}}</a></td>
+                <td><a href="{{ path('app_station_show', {'id': vandalism.station.id}) }}">{{vandalism.station.name}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 5-->
+
+        <div class="row mt-5">
+        <h3>Vélos actuellement indisponibles</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">N° Vélo</th>
+                <th scope="col">Raison</th>
+                <th scope="col">Statut déclaré le</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for bike in unavalableBikes %}
+                <tr>
+                <th scope="row"><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{bike.number}}</a></th>
+                <td>{{bike.availablity}}</td>
+                <td>{{bike.updatedAt | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY")}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div><!-- end row 5-->
+
+</div><!-- end container-->
+
+
+{# <h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<h4>H4</h4>
+<h5>H5</h5>
+<h6>H6</h6>
+<p>Paragraphe</p> #}
+{% endblock %}

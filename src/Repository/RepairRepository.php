@@ -3,10 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Repair;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Repair|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,7 +44,7 @@ class RepairRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
+    
     // /**
     //  * @return Repair[] Returns an array of Repair objects
     //  */

@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Bike;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Bike|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,17 +47,42 @@ class BikeRepository extends ServiceEntityRepository
     }
 
     //  * @return Bike[] Returns an array of Bike objects
-    // public function findByExampleField($value)
-    // {
-    //     return $this->createQueryBuilder('b')
-    //         ->andWhere('b.id = :val')
-    //         ->setParameter('val', $value)
-    //         ->orderBy('b.id', 'ASC')
-    //         ->setMaxResults(1   )
-    //         ->getQuery()
-    //         ->getResult()
-    //     ;
-    // }
+    public function findAllBikesUpdatedToday()
+    {   
+
+        $date = new DateTime('now');
+        $date = date("Y-m-d");
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.updatedAt >= :val')
+            ->setParameter('val', $date)
+            ->orderBy('b.updatedAt', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+       //  * @return Bike[] Returns an array of Bike objects
+       public function findAllbikesUnavalable()
+       {    
+        $availablity_panne  = 'Dépôt - Panne';
+        $availablity_stock  = 'Dépôt - Stock';
+        $availablity_disparu  = 'Disparu';
+   
+           return $this->createQueryBuilder('b')
+               ->andWhere('b.availablity  = :panne')
+               ->orWhere('b.availablity  = :stock')
+               ->orWhere('b.availablity  = :disparu')
+               ->setParameter('panne', $availablity_panne )
+               ->setParameter('stock', $availablity_stock )
+               ->setParameter('disparu', $availablity_disparu )
+               ->orderBy('b.availablity', 'ASC')
+               //->setMaxResults(10)
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
 
     /*
