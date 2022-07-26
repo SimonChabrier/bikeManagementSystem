@@ -13,7 +13,8 @@ class HomeController extends AbstractController
      * Display Home Template
      */
     public function index(): Response
-    {
-        return $this->render('home.html.twig');
+    {   
+        // return $this->render('home.html.twig');
+        return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
     }
 }
