@@ -49,7 +49,7 @@
                     <span class="bi bi-star{{ starClass }}"></span>
                 {% endfor %}
                 </td>
-                <td>{{bike.updatedAt | format_datetime(locale='FR_fr',pattern="H : m")}}</td>
+                <td>{{bike.updatedAt | format_datetime(locale='FR_fr',pattern="H : mm")}}</td>
                 </tr>
             {% endfor %}
             </tbody>
