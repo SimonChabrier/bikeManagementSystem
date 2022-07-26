@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Inventory;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Inventory|null find($id, $lockMode = null, $lockVersion = null)
@@ -61,6 +62,24 @@ class InventoryRepository extends ServiceEntityRepository
         // returns an array of Station objects
         return $query->getResult();
     }
+
+    // * @return Inventory[] Returns an array of Inventory objects
+    public function findAllInventoriesUpdatedToday()
+    {   
+
+        $date = new DateTime('now');
+        $date = date("Y-m-d");
+
+        return $this->createQueryBuilder('i')
+            ->andWhere('i.updatedAt >= :val')
+            ->setParameter('val', $date)
+            ->orderBy('i.updatedAt', 'DESC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     // /**
     //  * @return Inventory[] Returns an array of Inventory objects
