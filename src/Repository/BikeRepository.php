@@ -69,14 +69,17 @@ class BikeRepository extends ServiceEntityRepository
         $availablity_panne  = 'Dépôt - Panne';
         $availablity_stock  = 'Dépôt - Stock';
         $availablity_disparu  = 'Disparu';
+        $availablity_maintenance  = 'Bloqué - Maintenance';
    
            return $this->createQueryBuilder('b')
                ->andWhere('b.availablity  = :panne')
                ->orWhere('b.availablity  = :stock')
                ->orWhere('b.availablity  = :disparu')
+               ->orWhere('b.availablity  = :maintenance')
                ->setParameter('panne', $availablity_panne )
                ->setParameter('stock', $availablity_stock )
                ->setParameter('disparu', $availablity_disparu )
+               ->setParameter('maintenance', $availablity_maintenance )
                ->orderBy('b.availablity', 'ASC')
                //->setMaxResults(10)
                ->getQuery()
