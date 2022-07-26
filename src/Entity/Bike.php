@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Monolog\DateTimeImmutable;
-use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -110,6 +109,7 @@ class Bike
 
     /**
      * @ORM\OneToMany(targetEntity=Balance::class, mappedBy="bike")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $balances;
 

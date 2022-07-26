@@ -2,11 +2,12 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Balance;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Balance|null find($id, $lockMode = null, $lockVersion = null)
@@ -44,6 +45,23 @@ class BalanceRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+      //  * @return Bike[] Returns an array of Balance objects
+      public function findAllBalancesUpdatedToday()
+      {   
+  
+          $date = new DateTime('now');
+          $date = date("Y-m-d");
+  
+          return $this->createQueryBuilder('b')
+              ->andWhere('b.createdAt >= :val')
+              ->setParameter('val', $date)
+              ->orderBy('b.createdAt', 'DESC')
+              //->setMaxResults(10)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
 
     // /**
     //  * @return Balance[] Returns an array of Balance objects

@@ -78,7 +78,7 @@ class BalanceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_balance_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Balance $balance, Station $station, EntityManagerInterface $manager): Response
+    public function edit(Request $request, Balance $balance, EntityManagerInterface $manager): Response
     {   
 
         $form = $this->createForm(BalanceType::class, $balance);

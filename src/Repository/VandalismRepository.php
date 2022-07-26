@@ -2,13 +2,14 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Vandalism;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\Persistence\ManagerRegistry;
 // Doctrine pagination
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Vandalism|null find($id, $lockMode = null, $lockVersion = null)
@@ -48,6 +49,23 @@ class VandalismRepository extends ServiceEntityRepository
         }
     }
 
+
+    //  * @return Bike[] Returns an array of RepairAct objects
+    public function findAllVandalimsUpdatedToday()
+    {   
+
+    $date = new DateTime('now');
+    $date = date("Y-m-d");
+
+    return $this->createQueryBuilder('v')
+        ->andWhere('v.createdAt >= :val')
+        ->setParameter('val', $date)
+        ->orderBy('v.createdAt', 'DESC')
+        //->setMaxResults(10)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Vandalism[] Returns an array of Vandalism objects
