@@ -1,10 +1,208 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Tournées{% endblock %}
+{% block title %}Infos du {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}{% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-    <table class="table table-striped">
+<div class="container">
+    <h1>INFOS DU {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}</h1>
+
+        <div class="row mt-5">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ unavalableBikes|length }} vélos indisponibles</h2>    
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ bikes|length }} vélos mis à jour</h2> 
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayInventories|length }} inventaires réalisé</h2>   
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayBalances|length }} équilibrages déclarés</h2>  
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayRepairs|length }} réparation faite</h2>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <h2>{{ todayVandalims|length }} vandalisme signalé</h2> 
+            </div>
+        </div><!-- end row -->
+
+        <div class="row mt-5">
+        <h3>Vélos mis à jour</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- end row 2-->
+
+        <div class="row mt-5">
+        <h3>Inventaires réalisés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- end row 3-->
+
+        <div class="row mt-5">
+        <h3>Equilibrages déclarés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- end row 4-->
+
+        <div class="row mt-5">
+        <h3>Réparations faites</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- end row 5-->
+
+        <div class="row mt-5">
+        <h3>vandalismes signalés</h3>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+                </tr>
+            </tbody>
+            </table>
+        </div><!-- end row 5-->
+
+</div><!-- end container-->
+
+
+
+
+    {# <table class="table table-striped">
     <thead>
         <tr>
         <th scope="col">Date</th>
@@ -70,6 +268,14 @@
         </tr>
      {% endfor %}    
     </tbody>
-    </table>
-</div>
+    </table> #}
+
+
+{# <h1>H1</h1>
+<h2>H2</h2>
+<h3>H3</h3>
+<h4>H4</h4>
+<h5>H5</h5>
+<h6>H6</h6>
+<p>Paragraphe</p> #}
 {% endblock %}

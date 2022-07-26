@@ -2,11 +2,11 @@
 
 namespace App\Controller\Admin;
 
-use DateTime;
-use App\Entity\Bike;
-use App\Repository\BalanceRepository;
 use App\Repository\BikeRepository;
+use App\Repository\BalanceRepository;
 use App\Repository\InventoryRepository;
+use App\Repository\RepairActRepository;
+use App\Repository\VandalismRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +22,11 @@ class AdminController extends AbstractController
      */
     public function index(BikeRepository $bikeRepository, 
     InventoryRepository $inventoryRepository,
-    BalanceRepository $balanceRepository): Response
+    BalanceRepository $balanceRepository,
+    RepairActRepository $repairActRepository,
+    VandalismRepository $vandalismRepository): Response
     {
 
-        
         //TODO - afficher l'ensemble des vélos mis à jour aujourd'hui
         $bikes = $bikeRepository->findAllBikesUpdatedToday();
 
@@ -37,18 +38,21 @@ class AdminController extends AbstractController
 
         //TODO - afficher l'ensemble des équilibrages du jour
         $todayBalances = $balanceRepository->findAllBalancesUpdatedToday();
-        dump($todayBalances);
-        //TODO - afficher l'ensemble des réparations du jour
 
+        //TODO - afficher l'ensemble des réparations du jour
+        $todayRepairs = $repairActRepository->findAllRepairsUpdatedToday();
 
         //TODO - afficher l'ensemble des vandalimes du jour
+        $todayVandalims = $vandalismRepository->findAllVandalimsUpdatedToday();
 
-
-        return $this->render('admin/index.html.twig', [
-             'bikes' => $bikes,
-             'unavalableBikes' => $unavalableBikes,
-             'todayInventories' => $todayInventories,
-             'todayBalances' => $todayBalances,
-        ]);
-    }
+        return $this->render('admin/index.html.twig', 
+        compact('bikes', 
+                'unavalableBikes', 
+                'todayInventories', 
+                'todayBalances', 
+                'todayRepairs', 
+                'todayVandalims'
+                )
+            );
+        }
 }
