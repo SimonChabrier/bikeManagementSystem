@@ -71,17 +71,14 @@ class BikeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $submitedBikeAvailability =  $form['availablity']->getData();
-
-            if ($currentBikeAvailability != $submitedBikeAvailability && $submitedBikeAvailability == 'Dépôt - Panne' || $submitedBikeAvailability == 'Dépôt - Stock') {
+           
+            if ($currentBikeAvailability != $submitedBikeAvailability && $submitedBikeAvailability == 'Dépôt - Panne' || $submitedBikeAvailability == 'Dépôt - Stock' || $submitedBikeAvailability == 'Disparu' || $submitedBikeAvailability == 'Bloqué - Maintenance') {
                 $adminmail->bikeAvalabilityAlert($mailer, $bike);
                 $bike->setStatus(false);
             }
 
-            else if ($currentBikeAvailability == 'Disparu' || $currentBikeAvailability == 'Bloqué - Maintenance' ) {
-                $bike->setStatus(false);
-            }
-
-            else { 
+            if ($submitedBikeAvailability == 'Disponible') {
+                $adminmail->bikeAvalabilityAlert($mailer, $bike);
                 $bike->setStatus(true);
             }
 
