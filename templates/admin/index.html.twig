@@ -3,6 +3,14 @@
 {% block title %}Infos du {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}{% endblock %}
 
 {% block body %}
+
+
+<div class="container" id="jsDiv">
+    <a href="" class="previous">&laquo; Précédent</a> | <a href="" class="next">Suivant &raquo;</a>
+</div>
+
+
+
 <div class="container">
     <h1>INFOS DU {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}</h1>
 
