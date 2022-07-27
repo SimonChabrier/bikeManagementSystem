@@ -1,22 +1,55 @@
-const app = {
+const app = 
+{
     
-    // Method init is called on DOMContentLoaded -> line 64.
     init: function() {
         console.log("init");
-        app.getAllBikes();
+        app.incrementClick();
     },
 
-    //TODO dynamiser le end point avec des boutons pour changer de page 
-    
-    //set the api endpoint
-    apiRootUrl: 'http://127.0.0.1:8000/api/bikes?page=2', 
+
+    resetDiv: function(){
+        document.getElementById('jsDiv').innerHTML = "";
+    },
 
 
+    incrementClick: function(){
 
-    // Api fecth on NewYorkTimes public endPoint
-    getAllBikes: function (){
+        couterVal = 1,
 
-        const output = document.getElementById('jsDiv');
+        document.getElementById('next').addEventListener('click', function() { 
+            couterVal++
+
+            app.resetDiv();
+            app.loading(couterVal);
+        });
+
+        app.decrementClick();
+        
+       
+    },
+
+
+    decrementClick: function(){
+        document.getElementById('previous').addEventListener('click', function() { 
+            couterVal--
+            app.resetDiv();
+            app.loading(couterVal);
+
+            if(couterVal == 0){
+                app.resetDiv();
+                couterVal = 1;
+            }
+            
+        });
+    },
+
+    loading: function (couterVal){
+
+        //const apiRootUrl =  'http://127.0.0.1:8000/api/bikes',
+        const apiRootUrl =  'http://127.0.0.1:8000/api/bikes?page=' + couterVal
+        console.log(apiRootUrl);
+        
+        output = document.getElementById('jsDiv');
 
             let config = {
                 method: 'GET',
@@ -24,7 +57,7 @@ const app = {
                 cache: 'no-cache',
             };
             
-            fetch(this.apiRootUrl, config)
+            fetch(apiRootUrl, config)
 
             .then(function (response) {
             return response.json();
@@ -36,8 +69,9 @@ const app = {
               
                     try{
                        
-                        output.innerHTML +=  `
-                
+                        output.innerHTML +=  
+                        
+                        `
                             <ol>
                                 <li>N° ${data['hydra:member'][i]['number']}</li>
                                 <li>Statut ${data['hydra:member'][i]['availablity']}</li>
@@ -45,7 +79,6 @@ const app = {
                             <hr>
                    
                         `
-
                     }
                     catch(err){
                         console.log(err);
@@ -53,8 +86,11 @@ const app = {
                 }//endfor
             })// end then
     },
+      
 
-};
+
+
+ };
 
 // Call init() on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', app.init);
