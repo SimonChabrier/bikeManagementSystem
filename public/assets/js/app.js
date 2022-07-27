@@ -12,6 +12,9 @@ const app =
         document.getElementById('jsDiv').innerHTML = "";
     },
 
+    resetLengthInfo: function(){
+        document.getElementById('lengthInfo').innerHTML = "";
+    },
 
     dynamicEndPoint: function(){
 
@@ -22,6 +25,9 @@ const app =
             couterVal++
 
             app.resetDiv();
+            app.resetLengthInfo();
+
+            //dynamise endpoint ++
             app.loading(couterVal);
         });
 
@@ -30,10 +36,14 @@ const app =
             couterVal--
 
             app.resetDiv();
+            app.resetLengthInfo();
+
+            //dynamise endpoint --
             app.loading(couterVal);
 
             if(couterVal == 0){
                 app.resetDiv();
+                // reset counter value
                 couterVal = 1;
             }
         });
@@ -42,10 +52,12 @@ const app =
 
     loading: function (couterVal){
 
-
         if (couterVal === undefined) {
+            
             apiRootUrl =  'http://127.0.0.1:8000/api/bikes';
+
         } else {
+            
             apiRootUrl =  'http://127.0.0.1:8000/api/bikes?page=' + couterVal;
         }
 
@@ -66,7 +78,14 @@ const app =
             })
 
             .then(function (data) {
+               
+                //items length for one page
+                let length =  data['hydra:member'].length
+                //items length for all results
+                let totalLength = data['hydra:totalItems']
 
+                app.displayResultsLength(length, totalLength);
+                
                 for (var i = 0; i < data['hydra:member'].length; i++){
               
                     try{
@@ -75,6 +94,7 @@ const app =
                         
                         `
                             <ol>
+                                
                                 <li>N° ${data['hydra:member'][i]['number']}</li>
                                 <li>Statut ${data['hydra:member'][i]['availablity']}</li>
                             </ol>
@@ -87,9 +107,18 @@ const app =
                     }  
                 }//endfor
             })// end then
+
+           
     },
       
+    displayResultsLength: function(item, items) {
 
+        let itemLength = item;
+        console.log('ici ' + itemLength)
+        let itemsLength = items;
+        
+        document.getElementById('lengthInfo').innerHTML += items + ' résultats '
+    }
 
 
  };
