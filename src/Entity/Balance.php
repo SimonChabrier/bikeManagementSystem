@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 use App\Repository\BalanceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +13,14 @@ use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource(
+ * collectionOperations={"get"},
+ * itemOperations={"get", "put", "patch"},
+ * normalizationContext={"groups"={"balance:get"}},
+ * denormalizationContext={"groups"={"balance:write"}},
+ * )
+ * 
+ * 
  * @ORM\Entity(repositoryClass=BalanceRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
@@ -39,6 +50,7 @@ class Balance
 
     /**
      * @ORM\ManyToOne(targetEntity=Bike::class, inversedBy="balances")
+     * @Groups("balance:get")
      */
     private $bike;
 

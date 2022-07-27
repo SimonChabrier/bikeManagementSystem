@@ -2,11 +2,23 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 use App\Repository\RepairActRepository;
 use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource(
+ * collectionOperations={"get"},
+ * itemOperations={"get", "put", "patch"},
+ * normalizationContext={"groups"={"repair:get"}},
+ * denormalizationContext={"groups"={"repair:write"}},
+ * )
+ * 
+ * 
+ * 
  * @ORM\Entity(repositoryClass=RepairActRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
@@ -26,6 +38,7 @@ class RepairAct
 
     /**
      * @ORM\ManyToOne(targetEntity=Bike::class, inversedBy="repairs")
+     * @Groups("repair:get")
      */
     private $bike;
 
