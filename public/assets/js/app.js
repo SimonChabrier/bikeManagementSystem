@@ -3,7 +3,8 @@ const app =
     
     init: function() {
         console.log("init");
-        app.incrementClick();
+        app.dynamicEndPoint();
+        app.loading();
     },
 
 
@@ -12,26 +13,22 @@ const app =
     },
 
 
-    incrementClick: function(){
+    dynamicEndPoint: function(){
 
         couterVal = 1,
 
         document.getElementById('next').addEventListener('click', function() { 
+           
             couterVal++
 
             app.resetDiv();
             app.loading(couterVal);
         });
 
-        app.decrementClick();
-        
-       
-    },
-
-
-    decrementClick: function(){
         document.getElementById('previous').addEventListener('click', function() { 
+           
             couterVal--
+
             app.resetDiv();
             app.loading(couterVal);
 
@@ -39,14 +36,19 @@ const app =
                 app.resetDiv();
                 couterVal = 1;
             }
-            
         });
+         
     },
 
     loading: function (couterVal){
 
-        //const apiRootUrl =  'http://127.0.0.1:8000/api/bikes',
-        const apiRootUrl =  'http://127.0.0.1:8000/api/bikes?page=' + couterVal
+
+        if (couterVal === undefined) {
+            apiRootUrl =  'http://127.0.0.1:8000/api/bikes';
+        } else {
+            apiRootUrl =  'http://127.0.0.1:8000/api/bikes?page=' + couterVal;
+        }
+
         console.log(apiRootUrl);
         
         output = document.getElementById('jsDiv');
