@@ -3,6 +3,20 @@
 {% block title %}Infos du {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}{% endblock %}
 
 {% block body %}
+
+
+    {# <div class="container">
+    <input type="submit" id="previous" value="Précédent"> | <input type="submit" id="next" value="Suivant">
+    <p id="lengthInfo"></p>
+    <hr>
+    </div>
+    
+    
+    <div class="container" id="jsDiv">
+    </div> #}
+
+
+
 <div class="container">
     <h1>INFOS DU {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}</h1>
 
@@ -28,6 +42,7 @@
         </div><!-- end row -->
 
         <div class="row mt-5">
+        {% if updatedBikes|length > 0 %}
         <h3>Vélos mis à jour</h3>
             <table class="table table-striped">
             <thead>
@@ -54,9 +69,14 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Pas de vélo mis à jour aujourd'hui</h3>
+        {% endif %}
         </div><!-- end row 2-->
+        
 
         <div class="row mt-5">
+        {% if todayInventories|length > 0 %}
         <h3>Inventaires réalisés</h3>
             <table class="table table-striped">
             <thead>
@@ -78,9 +98,13 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Pas d'inventaire aujourd'hui</h3>
+        {% endif %}
         </div><!-- end row 3-->
 
         <div class="row mt-5">
+        {% if todayBalances|length > 0 %}
         <h3>Equilibrages déclarés</h3>
             <table class="table table-striped">
             <thead>
@@ -103,9 +127,13 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Pas d'équilibrage aujourd'hui</h3>
+        {% endif %}
         </div><!-- end row 4-->
 
         <div class="row mt-5">
+        {% if todayRepairs|length > 0 %}
         <h3>Vélos Enlevés</h3>
             <table class="table table-striped">
             <thead>
@@ -127,9 +155,13 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Pas d'interventions aujourd'hui</h3>
+        {% endif %}
         </div><!-- end row 5-->
 
         <div class="row mt-5">
+        {% if todayVandalims|length > 0 %}
         <h3>vandalismes signalés</h3>
             <table class="table table-striped">
             <thead>
@@ -151,9 +183,13 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Pas de vandalisme aujourd'hui</h3>
+        {% endif %}
         </div><!-- end row 5-->
 
         <div class="row mt-5">
+        {% if unavalableBikes|length > 0 %}
         <h3>Vélos actuellement indisponibles</h3>
             <table class="table table-striped">
             <thead>
@@ -173,6 +209,9 @@
             {% endfor %}
             </tbody>
             </table>
+        {% else %}
+        <h3>Tous les vélos sont en circulation</h3>
+        {% endif %}
         </div><!-- end row 5-->
 
 </div><!-- end container-->

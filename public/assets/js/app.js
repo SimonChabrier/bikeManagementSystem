@@ -1,23 +1,69 @@
-const app = {
+const app = 
+{
     
-    //set the api endpoint
-    apiRootUrl: 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=e98K2qwZcQlibrybmE6KYq6AfSHdase9', 
-
-    // Method init is called on DOMContentLoaded -> line 64.
     init: function() {
         console.log("init");
-
-        if(window.location.href != window.location.origin + '/'){
-            console.log('We are currently not on homepage, so we don\'t excute the request !')
-
-        } else {
-            console.log('We are currently on homepage, so we call app.nty() and fetch New York Times datas !')
-            app.nyt();
-        }
+        app.dynamicEndPoint();
+        app.loading();
     },
 
-    // Api fecth on NewYorkTimes public endPoint
-    nyt: function (){
+
+    resetDiv: function(){
+        document.getElementById('jsDiv').innerHTML = "";
+    },
+
+    resetLengthInfo: function(){
+        document.getElementById('lengthInfo').innerHTML = "";
+    },
+
+    dynamicEndPoint: function(){
+
+        couterVal = 1,
+
+        document.getElementById('next').addEventListener('click', function() { 
+           
+            couterVal++
+
+            app.resetDiv();
+            app.resetLengthInfo();
+
+            //dynamise endpoint ++
+            app.loading(couterVal);
+        });
+
+        document.getElementById('previous').addEventListener('click', function() { 
+           
+            couterVal--
+
+            app.resetDiv();
+            app.resetLengthInfo();
+
+            //dynamise endpoint --
+            app.loading(couterVal);
+
+            if(couterVal == 0){
+                app.resetDiv();
+                // reset counter value
+                couterVal = 1;
+            }
+        });
+         
+    },
+
+    loading: function (couterVal){
+
+        if (couterVal === undefined) {
+            
+            apiRootUrl =  'http://127.0.0.1:8000/api/bikes';
+
+        } else {
+            
+            apiRootUrl =  'http://127.0.0.1:8000/api/bikes?page=' + couterVal;
+        }
+
+        console.log(apiRootUrl);
+        
+        output = document.getElementById('jsDiv');
 
             let config = {
                 method: 'GET',
@@ -25,71 +71,57 @@ const app = {
                 cache: 'no-cache',
             };
             
-            fetch(this.apiRootUrl, config)
+            fetch(apiRootUrl, config)
 
-            .then(function(response) {
+            .then(function (response) {
             return response.json();
             })
 
-            .then(function(response) {
-            //loop on response for extract all Objects.
-        
-                // replace 8 by response.results.length to dipslay all results 
-                for (var i = 0; i < 8; i++){
-                    
-                    // In rep front/home.html.twig -> We position ourselves in relation to:
-                    const output = document.getElementById('mydiv');
-                    // At each turn of the loop we render a card template hydrated with each object properties
+            .then(function (data) {
+               
+                //items length for one page
+                let length =  data['hydra:member'].length
+                //items length for all results
+                let totalLength = data['hydra:totalItems']
+
+                app.displayResultsLength(length, totalLength);
                 
+                for (var i = 0; i < data['hydra:member'].length; i++){
+              
                     try{
-
-                        if (response.results[i]['media'].length == []) {
-                            // we filter the objects that have no images
-                            let picture = './assets/images/default_picture/default_pict.jpg'
-
-                            output.innerHTML += 
-                            `
-                            <div class="card-group">
-                                <div class="card" style="width: 15rem;">
-                                    <div class="card-body">
-                                    <img src="${picture}" class="card-img-top" alt="" title="">
-                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h2>
-                                    <h2><span class="badge bg-warning">${response.results[i].section}</span></h2>
-                                        <p class="card-text">${response.results[i].abstract.slice(0, 80)}<a href="${response.results[i].url}"> ...</a></p>
-                                        <p class="card-text"><small class="text-muted">Date : ${response.results[i].updated}</small></p>
-                                    <a href="${response.results[i].url}" class="btn btn-primary">Lire</a>  
-                                </div>
-                            </div> 
+                       
+                        output.innerHTML +=  
+                        
+                        `
+                            <ol>
                                 
-                            `
-                        }
-
-                        else {
-                            output.innerHTML += 
-                            `
-                            <div class="card-group">
-                                <div class="card" style="width: 15rem;">
-                                    <div class="card-body">
-                                    <img src="${response.results[i]['media'][0]['media-metadata'][2].url}" class="card-img-top" alt="${response.results[i]['media'][0].caption}" title="${response.results[i]['media'][0].caption}">
-                                    <h5 class="card-title">${response.results[i].title.slice(0, 20)} <a href="${response.results[i].url}"> ...</a></h2>
-                                    <h2><span class="badge bg-warning">${response.results[i].section}</span></h2>
-                                        <p class="card-text">${response.results[i].abstract.slice(0, 80)}<a href="${response.results[i].url}"> ...</a></p>
-                                        <p class="card-text"><small class="text-muted">Date : ${response.results[i].updated}</small></p>
-                                    <a href="${response.results[i].url}" class="btn btn-primary">Lire</a>  
-                                </div>
-                            </div> 
-                                
-                            `
-                        }
+                                <li>N° ${data['hydra:member'][i]['number']}</li>
+                                <li>Statut ${data['hydra:member'][i]['availablity']}</li>
+                            </ol>
+                            <hr>
+                   
+                        `
                     }
                     catch(err){
                         console.log(err);
                     }  
                 }//endfor
             })// end then
-    },
 
-};
+           
+    },
+      
+    displayResultsLength: function(item, items) {
+
+        let itemLength = item;
+        console.log('ici ' + itemLength)
+        let itemsLength = items;
+        
+        document.getElementById('lengthInfo').innerHTML += items + ' résultats '
+    }
+
+
+ };
 
 // Call init() on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', app.init);
