@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fiche réparation {{ repair.name }}{% endblock %}
+{% block title %}Fiche intervention {{ repair.name }}{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Fiche Reparation - {{ repair.name }}</h1>
+    <h1>Fiche Intervention - {{ repair.name }}</h1>
     <table class="table">
         <tbody>
             {# <tr>
@@ -45,8 +45,8 @@
             </tr>
         </tbody>
     </table>
-    <a href="{{ path('app_repair_edit', {'id': repair.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier la réparation</button></a>
-    <a href="{{ path('app_repair_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des réparations</button></a>
+    <a href="{{ path('app_repair_edit', {'id': repair.id}) }}"><button class="btn btn-lg btn-primary" type="submit">modifier l'intervention</button></a>
+    <a href="{{ path('app_repair_index') }}"><button class="btn btn-lg btn-success" type="submit">retour à la liste des interventions</button></a>
     {{ include('repair/_delete_form.html.twig') }}
 </div>
 {% endblock %}
