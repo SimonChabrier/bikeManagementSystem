@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste réparations effectuées{% endblock %}
+{% block title %}Liste interventions effectuées{% endblock %}
 
 {% block body %}
 
 <div class ="container">
-    <h1>Réparations effectuées</h1>
-    <h2>{{ repair_acts|length }} - réparations</h2>
+    <h1>Interventions effectuées</h1>
+    <h2>{{ repair_acts|length }} - interventions</h2>
     <table class="table">
         <thead>
             <tr>
@@ -33,13 +33,13 @@
         {% else %}
             <tr>
                 <td colspan="19"><div class="alert alert-danger" role="alert">
-                Pas de réparations en Base de Données !
+                Pas d'interventions en Base de Données !
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_repair_act_new') }}"><button class="btn btn-lg btn-primary" type="submit">Déclarer un acte de réparation</button></a>
+    <a href="{{ path('app_repair_act_new') }}"><button class="btn btn-lg btn-primary" type="submit">Déclarer une interventions</button></a>
 <div>
 {% endblock %}
 

@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_repair_act_delete', {'id': repair_act.id}) }}" onsubmit="Etes vous sûr de vouloir supprimer cette déclaration de réparation?');">
+<form method="post" action="{{ path('app_repair_act_delete', {'id': repair_act.id}) }}" onsubmit="Etes vous sûr de vouloir supprimer cette intervention ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ repair_act.id) }}">
     <button class="btn btn-lg btn-danger" type="submit">Supprimer</button>
 </form>

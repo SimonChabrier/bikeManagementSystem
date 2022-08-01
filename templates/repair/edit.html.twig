@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer Réparation {{ repair.name }}{% endblock %}
+{% block title %}Editer intervention {{ repair.name }}{% endblock %}
 
 {% block body %}
 <div class="container"> 
-    <h1>Modifier la réparationtion - {{ repair.name }}</h1>
+    <h1>Modifier l'intervention - {{ repair.name }}</h1>
     {{ include('repair/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     <a href="{{ path('app_repair_index') }}"><button class="btn btn-lg btn-primary" type="submit">Retour liste réparations</button></a>
     <hr>
