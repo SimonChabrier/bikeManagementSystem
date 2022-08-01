@@ -64,7 +64,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet"> #}
        
         <!-- Add this App Js -->
-        {# <script src="{{ asset('assets/js/app.js') }}" defer></script>  #}
+        {# <script src="{{ asset('assets/js/app.js') }}" defer></script> #}
         {# <script src="{{ asset('assets/js/slider_toggle.js') }}" defer></script>  #}
         
         <!-- Add this App favicon -->
@@ -78,7 +78,8 @@
         {% include 'fragments/_loggedInfo.html.twig' %}
         <!-- include nav bar -->
         {% include 'fragments/_navbar.html.twig' %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
         <!-- include footer -->
         {# {% include 'fragments/_footer.html.twig' %} #}
 
