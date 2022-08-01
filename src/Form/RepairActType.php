@@ -38,7 +38,7 @@ class RepairActType extends AbstractType
         ])
         ->add('repair', EntityType::class, [
             'class' => Repair::class,
-            'label' => 'Selectionner la réparation',
+            'label' => 'Selectionner l\'intervention',
             'choice_label' => function ($repair) {
                 return $repair->getName();
             }
