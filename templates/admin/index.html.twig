@@ -25,25 +25,25 @@
                 <h2>{{ unavalableBikes|length }} vélos indisponibles sur {{ allBikes|length }} </h2>    
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ updatedBikes|length }} vélos mis à jour</h2> 
+                <h2>{{ updatedBikes|length }} <a href="{{ path('app_bike_index') }}">vélos mis à jour</a></h2> 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayInventories|length }} inventaires</h2>   
+                <h2>{{ todayInventories|length }} <a href="{{ path('app_inventory_index') }}">inventaires</a></h2>   
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayBalances|length }} équilibrages</h2>  
+                <h2>{{ todayBalances|length }} <a href="{{ path('app_balance_index') }}">équilibrages</a></h2>  
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayRepairs|length }} interventions</h2>
+                <h2>{{ todayRepairs|length }} <a href="{{ path('app_repair_index') }}">interventions</a></h2>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <h2>{{ todayVandalims|length }} vandalismes</h2> 
+                <h2>{{ todayVandalims|length }} <a href="{{ path('app_vandalism_index') }}">vandalismes</a></h2> 
             </div>
         </div><!-- end row -->
 
         <div class="row mt-5">
         {% if updatedBikes|length > 0 %}
-        <h3>Vélos mis à jour</h3>
+        <h3>10 derniers <a href="{{ path('app_bike_index') }}">vélos mis à jour</a></h3>
             <table class="table table-striped">
             <thead>
                 <tr>
@@ -54,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for bike in updatedBikes %}
+            {% for bike in updatedBikes|slice(0, 10) %}
                 <tr>
                 <th scope="row"><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{bike.number}}</a></th>
                 <td><a href="{{ path('app_bike_show', {'id': bike.id}) }}">{{bike.availablity}}</a></td>
