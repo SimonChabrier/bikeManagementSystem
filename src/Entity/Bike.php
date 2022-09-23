@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use App\Repository\BikeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,9 +15,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ApiResource(
  * collectionOperations={"get"},
- * itemOperations={"get", "put", "patch"},
+ * itemOperations={"get"},
  * normalizationContext={"groups"={"bike:get"}},
- * denormalizationContext={"groups"={"bike:write"}},
  * )
  * 
  * 
@@ -33,20 +31,17 @@ class Bike
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("bike:get")
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("bike:get")
      * this is for active or unactive bike
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=30)
-     * @Groups("bike:get")
      */
     private $availablity = "Disponible";
 
@@ -74,7 +69,6 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=1)
-     * @Groups("bike:get")
      */
     private $rate = 5;
 
@@ -98,7 +92,6 @@ class Bike
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
-     * @Groups("bike:get")
      */
     private $updatedAt;
 
@@ -117,21 +110,18 @@ class Bike
     /**
      * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
      */
     private $vandalisms;
 
     /**
      * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
      */
     private $repairs;
 
     /**
      * @ORM\OneToMany(targetEntity=Balance::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
      */
     private $balances;
 
