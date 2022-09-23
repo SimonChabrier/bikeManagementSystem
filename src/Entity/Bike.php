@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Monolog\DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -92,11 +91,13 @@ class Bike
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      * @Groups("bike:get")
      */
     private $updatedAt;
@@ -347,21 +348,6 @@ class Bike
 
         return $this;
     }
-    
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
 
     /**
      * @return Collection<int, RepairAct>
@@ -422,4 +408,19 @@ class Bike
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    // public function updatedTimestamps(): void
+    // {
+    //     $setDateTime = new DateTimeImmutable('now');
+
+    //     $this->setUpdatedAt($setDateTime);
+
+    //     if ($this->getCreatedAt() === null) {
+    //         $this->setCreatedAt($setDateTime);
+    //     }
+    // }
 }

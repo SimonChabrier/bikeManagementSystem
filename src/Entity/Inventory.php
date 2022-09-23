@@ -5,8 +5,8 @@ namespace App\Entity;
 use App\Repository\InventoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Monolog\DateTimeImmutable;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,11 +24,13 @@ class Inventory
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -128,21 +130,5 @@ class Inventory
 
         return $this;
     }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        $this->setUpdatedAt($setDateTime);
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
-    }
-
 
 }
