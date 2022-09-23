@@ -11,7 +11,7 @@ use App\Entity\Inventory;
 use App\Entity\Balance;
 use App\Entity\Vandalism;
 use App\Entity\RepairAct;
-
+use DateTimeImmutable;
 //  https://fakerphp.github.io/
 use Faker\Factory as Faker;
 use Doctrine\DBAL\Connection;
@@ -165,8 +165,7 @@ class AppFixtures extends Fixture
 
         //BIKE
         for ($i = 425; $i <= 434; $i++){
-
-           
+ 
             $date = \DateTimeImmutable::createFromMutable($faker->dateTimeBetween('-15 days', 'now'));
             
             $bike = new Bike();
@@ -207,6 +206,7 @@ class AppFixtures extends Fixture
         }
 
         for ($i = 473; $i <= 484; $i++){
+           
             $bike = new Bike();
             $bike->setReference('ref_' . $i)
                 ->setNumber($i)
@@ -284,7 +284,7 @@ class AppFixtures extends Fixture
                 ->setReference('ref_' . $key)
                 ->setName($stationName)
                 ->setCapacity(mt_rand(3, 20))
-                ->setMainPicture('https://picsum.photos/id/'.mt_rand(1, 100).'/400/400');
+                ->setMainPicture('https://www.agglo-agen.net/fileadmin/_processed_/f/0/csm_stations-velos-keolys-details_8b5165c4eb.jpg');
             
             $allStationEntity[] = $station;
 
