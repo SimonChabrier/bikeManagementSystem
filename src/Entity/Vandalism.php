@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use App\Repository\VandalismRepository;
+use Gedmo\Mapping\Annotation as Gedmo;;
 use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -48,6 +48,7 @@ class Vandalism
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      * @Groups("vandalism:get")
      */
     private $createdAt;
@@ -146,19 +147,6 @@ class Vandalism
         $this->station = $station;
 
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $setDateTime = new DateTimeImmutable('now');
-
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt($setDateTime);
-        }
     }
 
 }
