@@ -45,7 +45,7 @@ class AppFixtures extends Fixture
         $this->connexion->executeQuery('TRUNCATE TABLE inventory');
         $this->connexion->executeQuery('TRUNCATE TABLE inventory_bike');
         $this->connexion->executeQuery('TRUNCATE TABLE repair_act');
-        $this->connexion->executeQuery('TRUNCATE TABLE Balance');
+        $this->connexion->executeQuery('TRUNCATE TABLE balance');
         $this->connexion->executeQuery('TRUNCATE TABLE balance_station');
     }
 
