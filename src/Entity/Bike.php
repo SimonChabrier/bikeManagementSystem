@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
+ * paginationEnabled=false,
  * collectionOperations={"get"},
  * itemOperations={"get"},
  * normalizationContext={"groups"={"bike:get"}},
@@ -25,103 +26,122 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"number"}, message="Une vélo porte déja ce numéro !")
  * @UniqueEntity(fields={"reference"}, message="Une vélo porte déjà cette référence !")
  */
+
 class Bike
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
      * this is for active or unactive bike
+     * 
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=30)
+     * 
      */
     private $availablity = "Disponible";
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $lat;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $lng;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=4)
      * @Groups("bike:get")
-     * @Groups("vandalism:get")
+     * @Groups("station:get")
+     * 
+     * 
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=1)
+     * 
      */
     private $rate = 5;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
      */
     private $purchasedAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(fields={"number"})
+     * 
      */
     private $slug;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      * @Gedmo\Timestampable(on="create")
+     * 
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
+     * 
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * Persist file name
+     * 
      */
     private $mainPicture;
 
     /**
      * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
      * @ORM\OrderBy({"createdAt" = "DESC"})
+     * 
      */
     private $inventories;
 
     /**
      * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
+     * 
      */
     private $vandalisms;
 
     /**
      * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
+     * 
      */
     private $repairs;
 
     /**
      * @ORM\OneToMany(targetEntity=Balance::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
+     * 
      */
     private $balances;
 
