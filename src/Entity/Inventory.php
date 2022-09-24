@@ -12,20 +12,29 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(
+ * @ApiResource (
+ * 
  *     collectionOperations={
  *          "post",
  *     },
+ * 
  *     itemOperations={
  *          "get"={
- *              "normalization_context"={"groups"={"inventories:read", "inventories:item:get"}},
+ *              "normalization_context"={
+ *              "groups"={"inventories:read", "inventories:item:get"}
+ *              },
  *          },
  *     },
  * 
  *     shortName="inventories",
  * 
- *     normalizationContext={"groups"={"inventories:read"}},
- *     denormalizationContext={"groups"={"inventories:write"}},
+ *     normalizationContext={
+ *          "groups"={"inventories:read"}
+ *      },
+ * 
+ *     denormalizationContext={
+ *          "groups"={"inventories:write"}
+ *      },
  * )
  * 
  * @ORM\Entity(repositoryClass=InventoryRepository::class)

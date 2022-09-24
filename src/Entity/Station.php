@@ -116,7 +116,6 @@ class Station
     private $mainPicture;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="station")
      */
     private $inventories;
 

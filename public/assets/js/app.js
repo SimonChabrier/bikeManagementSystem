@@ -63,12 +63,16 @@ const app =
     
     extractBikesItems: function (bikesArray){
 
-        const bikeNumber = bikesArray.map(bike => (bike.number));
-        app.createBikesList(bikeNumber);
+        //const bikeNumber = bikesArray.map(bike => (bike.number));
+        //app.createBikesList(bikeNumber);
 
-        const bikesId = bikesArray.map(element => ([element.number, element['@id']]));
-        console.log(bikesId);
-       
+        const bikesData = bikesArray.map(element => ([
+                element.number, 
+                element['@id']]
+            ));
+
+        app.createBikesList(bikesData);
+        //console.log(bikesData);
     },
 
     createBikesList: function(bikesArray){
@@ -79,11 +83,11 @@ const app =
         label.appendChild(select);
 
         bikesArray.forEach(bike => {
-            const option = document.createElement('option');
+            const option = new Option(bike[0], bike[1]);
+            //option.setAttribute("attribute", bike[1])
+            option.dataset.id = (bike[0])
             select.appendChild(option);
-            option.innerText = bike; 
         });
- 
     },
 
     extractStationsItems: function (stations){
@@ -106,12 +110,13 @@ const app =
     },
     
     handleDisplayChoice:function(event){
-        const userChoice = document.getElementById('select');
-        const choiceValue = document.createElement('li');
+        const olElement = document.getElementById('selected');
 
-        choiceValue.className = "bikeElement";
-        choiceValue.innerText = event.target.value
-        userChoice.appendChild(choiceValue);
+        let liElement = document.createElement('li');
+
+        liElement.className = "bikeElement";
+        liElement.innerText = event.target.value;
+        olElement.appendChild(liElement);
     },
 
     handleGetSubmitChoice:function(){
@@ -121,29 +126,26 @@ const app =
         const list = Array.from(values);
         
         //je récupère chaque numéro de vélo au submit je concatène avec le format API platform
-        list.forEach(element => {
-            arrayValue.push('/api/bikes/' + element.innerHTML);
+        list.forEach(value => {
+            //arrayValue.push('/api/bikes/' + element.innerHTML);
+            arrayValue.push(value.innerHTML);
         })
-  
+        //console.log(arrayValue);
         app.postSelectedBikesData(arrayValue);
     },
 
-
-    //TODO gérer la fonction de post avec les valeurs récupérées
-
-    postSelectedBikesData:function(values) {
-        console.log(values);
-        values.forEach(value => {
-        console.log(value);
+    postSelectedBikesData:function(arrayValue) 
+    {
         //prepare the content of the data to post.
+        // arrayValue est déjà un array donc chacune de ses valeurs sera traitée dans les propriétés de fetchOptions sur body: JSON.stringify(data)
         const data = {
             "station": "/api/stations/3",
-            "bikes": [
-                value.toString(),
-            ]
+            "bikes": arrayValue,
           }
 
-        //* format des dates attendus par l'API 
+        //* format des datas attendus par l'API 
+        //*  "/api/bikes/2" est un IRI ! 
+
         // const data = {
         //     "station": "/api/stations/3",
         //     "bikes": [
@@ -154,9 +156,8 @@ const app =
 
         //* prepare Headers
         const httpHeaders = new Headers();
-        httpHeaders.append('Content-Type', 'application/ld+json');
+        httpHeaders.append('Content-Type', 'application/json');
         
-        //const apiRootUrl = 'https://photoboothback.simschab.fr/api/post';
         const apiRootUrl = 'http://127.0.0.1:8000/api/inventories';
       
         const fetchOptions = {
@@ -175,11 +176,12 @@ const app =
             {
                 throw 'Erreur avec la requête'; 
             }
+            
             return response.json();
             }
         )
         .then(function(){
-      
+            console.log('Api POST Validé')
             //app.resetpictureDiv();
 
         })
@@ -187,7 +189,7 @@ const app =
             console.log(errorMsg)
         });
 
-    })//end foreach
+  
 
     },
 
