@@ -47,7 +47,7 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=30)
-     * 
+     * @Groups("bike:get")
      */
     private $availablity = "Disponible";
 
