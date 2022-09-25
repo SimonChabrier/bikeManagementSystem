@@ -63,29 +63,19 @@ const app =
     
     extractBikesItems: function (bikesArray){
 
-        //const bikeNumber = bikesArray.map(bike => (bike.number));
-        //app.createBikesList(bikeNumber);
-
         const bikesData = bikesArray.map(element => ([
                 element.number, 
                 element['@id']]
             ));
 
         app.createBikesList(bikesData);
-        //console.log(bikesData);
     },
 
     createBikesList: function(bikesArray){
-        const label = document.getElementById('bikes');
-        label.innerText = "Vélos ";
-
-        const select = document.createElement('select');
-        label.appendChild(select);
-
+        const select = document.getElementById('bikes')
         bikesArray.forEach(bike => {
             const option = new Option(bike[0], bike[1]);
-            //option.setAttribute("attribute", bike[1])
-            option.dataset.id = (bike[0])
+            //option.dataset.id = (bike[0])
             select.appendChild(option);
         });
     },
@@ -96,12 +86,7 @@ const app =
     },
 
     createStationList: function(choiceValue){
-        const label = document.getElementById('stations');
-        label.innerText = "Station ";
-
-        const select = document.createElement('select');
-        label.appendChild(select);
-
+        const select = document.getElementById('stations')
         choiceValue.forEach(name => {
             const option = document.createElement('option');
             select.appendChild(option);
@@ -110,27 +95,27 @@ const app =
     },
     
     handleDisplayChoice:function(event){
-        const olElement = document.getElementById('selected');
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
+        const textElement = document.createElement('text');
 
-        let liElement = document.createElement('li');
-
-        liElement.className = "bikeElement";
-        liElement.innerText = event.target.value;
-        olElement.appendChild(liElement);
+        textElement.className = "form-control bikeElement mt-2 mb-2";
+        textElement.setAttribute('disabled', true)
+        textElement.innerText = event.target.value;
+        divDisplaydSelectedBikes.appendChild(textElement);
     },
 
+    //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
+    // qui sera envoyé en post
     handleGetSubmitChoice:function(){
         const arrayValue = [];
         
         const values = document.getElementsByClassName('bikeElement');
         const list = Array.from(values);
         
-        //je récupère chaque numéro de vélo au submit je concatène avec le format API platform
         list.forEach(value => {
-            //arrayValue.push('/api/bikes/' + element.innerHTML);
             arrayValue.push(value.innerHTML);
         })
-        //console.log(arrayValue);
+
         app.postSelectedBikesData(arrayValue);
     },
 
