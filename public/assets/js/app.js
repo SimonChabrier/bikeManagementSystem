@@ -20,14 +20,19 @@ const app =
         
         const selectedValue = document.getElementById('bikes');
         selectedValue.addEventListener('change', function (event){
-            //récupérer la valeur de l'attribut "id" du select changé
-            let iri = event.target.options[event.target.selectedIndex].id
-            app.handleDisplayChoice(event, iri);
+            let bikesIri = event.target.options[event.target.selectedIndex].id
+            app.handleDisplayChoice(event, bikesIri);
+        });
+
+        const selectedStation = document.getElementById('stations');
+        selectedStation.addEventListener('change', function (event){
+            let stationIri = event.target.options[event.target.selectedIndex].id
+            app.handleGetSubmitChoice(stationIri);
         });
 
         document.getElementById('submit').addEventListener('click', function (event){
             event.preventDefault()
-            app.handleGetSubmitChoice();
+            app.handleGetSubmitChoice(stationIri);
         });
     }, 
     
@@ -87,8 +92,13 @@ const app =
     },
 
     extractStationsItems: function (stations){
-        const stationsName = stations.map(element => (
-            element.name
+        const stationsName = stations.map(station => (
+            [
+            station.name,
+            station['@id'],
+            station.id
+            ]
+
         ));
 
         app.createStationOptionList(stationsName);
@@ -106,51 +116,52 @@ const app =
 
     createStationOptionList: function(choiceValue){
         const select = document.getElementById('stations')
-        console.log(choiceValue)
         
-        choiceValue.forEach(name => {
-            const option = document.createElement('option');
-            select.appendChild(option);
-            option.innerText = name;
-            option.setAttribute("id", name) 
+        choiceValue.forEach(station => {
+
+            const option = new Option(station[0], station[0]);
+            option.setAttribute("id", station[1])
+            select.appendChild(option); 
         });        
     },
     
-    handleDisplayChoice:function(event, iri){
+    handleDisplayChoice:function(event, bikesIri){
         const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
         const textElement = document.createElement('text');
 
         textElement.className = "form-control bikeElement mt-2 mb-2";
         textElement.setAttribute('disabled', true)
         textElement.innerText = event.target.value;
-        textElement.setAttribute("id", iri);
+        textElement.setAttribute("id", bikesIri);
 
         divDisplaydSelectedBikes.appendChild(textElement);
     },
 
     //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
     // qui sera envoyé en post
-    handleGetSubmitChoice:function(){
+    handleGetSubmitChoice:function(stationIri){
         const bikesArrayToFeed = [];
+
+        const selectedStation = document.getElementById('stations');
+        console.log(selectedStation)
         
         const values = document.getElementsByClassName('bikeElement');
         const bikesToPost = Array.from(values);
-        
         bikesToPost.forEach(value => {
             bikesArrayToFeed.push(value.getAttribute("id"));
         })
 
-        app.postSelectedBikesData(bikesArrayToFeed);
+        app.postSelectedBikesData(bikesArrayToFeed, stationIri);
     },
 
-    postSelectedBikesData:function(arrayValue) 
+    postSelectedBikesData:function(bikesArray, stationIri) 
     {
-        console.log(arrayValue);
+        console.log(bikesArray);
         //prepare the content of the data to post.
         // arrayValue est déjà un array donc chacune de ses valeurs sera traitée dans les propriétés de fetchOptions sur body: JSON.stringify(data)
         const data = {
-            "station": "/api/stations/3",
-            "bikes": arrayValue,
+            "station": stationIri,
+            "bikes": bikesArray,
           }
 
         //* format des datas attendus par l'API 
