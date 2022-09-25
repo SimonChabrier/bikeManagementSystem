@@ -33,6 +33,7 @@ class Bike
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("bike:get")
      * 
      */
     private $id;
@@ -72,8 +73,6 @@ class Bike
      * @ORM\Column(type="string", length=4)
      * @Groups("bike:get")
      * @Groups("station:get")
-     * 
-     * 
      */
     private $number;
 
