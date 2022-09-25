@@ -26,8 +26,10 @@ const app =
     
     //fetch api bikes
     getBikesList: function () {
- 
-        let apiRootUrl = 'http://127.0.0.1:8000/api/bikes'
+
+        const location = window.location.origin;
+        const endPoint = '/api/bikes';
+        const apiRootUrl = location + endPoint;
 
         let config = {
             method: 'GET',
@@ -48,8 +50,10 @@ const app =
 
     //fetch api station
     getStationsList: function () {
-            
-        let apiRootUrl = 'http://127.0.0.1:8000/api/stations'
+        
+        const location = window.location.origin;
+        const endPoint = '/api/stations';
+        const apiRootUrl = location + endPoint;
     
         let config = {
             method: 'GET',
@@ -205,8 +209,9 @@ const app =
         //* prepare Headers
         const httpHeaders = new Headers();
         httpHeaders.append('Content-Type', 'application/json');
-        
-        const apiRootUrl = 'http://127.0.0.1:8000/api/inventories';
+        const location = window.location.origin;
+        const endPoint = '/api/inventories';
+        const apiRootUrl = location + endPoint;
       
         const fetchOptions = {
         method: 'POST',
