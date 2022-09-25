@@ -86,8 +86,15 @@ const app =
         app.createBikesOptionList(bikes);
     },
 
+    extractStationsItems: function (stations){
+        const stationsName = stations.map(element => (
+            element.name
+        ));
+
+        app.createStationOptionList(stationsName);
+    },
+
     createBikesOptionList: function(bikesArray){
-        //console.log(bikesArray)
         const select = document.getElementById('bikes')
 
         bikesArray.forEach(bike => {
@@ -97,17 +104,15 @@ const app =
         });
     },
 
-    extractStationsItems: function (stations){
-        const stationsName = stations.map(element => (element.name));
-        app.createStationList(stationsName);
-    },
-
-    createStationList: function(choiceValue){
+    createStationOptionList: function(choiceValue){
         const select = document.getElementById('stations')
+        console.log(choiceValue)
+        
         choiceValue.forEach(name => {
             const option = document.createElement('option');
             select.appendChild(option);
-            option.innerText = name; 
+            option.innerText = name;
+            option.setAttribute("id", name) 
         });        
     },
     
@@ -126,16 +131,16 @@ const app =
     //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
     // qui sera envoyé en post
     handleGetSubmitChoice:function(){
-        const arrayToFeed = [];
+        const bikesArrayToFeed = [];
         
         const values = document.getElementsByClassName('bikeElement');
         const bikesToPost = Array.from(values);
         
         bikesToPost.forEach(value => {
-            arrayToFeed.push(value.getAttribute("id"));
+            bikesArrayToFeed.push(value.getAttribute("id"));
         })
 
-        app.postSelectedBikesData(arrayToFeed);
+        app.postSelectedBikesData(bikesArrayToFeed);
     },
 
     postSelectedBikesData:function(arrayValue) 
