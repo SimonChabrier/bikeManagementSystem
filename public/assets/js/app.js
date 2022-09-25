@@ -165,24 +165,31 @@ const app =
 
         const h5 = document.getElementById('bikesSelecTitle');
         h5.style.color = "";
+
+        const button = document.getElementById('submit')
         
         if(app.state.count == 0){
             h5.innerText = "Aucun vélos sélectionné"  
+            button.style.display = 'none'
         };
 
         if(app.state.count == 1){
             h5.innerText = `${app.state.count} vélos sélectionné`
+            button.style.display = 'block'
         }
 
         if(app.state.count >= 2){
             h5.innerText = `${app.state.count} vélos sélectionnés`
+            button.style.display = 'block'
         }
-
     },
 
     resetCountSelectedBikesOnPost:function(){
         const h5 = document.getElementById('bikesSelecTitle');
         h5.style.color = "green";
+
+        const button = document.getElementById('submit');
+        button.style.display = 'none';
 
         if(app.state.count == 0){
             h5.innerText = "Oupsss, aucun vélos ajouté !"  
@@ -197,7 +204,7 @@ const app =
         }
 
         setTimeout(() => {
-            h5.innerText = 'Réaliser un inventaire';
+            h5.innerText = 'Réaliser un autre inventaire';
             h5.style.color = "";
           }, 3000)
     },
