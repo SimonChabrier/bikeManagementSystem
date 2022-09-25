@@ -1,28 +1,18 @@
 const app = 
 {
+    
     init: function() {
         console.log("app init");
         app.listeners();
     },
 
-    
-    state : {
-        id:"test",
-        selected:[],
-        count:'',
-    },
-
-   
     listeners:function(){
 
         app.getBikesList();
         app.getStationsList();
         
-        const selectedValue = document.getElementById('bikes');
-        selectedValue.addEventListener('change', function (event){
-            //récupérer la valeur de l'attribut "id" du select changé
-            let iri = event.target.options[event.target.selectedIndex].id
-            app.handleDisplayChoice(event, iri);
+        document.getElementById('bikes').addEventListener('change', function (event){
+            app.handleDisplayChoice(event);
         });
 
         document.getElementById('submit').addEventListener('click', function (event){
@@ -48,8 +38,6 @@ const app =
           })
           .then(data => {
             app.extractBikesItems(data['hydra:member']);
-            //pousser les data dans l'objet state
-            //app.state.bikesData.push(data['hydra:member']);
           });
     },
 
@@ -75,24 +63,22 @@ const app =
     
     extractBikesItems: function (bikesArray){
 
-        const bikes = bikesArray.map(bike => (
+        const bikesData = bikesArray.map(element => (
                 [
-                    bike.number, 
-                    bike['@id'],
-                    bike.id
+                    element.number, 
+                    element['@id'],
+                    element.id
                 ]
             ));
-        
-        app.createBikesOptionList(bikes);
+
+        app.createBikesList(bikesData);
     },
 
-    createBikesOptionList: function(bikesArray){
-        //console.log(bikesArray)
+    createBikesList: function(bikesArray){
         const select = document.getElementById('bikes')
-
         bikesArray.forEach(bike => {
-            const option = new Option(bike[0], bike[0]);
-            option.setAttribute("id", bike[1])
+            const option = new Option(bike[0], bike[1]);
+            //option.dataset.id = (bike[0])
             select.appendChild(option);
         });
     },
@@ -111,36 +97,33 @@ const app =
         });        
     },
     
-    handleDisplayChoice:function(event, iri){
+    handleDisplayChoice:function(event){
         const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
         const textElement = document.createElement('text');
 
         textElement.className = "form-control bikeElement mt-2 mb-2";
         textElement.setAttribute('disabled', true)
         textElement.innerText = event.target.value;
-        textElement.setAttribute("id", iri);
-
         divDisplaydSelectedBikes.appendChild(textElement);
     },
 
     //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
     // qui sera envoyé en post
     handleGetSubmitChoice:function(){
-        const arrayToFeed = [];
+        const arrayValue = [];
         
         const values = document.getElementsByClassName('bikeElement');
-        const bikesToPost = Array.from(values);
+        const list = Array.from(values);
         
-        bikesToPost.forEach(value => {
-            arrayToFeed.push(value.getAttribute("id"));
+        list.forEach(value => {
+            arrayValue.push(value.innerHTML);
         })
 
-        app.postSelectedBikesData(arrayToFeed);
+        app.postSelectedBikesData(arrayValue);
     },
 
     postSelectedBikesData:function(arrayValue) 
     {
-        console.log(arrayValue);
         //prepare the content of the data to post.
         // arrayValue est déjà un array donc chacune de ses valeurs sera traitée dans les propriétés de fetchOptions sur body: JSON.stringify(data)
         const data = {
