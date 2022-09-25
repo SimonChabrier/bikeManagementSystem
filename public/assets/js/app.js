@@ -167,6 +167,7 @@ const app =
     displayCountSelectedBikes:function(){
 
         const h5 = document.getElementById('bikesSelecTitle');
+        h5.style.color = "";
         
         if(app.state.count == 0){
             h5.innerText = "Aucun vélos sélectionné"  
@@ -184,6 +185,8 @@ const app =
 
     resetCountSelectedBikesOnPost:function(){
         const h5 = document.getElementById('bikesSelecTitle');
+        h5.style.color = "green";
+
         if(app.state.count == 0){
             h5.innerText = "Oupsss, aucun vélos ajouté !"  
         };
@@ -198,6 +201,7 @@ const app =
 
         setTimeout(() => {
             h5.innerText = 'Réaliser un inventaire';
+            h5.style.color = "";
           }, 3000)
     },
 
@@ -247,61 +251,63 @@ const app =
 
     apiPost:function(bikesArray, stationString) 
     {
-
-        const data = {
-            "station": stationString,
-            "bikes": bikesArray,
-          }
-
-        //* format des datas attendus par l'API 
-        //*  "/api/bikes/2" est un IRI ! 
-
-        // const data = {
-        //     "station": "/api/stations/3",
-        //     "bikes": [
-        //       "/api/bikes/2",
-        //       "/api/bikes/3"
-        //     ]
-        //   }  
-
-        //* prepare Headers
-        const httpHeaders = new Headers();
-        httpHeaders.append('Content-Type', 'application/json');
-        const location = window.location.origin;
-        const endPoint = '/api/inventories';
-        const apiRootUrl = location + endPoint;
-      
-        const fetchOptions = {
-        method: 'POST',
-        mode : 'cors',
-        cache : 'no-cache',
-        headers: httpHeaders,
-        body: JSON.stringify(data),
-        }
-       
-        fetch(apiRootUrl , fetchOptions)
-      
-        .then(response => {
-      
-            if (response.status !== 201) 
-            {
-                throw 'Erreur avec la requête'; 
+        if(app.state.count >= 1){
+            const data = {
+                "station": stationString,
+                "bikes": bikesArray,
             }
-            
-            return response.json();
+
+            //* format des datas attendus par l'API 
+            //*  "/api/bikes/2" est un IRI ! 
+
+            // const data = {
+            //     "station": "/api/stations/3",
+            //     "bikes": [
+            //       "/api/bikes/2",
+            //       "/api/bikes/3"
+            //     ]
+            //   }  
+
+            //* prepare Headers
+            const httpHeaders = new Headers();
+            httpHeaders.append('Content-Type', 'application/json');
+            const location = window.location.origin;
+            const endPoint = '/api/inventories';
+            const apiRootUrl = location + endPoint;
+        
+            const fetchOptions = {
+            method: 'POST',
+            mode : 'cors',
+            cache : 'no-cache',
+            headers: httpHeaders,
+            body: JSON.stringify(data),
             }
-        )
-        .then(function(){
-            console.log('Api POST Validé')
-            app.postSuccesMessage();
-            app.resetCountSelectedBikesOnPost();
-        })
-        .catch(function(errorMsg){
-            console.log(errorMsg)
-        });
-
-  
-
+        
+            fetch(apiRootUrl , fetchOptions)
+        
+            .then(response => {
+        
+                if (response.status !== 201) 
+                {
+                    throw 'Erreur avec la requête'; 
+                }
+                
+                return response.json();
+                }
+            )
+            .then(function(){
+                console.log('Api POST Validé')
+                app.postSuccesMessage();
+                app.resetCountSelectedBikesOnPost();
+            })
+            .catch(function(errorMsg){
+                console.log(errorMsg)
+            });
+        } else {
+            const h5 = document.getElementById('bikesSelecTitle');
+            h5.innerText = "Oupsss, aucun vélos ajouté !"
+            h5.style.color = "red";  
+        };   
     },
 
  };
