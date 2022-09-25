@@ -83,7 +83,8 @@ const app =
                 [
                     bike.number, 
                     bike['@id'],
-                    bike.id
+                    bike.id,
+                    bike.availablity
                 ]
             ));
         
@@ -107,10 +108,20 @@ const app =
         const select = document.getElementById('bikes')
 
         bikesArray.forEach(bike => {
+            if(bike[3] == 'Disponible'){
             const option = new Option(bike[0], bike[0]);
             option.setAttribute("id", bike[1])
             select.appendChild(option);
+            }
         });
+
+        const totalBikesCount = bikesArray.length
+        const availableBikes = document.getElementsByTagName('option');
+        const countValue = availableBikes.length;
+
+        const displayAvailableBikesCount = document.getElementById('availableBikesCount');
+        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
+    
     },
 
     createStationOptionList: function(choiceValue){
@@ -121,7 +132,11 @@ const app =
             const option = new Option(station[0], station[0]);
             option.setAttribute("id", station[1])
             select.appendChild(option); 
-        });        
+        });  
+  
+        const countValue = choiceValue.length;
+        const displayCount = document.getElementById('availableStationsCount');
+        displayCount.innerHTML = `${countValue} stations actives sur ${countValue}`
     },
     
     handleDisplayChoice:function(event, bikesIri){
