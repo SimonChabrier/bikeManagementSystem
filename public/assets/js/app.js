@@ -131,7 +131,7 @@ const app =
 
         const button = document.createElement('submit');
         button.className = "btn btn-danger btn-sm";
-        button.innerText = "Supprimer";
+        button.innerText = `Supprimer: ${textElement.innerText}`;
         button.setAttribute("id", bikesIri);
 
         div.appendChild(button);
