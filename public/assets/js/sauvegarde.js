@@ -2,9 +2,14 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();        
+        app.listeners();
+        console.log(app.state.count);       
     },
-   
+    
+    state : {
+        count : 0,
+    },
+
     listeners:function(){
 
         app.getBikesList();
@@ -15,6 +20,8 @@ const app =
         selectedBikes.addEventListener('change', function (event){
             let bikesIri = event.target.options[event.target.selectedIndex].id
             app.handleDisplayChoice(event, bikesIri);
+            app.state.count += 1
+            console.log(app.state.count)
         });
    
         //Submit Api Post 
@@ -26,8 +33,10 @@ const app =
     
     //fetch api bikes
     getBikesList: function () {
- 
-        let apiRootUrl = 'http://127.0.0.1:8000/api/bikes'
+
+        const location = window.location.origin;
+        const endPoint = '/api/bikes';
+        const apiRootUrl = location + endPoint;
 
         let config = {
             method: 'GET',
@@ -48,8 +57,10 @@ const app =
 
     //fetch api station
     getStationsList: function () {
-            
-        let apiRootUrl = 'http://127.0.0.1:8000/api/stations'
+        
+        const location = window.location.origin;
+        const endPoint = '/api/stations';
+        const apiRootUrl = location + endPoint;
     
         let config = {
             method: 'GET',
@@ -115,7 +126,7 @@ const app =
     
     handleDisplayChoice:function(event, bikesIri){
 
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
         
         const div = document.createElement('div');
         div.setAttribute("id", bikesIri);
@@ -131,14 +142,21 @@ const app =
 
         const button = document.createElement('submit');
         button.className = "btn btn-danger btn-sm";
-        button.innerText = "Supprimer";
+        button.innerText = `Supprimer: ${textElement.innerText}`;
         button.setAttribute("id", bikesIri);
 
         div.appendChild(button);
         divDisplaydSelectedBikes.appendChild(div);
 
         app.handleDeleteChoice(); 
+        //app.countSelectedBikes();
     },
+
+    // countSelectedBikes:function(){
+    //     const count = document.getElementsByClassName('bikeDiv');
+    //     const h5 = document.getElementById('bikesSelecTitle');
+    //     h5.innerText = `${count.length} vélos sélectionnés`
+    // },
 
     //bouttons supprimer
     handleDeleteChoice:function(){ 
@@ -149,18 +167,9 @@ const app =
                 button.addEventListener('click', function(event){
                 div = event.target.closest('div');
                 div.remove();
+                console.log(event.target.id)
             });
         } 
-    },
-
-    handleCancelBikeChoice:function(){
-        //créer un boutton pour chaque entrée de bike
-        //lui donner comme attribut le même id que le bike
-        //cibler l'id du bike
-        //ajouter un listener sur chaque clic pour supprimer le child du dom
-        //voir le tableau de valeur
-
-        document.removeChild(document.getElementById("yourId"))
     },
 
     postSuccesMessage:function(){
@@ -215,8 +224,9 @@ const app =
         //* prepare Headers
         const httpHeaders = new Headers();
         httpHeaders.append('Content-Type', 'application/json');
-        
-        const apiRootUrl = 'http://127.0.0.1:8000/api/inventories';
+        const location = window.location.origin;
+        const endPoint = '/api/inventories';
+        const apiRootUrl = location + endPoint;
       
         const fetchOptions = {
         method: 'POST',

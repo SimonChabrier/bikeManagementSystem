@@ -2,19 +2,29 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();        
+        app.listeners();
+        console.log(app.state.count);
+        
+              
     },
-   
+    
+    state : {
+        count : 0,
+    },
+
     listeners:function(){
 
         app.getBikesList();
         app.getStationsList();
+        app.displayCountSelectedBikes();
+
 
         //display each bike option selected
         const selectedBikes = document.getElementById('bikes');
         selectedBikes.addEventListener('change', function (event){
             let bikesIri = event.target.options[event.target.selectedIndex].id
             app.handleDisplayChoice(event, bikesIri);
+            
         });
    
         //Submit Api Post 
@@ -119,7 +129,7 @@ const app =
     
     handleDisplayChoice:function(event, bikesIri){
 
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
         
         const div = document.createElement('div');
         div.setAttribute("id", bikesIri);
@@ -142,6 +152,34 @@ const app =
         divDisplaydSelectedBikes.appendChild(div);
 
         app.handleDeleteChoice(); 
+        app.countSelectedBikes();
+        
+    },
+
+    countSelectedBikes:function(){
+        let count = document.getElementById('selectedBikes');
+        value = count.childElementCount;
+        app.state.count = value;
+
+        app.displayCountSelectedBikes()
+    },
+
+    displayCountSelectedBikes:function(){
+
+        const h5 = document.getElementById('bikesSelecTitle');
+        
+        if(app.state.count == 0){
+            h5.innerText = "Aucun vélos sélectionné"  
+        };
+
+        if(app.state.count == 1){
+            h5.innerText = `${app.state.count} vélos sélectionné`
+        }
+
+        if(app.state.count >= 2){
+            h5.innerText = `${app.state.count} vélos sélectionnés`
+        }
+
     },
 
     //bouttons supprimer
@@ -153,6 +191,7 @@ const app =
                 button.addEventListener('click', function(event){
                 div = event.target.closest('div');
                 div.remove();
+                app.countSelectedBikes();
             });
         } 
     },
