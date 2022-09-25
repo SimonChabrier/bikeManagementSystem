@@ -2,37 +2,23 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();
+        app.listeners();        
     },
-
-    
-    state : {
-        id:"test",
-        selected:[],
-        count:'',
-    },
-
    
     listeners:function(){
 
         app.getBikesList();
         app.getStationsList();
-        
-        const selectedValue = document.getElementById('bikes');
-        selectedValue.addEventListener('change', function (event){
+
+        const selectedBikes = document.getElementById('bikes');
+        selectedBikes.addEventListener('change', function (event){
             let bikesIri = event.target.options[event.target.selectedIndex].id
             app.handleDisplayChoice(event, bikesIri);
         });
 
-        const selectedStation = document.getElementById('stations');
-        selectedStation.addEventListener('change', function (event){
-            let stationIri = event.target.options[event.target.selectedIndex].id
-            app.handleGetSubmitChoice(stationIri);
-        });
-
         document.getElementById('submit').addEventListener('click', function (event){
             event.preventDefault()
-            app.handleGetSubmitChoice(stationIri);
+            app.handleSubmitChoices();
         });
     }, 
     
@@ -91,8 +77,8 @@ const app =
         app.createBikesOptionList(bikes);
     },
 
-    extractStationsItems: function (stations){
-        const stationsName = stations.map(station => (
+    extractStationsItems: function (stationsArray){
+        const stationsName = stationsArray.map(station => (
             [
             station.name,
             station['@id'],
@@ -137,30 +123,41 @@ const app =
         divDisplaydSelectedBikes.appendChild(textElement);
     },
 
-    //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
-    // qui sera envoyé en post
-    handleGetSubmitChoice:function(stationIri){
-        const bikesArrayToFeed = [];
+    postSuccesMessage:function(){
+        const div = document.getElementById('selectedBikes');
 
-        const selectedStation = document.getElementById('stations');
-        console.log(selectedStation)
-        
-        const values = document.getElementsByClassName('bikeElement');
-        const bikesToPost = Array.from(values);
-        bikesToPost.forEach(value => {
-            bikesArrayToFeed.push(value.getAttribute("id"));
-        })
-
-        app.postSelectedBikesData(bikesArrayToFeed, stationIri);
+        div.innerHTML =
+        ` <div class="alert alert-success" role="alert">
+            Données postées ! 
+         </div>
+        `
+        setTimeout(() => {
+            div.innerHTML = '';
+          }, 2000)
     },
 
-    postSelectedBikesData:function(bikesArray, stationIri) 
+    //Gestion des values d'options selectionnées pour API Post
+    handleSubmitChoices:function(){
+        const bikes = [];
+    
+        const values = document.getElementsByClassName('bikeElement');
+        const bikesToPost = Array.from(values);
+        
+        bikesToPost.forEach(value => {
+            bikes.push(value.getAttribute("id"));
+        })
+
+        const selectedStation = document.getElementById('stations');
+        const station = selectedStation.options[ selectedStation.selectedIndex ].id
+
+        app.apiPost(bikes, station);
+    },
+
+    apiPost:function(bikesArray, stationString) 
     {
-        console.log(bikesArray);
-        //prepare the content of the data to post.
-        // arrayValue est déjà un array donc chacune de ses valeurs sera traitée dans les propriétés de fetchOptions sur body: JSON.stringify(data)
+
         const data = {
-            "station": stationIri,
+            "station": stationString,
             "bikes": bikesArray,
           }
 
@@ -203,8 +200,7 @@ const app =
         )
         .then(function(){
             console.log('Api POST Validé')
-            //app.resetpictureDiv();
-
+            app.postSuccesMessage();
         })
         .catch(function(errorMsg){
             console.log(errorMsg)
