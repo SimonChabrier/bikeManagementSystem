@@ -2,10 +2,7 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();
-        console.log(app.state.count);
-        
-              
+        app.listeners();          
     },
     
     state : {
