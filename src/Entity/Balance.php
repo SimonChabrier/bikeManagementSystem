@@ -12,13 +12,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(
- * collectionOperations={"get"},
- * itemOperations={"get", "put", "patch"},
- * normalizationContext={"groups"={"balance:get"}},
- * denormalizationContext={"groups"={"balance:write"}},
- * )
- * 
  * @ORM\Entity(repositoryClass=BalanceRepository::class)
  * @ORM\HasLifecycleCallbacks
  */

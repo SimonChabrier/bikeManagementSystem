@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\StationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +13,13 @@ use Monolog\DateTimeImmutable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ApiResource(
+ * paginationEnabled=false,
+ * collectionOperations={"get"},
+ * itemOperations={"get"},
+ * normalizationContext={"groups"={"station:get"}},
+ * )
+ * 
  * @ORM\Entity(repositoryClass=StationRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"name"}, message="Une station porte déjà ce nom !")
@@ -22,6 +31,7 @@ class Station
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("station:get")
      */
     private $id;
 
@@ -50,7 +60,9 @@ class Station
     private $capacity;
 
     /**
+     * 
      * @ORM\Column(type="string", length=150)
+     * @Groups("station:get")
      */
     private $name;
 
@@ -105,7 +117,7 @@ class Station
 
     /**
      * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="station")
-     */
+    */
     private $inventories;
 
     /**

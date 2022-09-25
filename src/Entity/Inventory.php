@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\InventoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,6 +12,31 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource (
+ * 
+ *     collectionOperations={
+ *          "post",
+ *     },
+ * 
+ *     itemOperations={
+ *          "get"={
+ *              "normalization_context"={
+ *              "groups"={"inventories:read", "inventories:item:get"}
+ *              },
+ *          },
+ *     },
+ * 
+ *     shortName="inventories",
+ * 
+ *     normalizationContext={
+ *          "groups"={"inventories:read"}
+ *      },
+ * 
+ *     denormalizationContext={
+ *          "groups"={"inventories:write"}
+ *      },
+ * )
+ * 
  * @ORM\Entity(repositoryClass=InventoryRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
@@ -35,12 +62,23 @@ class Inventory
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Station::class, inversedBy="inventories")
+     * @Groups({"inventories:read", "inventories:write"})
+     * 
+     * @ORM\ManyToOne(
+     *      targetEntity=Station::class, 
+     *      inversedBy="inventories", 
+     *      cascade={"persist"}
+     *      )
      */
     private $station;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Bike::class, inversedBy="inventories")
+     * @Groups({"inventories:read", "inventories:write"})
+     * @ORM\ManyToMany(
+     *      targetEntity=Bike::class, 
+     *      inversedBy="inventories", 
+     *      cascade={"persist"}
+     *      )
      */
     private $bikes;
 
@@ -102,6 +140,7 @@ class Inventory
     {
         return $this->bikes;
     }
+
 
     public function addBike(Bike $bike): self
     {

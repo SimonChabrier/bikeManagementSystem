@@ -9,6 +9,7 @@
 /sql/
 *.DS_Store
 /public/assets/upload/
+/public/assets/js/sauvagarde.js
 ###< symfony/framework-bundle ###
 
 ###> liip/imagine-bundle ###

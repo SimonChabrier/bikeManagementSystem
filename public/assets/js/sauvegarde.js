@@ -2,7 +2,10 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();          
+        app.listeners();
+        console.log(app.state.count);
+        
+              
     },
     
     state : {
@@ -164,33 +167,23 @@ const app =
     displayCountSelectedBikes:function(){
 
         const h5 = document.getElementById('bikesSelecTitle');
-        h5.style.color = "";
-
-        const button = document.getElementById('submit')
         
         if(app.state.count == 0){
             h5.innerText = "Aucun vélos sélectionné"  
-            button.style.display = 'none'
         };
 
         if(app.state.count == 1){
             h5.innerText = `${app.state.count} vélos sélectionné`
-            button.style.display = 'block'
         }
 
         if(app.state.count >= 2){
             h5.innerText = `${app.state.count} vélos sélectionnés`
-            button.style.display = 'block'
         }
+
     },
 
     resetCountSelectedBikesOnPost:function(){
         const h5 = document.getElementById('bikesSelecTitle');
-        h5.style.color = "green";
-
-        const button = document.getElementById('submit');
-        button.style.display = 'none';
-
         if(app.state.count == 0){
             h5.innerText = "Oupsss, aucun vélos ajouté !"  
         };
@@ -204,8 +197,7 @@ const app =
         }
 
         setTimeout(() => {
-            h5.innerText = 'Réaliser un autre inventaire';
-            h5.style.color = "";
+            h5.innerText = 'Réaliser un inventaire';
           }, 3000)
     },
 
@@ -255,63 +247,61 @@ const app =
 
     apiPost:function(bikesArray, stationString) 
     {
-        if(app.state.count >= 1){
-            const data = {
-                "station": stationString,
-                "bikes": bikesArray,
+
+        const data = {
+            "station": stationString,
+            "bikes": bikesArray,
+          }
+
+        //* format des datas attendus par l'API 
+        //*  "/api/bikes/2" est un IRI ! 
+
+        // const data = {
+        //     "station": "/api/stations/3",
+        //     "bikes": [
+        //       "/api/bikes/2",
+        //       "/api/bikes/3"
+        //     ]
+        //   }  
+
+        //* prepare Headers
+        const httpHeaders = new Headers();
+        httpHeaders.append('Content-Type', 'application/json');
+        const location = window.location.origin;
+        const endPoint = '/api/inventories';
+        const apiRootUrl = location + endPoint;
+      
+        const fetchOptions = {
+        method: 'POST',
+        mode : 'cors',
+        cache : 'no-cache',
+        headers: httpHeaders,
+        body: JSON.stringify(data),
+        }
+       
+        fetch(apiRootUrl , fetchOptions)
+      
+        .then(response => {
+      
+            if (response.status !== 201) 
+            {
+                throw 'Erreur avec la requête'; 
             }
-
-            //* format des datas attendus par l'API 
-            //*  "/api/bikes/2" est un IRI ! 
-
-            // const data = {
-            //     "station": "/api/stations/3",
-            //     "bikes": [
-            //       "/api/bikes/2",
-            //       "/api/bikes/3"
-            //     ]
-            //   }  
-
-            //* prepare Headers
-            const httpHeaders = new Headers();
-            httpHeaders.append('Content-Type', 'application/json');
-            const location = window.location.origin;
-            const endPoint = '/api/inventories';
-            const apiRootUrl = location + endPoint;
-        
-            const fetchOptions = {
-            method: 'POST',
-            mode : 'cors',
-            cache : 'no-cache',
-            headers: httpHeaders,
-            body: JSON.stringify(data),
+            
+            return response.json();
             }
-        
-            fetch(apiRootUrl , fetchOptions)
-        
-            .then(response => {
-        
-                if (response.status !== 201) 
-                {
-                    throw 'Erreur avec la requête'; 
-                }
-                
-                return response.json();
-                }
-            )
-            .then(function(){
-                console.log('Api POST Validé')
-                app.postSuccesMessage();
-                app.resetCountSelectedBikesOnPost();
-            })
-            .catch(function(errorMsg){
-                console.log(errorMsg)
-            });
-        } else {
-            const h5 = document.getElementById('bikesSelecTitle');
-            h5.innerText = "Oupsss, aucun vélos ajouté !"
-            h5.style.color = "red";  
-        };   
+        )
+        .then(function(){
+            console.log('Api POST Validé')
+            app.postSuccesMessage();
+            app.resetCountSelectedBikesOnPost();
+        })
+        .catch(function(errorMsg){
+            console.log(errorMsg)
+        });
+
+  
+
     },
 
  };

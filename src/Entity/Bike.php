@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
-
 use App\Repository\BikeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,10 +14,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
+ * paginationEnabled=false,
  * collectionOperations={"get"},
- * itemOperations={"get", "put", "patch"},
+ * itemOperations={"get"},
  * normalizationContext={"groups"={"bike:get"}},
- * denormalizationContext={"groups"={"bike:write"}},
  * )
  * 
  * 
@@ -27,6 +26,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"number"}, message="Une vélo porte déja ce numéro !")
  * @UniqueEntity(fields={"reference"}, message="Une vélo porte déjà cette référence !")
  */
+
 class Bike
 {
     /**
@@ -34,104 +34,113 @@ class Bike
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("bike:get")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("bike:get")
      * this is for active or unactive bike
+     * 
      */
     private $status;
 
     /**
      * @ORM\Column(type="string", length=30)
-     * @Groups("bike:get")
+     * 
      */
     private $availablity = "Disponible";
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $lat;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $lng;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
+     * 
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=4)
      * @Groups("bike:get")
-     * @Groups("vandalism:get")
+     * @Groups("station:get")
      */
     private $number;
 
     /**
      * @ORM\Column(type="string", length=1)
-     * @Groups("bike:get")
+     * 
      */
     private $rate = 5;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
      */
     private $purchasedAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(fields={"number"})
+     * 
      */
     private $slug;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      * @Gedmo\Timestampable(on="create")
+     * 
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
-     * @Groups("bike:get")
+     * 
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * Persist file name
+     * 
      */
     private $mainPicture;
 
     /**
      * @ORM\ManyToMany(targetEntity=Inventory::class, mappedBy="bikes")
      * @ORM\OrderBy({"createdAt" = "DESC"})
+     * 
      */
     private $inventories;
 
     /**
      * @ORM\OneToMany(targetEntity=Vandalism::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
+     * 
      */
     private $vandalisms;
 
     /**
      * @ORM\OneToMany(targetEntity=RepairAct::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
+     * 
      */
     private $repairs;
 
     /**
      * @ORM\OneToMany(targetEntity=Balance::class, mappedBy="bike")
      * @ORM\OrderBy({"createdAt" = "DESC"})
-     * @Groups("bike:get")
+     * 
      */
     private $balances;
 

@@ -2,23 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\VandalismRepository;
 use Gedmo\Mapping\Annotation as Gedmo;;
 use Monolog\DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * 
- * @ApiResource(
- * collectionOperations={"get"},
- * itemOperations={"get", "put", "patch"},
- * normalizationContext={"groups"={"vandalism:get"}},
- * denormalizationContext={"groups"={"vandalism:write"}},
- * )
- * 
- * 
  * @ORM\Entity(repositoryClass=VandalismRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
@@ -29,14 +18,11 @@ class Vandalism
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @Groups("vandalism:get")
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("vandalism:get")
-     * @Groups("vandalism:write")
      */
     private $content;
 
@@ -49,20 +35,17 @@ class Vandalism
     /**
      * @ORM\Column(type="datetime_immutable")
      * @Gedmo\Timestampable(on="create")
-     * @Groups("vandalism:get")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * Persist file name
-     * @Groups("vandalism:get")
      */
     private $mainPicture;
 
     /**
      * @ORM\ManyToOne(targetEntity=Bike::class, inversedBy="vandalisms")
-     * @Groups("vandalism:get")
      */
     private $bike;
 
