@@ -10,12 +10,14 @@ const app =
         app.getBikesList();
         app.getStationsList();
 
+        //display each bike option selected
         const selectedBikes = document.getElementById('bikes');
         selectedBikes.addEventListener('change', function (event){
             let bikesIri = event.target.options[event.target.selectedIndex].id
             app.handleDisplayChoice(event, bikesIri);
         });
-
+   
+        //Submit Api Post 
         document.getElementById('submit').addEventListener('click', function (event){
             event.preventDefault()
             app.handleSubmitChoices();
@@ -112,15 +114,53 @@ const app =
     },
     
     handleDisplayChoice:function(event, bikesIri){
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
-        const textElement = document.createElement('text');
 
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
+        
+        const div = document.createElement('div');
+        div.setAttribute("id", bikesIri);
+        div.className = "bikeDiv";
+
+        const textElement = document.createElement('text');
         textElement.className = "form-control bikeElement mt-2 mb-2";
         textElement.setAttribute('disabled', true)
         textElement.innerText = event.target.value;
         textElement.setAttribute("id", bikesIri);
 
-        divDisplaydSelectedBikes.appendChild(textElement);
+        div.appendChild(textElement);
+
+        const button = document.createElement('submit');
+        button.className = "btn btn-danger btn-sm";
+        button.innerText = "Supprimer";
+        button.setAttribute("id", bikesIri);
+
+        div.appendChild(button);
+        divDisplaydSelectedBikes.appendChild(div);
+
+        app.handleDeleteChoice(); 
+    },
+
+    //bouttons supprimer
+    handleDeleteChoice:function(){ 
+        let div = document.getElementsByClassName('bikeDiv');
+        const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
+
+        for(let button of buttons){
+                button.addEventListener('click', function(event){
+                div = event.target.closest('div');
+                div.remove();
+            });
+        } 
+    },
+
+    handleCancelBikeChoice:function(){
+        //créer un boutton pour chaque entrée de bike
+        //lui donner comme attribut le même id que le bike
+        //cibler l'id du bike
+        //ajouter un listener sur chaque clic pour supprimer le child du dom
+        //voir le tableau de valeur
+
+        document.removeChild(document.getElementById("yourId"))
     },
 
     postSuccesMessage:function(){
