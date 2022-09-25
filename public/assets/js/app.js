@@ -120,7 +120,7 @@ const app =
         const countValue = availableBikes.length;
 
         const displayAvailableBikesCount = document.getElementById('availableBikesCount');
-        displayAvailableBikesCount.innerHTML = `-- ${countValue} vélos dispo sur ${totalBikesCount} --`
+        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
     
     },
 
@@ -136,7 +136,7 @@ const app =
   
         const countValue = choiceValue.length;
         const displayCount = document.getElementById('availableStationsCount');
-        displayCount.innerHTML = `-- ${countValue} stations --`
+        displayCount.innerHTML = `${countValue} stations actives sur ${countValue}`
     },
     
     handleDisplayChoice:function(event, bikesIri){
