@@ -153,16 +153,6 @@ const app =
         } 
     },
 
-    handleCancelBikeChoice:function(){
-        //créer un boutton pour chaque entrée de bike
-        //lui donner comme attribut le même id que le bike
-        //cibler l'id du bike
-        //ajouter un listener sur chaque clic pour supprimer le child du dom
-        //voir le tableau de valeur
-
-        document.removeChild(document.getElementById("yourId"))
-    },
-
     postSuccesMessage:function(){
         const div = document.getElementById('selectedBikes');
 

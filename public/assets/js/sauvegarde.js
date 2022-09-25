@@ -1,23 +1,26 @@
 const app = 
 {
-    
     init: function() {
         console.log("app init");
-        app.listeners();
+        app.listeners();        
     },
-
+   
     listeners:function(){
 
         app.getBikesList();
         app.getStationsList();
-        
-        document.getElementById('bikes').addEventListener('change', function (event){
-            app.handleDisplayChoice(event);
-        });
 
+        //display each bike option selected
+        const selectedBikes = document.getElementById('bikes');
+        selectedBikes.addEventListener('change', function (event){
+            let bikesIri = event.target.options[event.target.selectedIndex].id
+            app.handleDisplayChoice(event, bikesIri);
+        });
+   
+        //Submit Api Post 
         document.getElementById('submit').addEventListener('click', function (event){
             event.preventDefault()
-            app.handleGetSubmitChoice();
+            app.handleSubmitChoices();
         });
     }, 
     
@@ -38,6 +41,8 @@ const app =
           })
           .then(data => {
             app.extractBikesItems(data['hydra:member']);
+            //pousser les data dans l'objet state
+            //app.state.bikesData.push(data['hydra:member']);
           });
     },
 
@@ -63,72 +68,137 @@ const app =
     
     extractBikesItems: function (bikesArray){
 
-        const bikesData = bikesArray.map(element => (
+        const bikes = bikesArray.map(bike => (
                 [
-                    element.number, 
-                    element['@id'],
-                    element.id
+                    bike.number, 
+                    bike['@id'],
+                    bike.id
                 ]
             ));
-
-        app.createBikesList(bikesData);
+        
+        app.createBikesOptionList(bikes);
     },
 
-    createBikesList: function(bikesArray){
+    extractStationsItems: function (stationsArray){
+        const stationsName = stationsArray.map(station => (
+            [
+            station.name,
+            station['@id'],
+            station.id
+            ]
+
+        ));
+
+        app.createStationOptionList(stationsName);
+    },
+
+    createBikesOptionList: function(bikesArray){
         const select = document.getElementById('bikes')
+
         bikesArray.forEach(bike => {
-            const option = new Option(bike[0], bike[1]);
-            //option.dataset.id = (bike[0])
+            const option = new Option(bike[0], bike[0]);
+            option.setAttribute("id", bike[1])
             select.appendChild(option);
         });
     },
 
-    extractStationsItems: function (stations){
-        const stationsName = stations.map(element => (element.name));
-        app.createStationList(stationsName);
-    },
-
-    createStationList: function(choiceValue){
+    createStationOptionList: function(choiceValue){
         const select = document.getElementById('stations')
-        choiceValue.forEach(name => {
-            const option = document.createElement('option');
-            select.appendChild(option);
-            option.innerText = name; 
+        
+        choiceValue.forEach(station => {
+
+            const option = new Option(station[0], station[0]);
+            option.setAttribute("id", station[1])
+            select.appendChild(option); 
         });        
     },
     
-    handleDisplayChoice:function(event){
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
-        const textElement = document.createElement('text');
+    handleDisplayChoice:function(event, bikesIri){
 
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes');
+        
+        const div = document.createElement('div');
+        div.setAttribute("id", bikesIri);
+        div.className = "bikeDiv";
+
+        const textElement = document.createElement('text');
         textElement.className = "form-control bikeElement mt-2 mb-2";
         textElement.setAttribute('disabled', true)
         textElement.innerText = event.target.value;
-        divDisplaydSelectedBikes.appendChild(textElement);
+        textElement.setAttribute("id", bikesIri);
+
+        div.appendChild(textElement);
+
+        const button = document.createElement('submit');
+        button.className = "btn btn-danger btn-sm";
+        button.innerText = "Supprimer";
+        button.setAttribute("id", bikesIri);
+
+        div.appendChild(button);
+        divDisplaydSelectedBikes.appendChild(div);
+
+        app.handleDeleteChoice(); 
     },
 
-    //Ici je récupère les valeurs slectionnées et insérées dans la page pour remplir le tableau
-    // qui sera envoyé en post
-    handleGetSubmitChoice:function(){
-        const arrayValue = [];
-        
+    //bouttons supprimer
+    handleDeleteChoice:function(){ 
+        let div = document.getElementsByClassName('bikeDiv');
+        const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
+
+        for(let button of buttons){
+                button.addEventListener('click', function(event){
+                div = event.target.closest('div');
+                div.remove();
+            });
+        } 
+    },
+
+    handleCancelBikeChoice:function(){
+        //créer un boutton pour chaque entrée de bike
+        //lui donner comme attribut le même id que le bike
+        //cibler l'id du bike
+        //ajouter un listener sur chaque clic pour supprimer le child du dom
+        //voir le tableau de valeur
+
+        document.removeChild(document.getElementById("yourId"))
+    },
+
+    postSuccesMessage:function(){
+        const div = document.getElementById('selectedBikes');
+
+        div.innerHTML =
+        ` <div class="alert alert-success" role="alert">
+            Données postées ! 
+         </div>
+        `
+        setTimeout(() => {
+            div.innerHTML = '';
+          }, 2000)
+    },
+
+    //Gestion des values d'options selectionnées pour API Post
+    handleSubmitChoices:function(){
+        const bikes = [];
+    
         const values = document.getElementsByClassName('bikeElement');
-        const list = Array.from(values);
+        const bikesToPost = Array.from(values);
         
-        list.forEach(value => {
-            arrayValue.push(value.innerHTML);
+        bikesToPost.forEach(value => {
+            bikes.push(value.getAttribute("id"));
         })
 
-        app.postSelectedBikesData(arrayValue);
+        const selectedStation = document.getElementById('stations');
+        const station = selectedStation.options[ selectedStation.selectedIndex ].id
+
+        app.apiPost(bikes, station);
     },
 
-    postSelectedBikesData:function(arrayValue) 
+    apiPost:function(bikesArray, stationString) 
     {
-        //prepare the content of the data to post.
-        // arrayValue est déjà un array donc chacune de ses valeurs sera traitée dans les propriétés de fetchOptions sur body: JSON.stringify(data)
+
         const data = {
-            "station": "/api/stations/3",
-            "bikes": arrayValue,
+            "station": stationString,
+            "bikes": bikesArray,
           }
 
         //* format des datas attendus par l'API 
@@ -170,8 +240,7 @@ const app =
         )
         .then(function(){
             console.log('Api POST Validé')
-            //app.resetpictureDiv();
-
+            app.postSuccesMessage();
         })
         .catch(function(errorMsg){
             console.log(errorMsg)
