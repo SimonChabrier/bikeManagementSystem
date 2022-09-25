@@ -3,7 +3,9 @@ const app =
     init: function() {
         console.log("app init");
         app.listeners();
-        console.log(app.state.count);       
+        console.log(app.state.count);
+        
+              
     },
     
     state : {
@@ -14,14 +16,15 @@ const app =
 
         app.getBikesList();
         app.getStationsList();
+        app.displayCountSelectedBikes();
+
 
         //display each bike option selected
         const selectedBikes = document.getElementById('bikes');
         selectedBikes.addEventListener('change', function (event){
             let bikesIri = event.target.options[event.target.selectedIndex].id
             app.handleDisplayChoice(event, bikesIri);
-            app.state.count += 1
-            console.log(app.state.count)
+            
         });
    
         //Submit Api Post 
@@ -149,14 +152,35 @@ const app =
         divDisplaydSelectedBikes.appendChild(div);
 
         app.handleDeleteChoice(); 
-        //app.countSelectedBikes();
+        app.countSelectedBikes();
+        
     },
 
-    // countSelectedBikes:function(){
-    //     const count = document.getElementsByClassName('bikeDiv');
-    //     const h5 = document.getElementById('bikesSelecTitle');
-    //     h5.innerText = `${count.length} vélos sélectionnés`
-    // },
+    countSelectedBikes:function(){
+        let count = document.getElementById('selectedBikes');
+        value = count.childElementCount;
+        app.state.count = value;
+
+        app.displayCountSelectedBikes()
+    },
+
+    displayCountSelectedBikes:function(){
+
+        const h5 = document.getElementById('bikesSelecTitle');
+        
+        if(app.state.count == 0){
+            h5.innerText = "Aucun vélos sélectionné"  
+        };
+
+        if(app.state.count == 1){
+            h5.innerText = `${app.state.count} vélos sélectionné`
+        }
+
+        if(app.state.count >= 2){
+            h5.innerText = `${app.state.count} vélos sélectionnés`
+        }
+
+    },
 
     //bouttons supprimer
     handleDeleteChoice:function(){ 
@@ -167,7 +191,7 @@ const app =
                 button.addEventListener('click', function(event){
                 div = event.target.closest('div');
                 div.remove();
-                console.log(event.target.id)
+                app.countSelectedBikes();
             });
         } 
     },

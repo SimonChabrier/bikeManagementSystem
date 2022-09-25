@@ -182,6 +182,25 @@ const app =
 
     },
 
+    resetCountSelectedBikesOnPost:function(){
+        const h5 = document.getElementById('bikesSelecTitle');
+        if(app.state.count == 0){
+            h5.innerText = "Oupsss, aucun vélos ajouté !"  
+        };
+
+        if(app.state.count == 1){
+            h5.innerText = `${app.state.count} vélo ajouté à cet inventaire !`
+        }
+
+        if(app.state.count >= 2){
+            h5.innerText = `${app.state.count} vélos ajoutés à cet inventaire !`
+        }
+
+        setTimeout(() => {
+            h5.innerText = 'Réaliser un inventaire';
+          }, 3000)
+    },
+
     //bouttons supprimer
     handleDeleteChoice:function(){ 
         let div = document.getElementsByClassName('bikeDiv');
@@ -275,6 +294,7 @@ const app =
         .then(function(){
             console.log('Api POST Validé')
             app.postSuccesMessage();
+            app.resetCountSelectedBikesOnPost();
         })
         .catch(function(errorMsg){
             console.log(errorMsg)
