@@ -2,7 +2,10 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.addAllEventListeners();          
+        app.addAllEventListeners();  
+        app.fetchBikesList();
+        app.fecthStationsList();
+        app.displayCountSelectedBikes();    
     },
     
     state : {
@@ -10,26 +13,20 @@ const app =
     },
 
     addAllEventListeners:function(){
-
-        app.getBikesList();
-        app.getStationsList();
-        app.displayCountSelectedBikes();
-
-
         //display each bike option selected
         document.getElementById('bikes').addEventListener('change', (event => {
             app.handleDisplayChoice(event);
         }));
    
         //Submit Api Post 
-        document.getElementById('submitButton').addEventListener('click', (event => {
+        document.getElementById('formSubmitButton').addEventListener('click', (event => {
             event.preventDefault()
+            app.handleAlertUserIfPostEmptyValues();
             app.handleSubmitChoices();
         }));
     }, 
     
-    //fetch api bikes
-    getBikesList: async function () {
+    fetchBikesList: async function () {
 
         const location = window.location.origin;
         const endPoint = '/api/bikes';
@@ -53,8 +50,7 @@ const app =
         app.extractBikesItems(data['hydra:member']);
     },
 
-    //fetch api station
-    getStationsList: async function () {
+    fecthStationsList: async function () {
         
         const location = window.location.origin;
         const endPoint = '/api/stations';
@@ -151,7 +147,6 @@ const app =
 
         const bikeIri = event.target.options[event.target.selectedIndex].id
         
-        
         const div = document.createElement('div');
         div.setAttribute("id", bikeIri);
         div.className = "bikeDiv";
@@ -173,7 +168,7 @@ const app =
         div.appendChild(button);
         divDisplaydSelectedBikes.appendChild(div);
 
-        app.handleDeleteChoice(); 
+        app.deleteDisplayedBikeChoice(); 
         app.countSelectedBikes();
         
     },
@@ -191,7 +186,7 @@ const app =
         const h5 = document.getElementById('bikesSelecTitle');
         h5.style.color = "";
 
-        const button = document.getElementById('submitButton')
+        const button = document.getElementById('formSubmitButton')
         
         if(app.state.count == 0){
             h5.innerText = "Aucun vélos sélectionné"  
@@ -213,11 +208,11 @@ const app =
         const h5 = document.getElementById('bikesSelecTitle');
         h5.style.color = "green";
 
-        const button = document.getElementById('submit');
+        const button = document.getElementById('formSubmitButton');
         button.style.display = 'none';
 
         if(app.state.count == 0){
-            h5.innerText = "Oupsss, aucun vélos ajouté !"  
+            alert("Oupsss, aucun vélos ajouté !")  
         };
 
         if(app.state.count == 1){
@@ -235,7 +230,7 @@ const app =
     },
 
     //bouttons supprimer
-    handleDeleteChoice:function(){ 
+    deleteDisplayedBikeChoice:function(){ 
         let div = document.getElementsByClassName('bikeDiv');
         const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
 
@@ -278,8 +273,22 @@ const app =
         app.apiPost(bikes, station);
     },
 
+    handleAlertUserIfPostEmptyValues:function(){
+        const currentBikeOptionValue = document.getElementById('bikes');
+        const currentStationOptionValue = document.getElementById('stations');
+        
+        if(currentBikeOptionValue.options.selectedIndex == 0){
+            alert('Vous devez selectionner au minimum un vélo !')
+        }
+
+        if(currentStationOptionValue.options.selectedIndex == 0){
+            alert('Vous devez selectionner au minimum une station !')
+        }
+        
+    },
+
     apiPost:function(bikesArray, stationString) 
-    {
+    {   
         if(app.state.count >= 1){
             const data = {
                 "station": stationString,
