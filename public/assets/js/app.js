@@ -2,274 +2,65 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();          
+        app.addAllEventListeners();  
+        app.fetchBikesList();
+        app.fecthStationsList();
+        app.displayCountSelectedBikes();    
     },
     
     state : {
         count : 0,
     },
 
-    listeners:function(){
-
-        app.getBikesList();
-        app.getStationsList();
-        app.displayCountSelectedBikes();
-
-
-        //display each bike option selected
-        const selectedBikes = document.getElementById('bikes');
-        selectedBikes.addEventListener('change', function (event){
-            let bikesIri = event.target.options[event.target.selectedIndex].id
-            app.handleDisplayChoice(event, bikesIri);
-            
-        });
-   
-        //Submit Api Post 
-        document.getElementById('submit').addEventListener('click', function (event){
-            event.preventDefault()
-            app.handleSubmitChoices();
-        });
-    }, 
-    
-    //fetch api bikes
-    getBikesList: function () {
+    fetchBikesList: async function () {
 
         const location = window.location.origin;
         const endPoint = '/api/bikes';
         const apiRootUrl = location + endPoint;
 
-        let config = {
+        let fetchOptions = {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache'
         };
-      
-        fetch(apiRootUrl, config)
-          .then(response => {
-              return response.json();
-          })
-          .then(data => {
-            app.extractBikesItems(data['hydra:member']);
-            //pousser les data dans l'objet state
-            //app.state.bikesData.push(data['hydra:member']);
-          });
+        try
+        {
+            response = await fetch(apiRootUrl, fetchOptions);
+            data = await response.json();
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+
+        app.extractBikesItems(data['hydra:member']);
     },
 
-    //fetch api station
-    getStationsList: function () {
+    fecthStationsList: async function () {
         
         const location = window.location.origin;
         const endPoint = '/api/stations';
         const apiRootUrl = location + endPoint;
     
-        let config = {
+        let fetchOptions = {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache'
         };
-          
-        fetch(apiRootUrl, config)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-            app.extractStationsItems(data['hydra:member']);
-            });
-    },
-    
-    extractBikesItems: function (bikesArray){
-
-        const bikes = bikesArray.map(bike => (
-                [
-                    bike.number, 
-                    bike['@id'],
-                    bike.id,
-                    bike.availablity
-                ]
-            ));
-        
-        app.createBikesOptionList(bikes);
-    },
-
-    extractStationsItems: function (stationsArray){
-        const stationsName = stationsArray.map(station => (
-            [
-            station.name,
-            station['@id'],
-            station.id
-            ]
-
-        ));
-
-        app.createStationOptionList(stationsName);
-    },
-
-    createBikesOptionList: function(bikesArray){
-        const select = document.getElementById('bikes')
-
-        bikesArray.forEach(bike => {
-            if(bike[3] == 'Disponible'){
-            const option = new Option(bike[0], bike[0]);
-            option.setAttribute("id", bike[1])
-            select.appendChild(option);
-            }
-        });
-
-        const totalBikesCount = bikesArray.length
-        const availableBikes = document.getElementsByTagName('option');
-        const countValue = availableBikes.length;
-
-        const displayAvailableBikesCount = document.getElementById('availableBikesCount');
-        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
-    
-    },
-
-    createStationOptionList: function(choiceValue){
-        const select = document.getElementById('stations')
-        
-        choiceValue.forEach(station => {
-
-            const option = new Option(station[0], station[0]);
-            option.setAttribute("id", station[1])
-            select.appendChild(option); 
-        });  
-  
-        const countValue = choiceValue.length;
-        const displayCount = document.getElementById('availableStationsCount');
-        displayCount.innerHTML = `${countValue} stations actives sur ${countValue}`
-    },
-    
-    handleDisplayChoice:function(event, bikesIri){
-
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
-        
-        const div = document.createElement('div');
-        div.setAttribute("id", bikesIri);
-        div.className = "bikeDiv";
-
-        const textElement = document.createElement('text');
-        textElement.className = "form-control bikeElement mt-2 mb-2";
-        textElement.setAttribute('disabled', true)
-        textElement.innerText = event.target.value;
-        textElement.setAttribute("id", bikesIri);
-
-        div.appendChild(textElement);
-
-        const button = document.createElement('submit');
-        button.className = "btn btn-danger btn-sm";
-        button.innerText = `Supprimer: ${textElement.innerText}`;
-        button.setAttribute("id", bikesIri);
-
-        div.appendChild(button);
-        divDisplaydSelectedBikes.appendChild(div);
-
-        app.handleDeleteChoice(); 
-        app.countSelectedBikes();
-        
-    },
-
-    countSelectedBikes:function(){
-        let count = document.getElementById('selectedBikes');
-        value = count.childElementCount;
-        app.state.count = value;
-
-        app.displayCountSelectedBikes()
-    },
-
-    displayCountSelectedBikes:function(){
-
-        const h5 = document.getElementById('bikesSelecTitle');
-        h5.style.color = "";
-
-        const button = document.getElementById('submit')
-        
-        if(app.state.count == 0){
-            h5.innerText = "Aucun vélos sélectionné"  
-            button.style.display = 'none'
-        };
-
-        if(app.state.count == 1){
-            h5.innerText = `${app.state.count} vélos sélectionné`
-            button.style.display = 'block'
+        try
+        {
+            response = await fetch(apiRootUrl, fetchOptions);
+            data = await response.json();
         }
-
-        if(app.state.count >= 2){
-            h5.innerText = `${app.state.count} vélos sélectionnés`
-            button.style.display = 'block'
+        catch (error)
+        {
+            console.log(error);
         }
+        app.extractStationsItems(data['hydra:member']);
     },
 
-    resetCountSelectedBikesOnPost:function(){
-        const h5 = document.getElementById('bikesSelecTitle');
-        h5.style.color = "green";
-
-        const button = document.getElementById('submit');
-        button.style.display = 'none';
-
-        if(app.state.count == 0){
-            h5.innerText = "Oupsss, aucun vélos ajouté !"  
-        };
-
-        if(app.state.count == 1){
-            h5.innerText = `${app.state.count} vélo ajouté à cet inventaire !`
-        }
-
-        if(app.state.count >= 2){
-            h5.innerText = `${app.state.count} vélos ajoutés à cet inventaire !`
-        }
-
-        setTimeout(() => {
-            h5.innerText = 'Réaliser un autre inventaire';
-            h5.style.color = "";
-          }, 3000)
-    },
-
-    //bouttons supprimer
-    handleDeleteChoice:function(){ 
-        let div = document.getElementsByClassName('bikeDiv');
-        const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
-
-        for(let button of buttons){
-                button.addEventListener('click', function(event){
-                div = event.target.closest('div');
-                div.remove();
-                app.countSelectedBikes();
-            });
-        } 
-    },
-
-    postSuccesMessage:function(){
-        const div = document.getElementById('selectedBikes');
-
-        div.innerHTML =
-        ` <div class="alert alert-success" role="alert">
-            Données postées ! 
-         </div>
-        `
-        setTimeout(() => {
-            div.innerHTML = '';
-          }, 2000)
-    },
-
-    //Gestion des values d'options selectionnées pour API Post
-    handleSubmitChoices:function(){
-        const bikes = [];
-    
-        const values = document.getElementsByClassName('bikeElement');
-        const bikesToPost = Array.from(values);
-        
-        bikesToPost.forEach(value => {
-            bikes.push(value.getAttribute("id"));
-        })
-
-        const selectedStation = document.getElementById('stations');
-        const station = selectedStation.options[ selectedStation.selectedIndex ].id
-
-        app.apiPost(bikes, station);
-    },
-
-    apiPost:function(bikesArray, stationString) 
-    {
+    fetchSelectedDataApiPost:function(bikesArray, stationString) 
+    {   
         if(app.state.count >= 1){
             const data = {
                 "station": stationString,
@@ -328,6 +119,257 @@ const app =
             h5.style.color = "red";  
         };   
     },
+
+    addAllEventListeners:function(){
+        //display each bike option selected
+        document.getElementById('bikes').addEventListener('change', (event => {
+            app.handleDisplayChoice(event);
+            app.handleResetBikeOptionIndex();
+        }));
+   
+        //Submit Api Post 
+        document.getElementById('formSubmitButton').addEventListener('click', (event => {
+            event.preventDefault()
+
+            app.handleAlertUserIfPostEmptyValues();
+            app.handlePostSubmitChoices();
+            app.handleResetStationOptionIndexAfterPost();
+        }));
+    }, 
+
+    handleDisplayChoice:function(event){
+
+        const bikeIri = event.target.options[event.target.selectedIndex].id
+        
+        const div = document.createElement('div');
+        div.setAttribute("id", bikeIri);
+        div.className = "bikeDiv";
+
+        const bikeNumber = document.createElement('text');
+        bikeNumber.className = "form-control bikeElement mt-2 mb-2";
+        bikeNumber.setAttribute('disabled', true)
+        bikeNumber.innerText = event.target.value;
+        bikeNumber.setAttribute("id", bikeIri);
+
+        div.appendChild(bikeNumber);
+
+        const button = document.createElement('button');
+        button.className = "btn btn-danger btn-sm";
+        button.innerText = `Supprimer: ${bikeNumber.innerText}`;
+        button.setAttribute("id", bikeIri);
+
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
+        div.appendChild(button);
+        divDisplaydSelectedBikes.appendChild(div);
+
+        app.deleteDisplayedBikeChoice(); 
+        app.countSelectedBikes();
+        
+    },
+
+    handleResetBikeOptionIndex:function(){
+        const bikesOptions = document.getElementById('bikes')
+        const currentSelectedIndex = bikesOptions.options.selectedIndex;
+        if(currentSelectedIndex !== 0){
+            bikesOptions.options.selectedIndex = 0
+        }
+    },
+
+    handleResetStationOptionIndexAfterPost:function(){
+        const stationOptions = document.getElementById('stations')
+        const currentSelectedIndex = stationOptions.options.selectedIndex;
+        if(currentSelectedIndex !== 0){
+            stationOptions.options.selectedIndex = 0
+        }
+    },
+
+    handleAlertUserIfPostEmptyValues:function(){
+        const currentBikeOptionValue = document.getElementsByClassName('bikeDiv');
+        const currentStationOptionValue = document.getElementById('stations');
+        
+        if(currentBikeOptionValue.length == 0){
+            alert('Vous devez selectionner au minimum un vélo !')
+        }
+
+        if(currentStationOptionValue.options.selectedIndex == 0){
+            alert('Vous devez selectionner au minimum une station !')
+        }
+        
+    },
+
+    handlePostSubmitChoices:function(){
+        //gestion des vélos
+        const bikes = [];
+    
+        const values = document.getElementsByClassName('bikeElement');
+        const bikesToPost = Array.from(values);
+        
+        bikesToPost.forEach(value => {
+            bikes.push(value.getAttribute("id"));
+        })
+
+        //gestion de la station
+        const selectedStation = document.getElementById('stations');
+        const station = selectedStation.options[selectedStation.selectedIndex].id
+
+        //post sur l'API
+        app.fetchSelectedDataApiPost(bikes, station);
+    },
+    
+    extractBikesItems: function (bikesArray){
+
+        const bikes = bikesArray.map(bike => (
+                [
+                    bike.number, 
+                    bike['@id'],
+                    bike.id,
+                    bike.availablity
+                ]
+            ));
+        
+        app.createBikesOptionList(bikes);
+    },
+
+    extractStationsItems: function (stationsArray){
+        const stationsName = stationsArray.map(station => (
+            [
+            station.name,
+            station['@id'],
+            station.id
+            ]
+
+        ));
+
+        app.createStationOptionList(stationsName);
+    },
+
+    createBikesOptionList: function(choiceValue){
+        const select = document.getElementById('bikes')
+
+        choiceValue.forEach(bike => {
+            if(bike[3] == 'Disponible'){
+            const option = new Option(bike[0], bike[0]);
+            option.setAttribute("id", bike[1])
+            select.appendChild(option);
+            }
+        });
+
+        app.diplayTotalAvailableBikes(choiceValue);
+    
+    },
+
+    diplayTotalAvailableBikes: function(option){
+
+        const availableBikes = document.getElementsByTagName('option');
+        const displayAvailableBikesCount = document.getElementById('availableBikesCount');
+        
+        const totalBikesCount = option.length        
+        const countValue = availableBikes.length;
+
+        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
+    },
+
+    createStationOptionList: function(choiceValue){
+        const select = document.getElementById('stations')
+        
+        choiceValue.forEach(station => {
+            const option = new Option(station[0], station[0]);
+            option.setAttribute("id", station[1])
+            select.appendChild(option); 
+        });  
+
+        app.diplayTotalAvailableStations(choiceValue);
+   
+    },
+
+    diplayTotalAvailableStations: function(choiceValue){
+        const countValue = choiceValue.length;
+        const displayCount = document.getElementById('availableStationsCount');
+        displayCount.innerHTML = `${countValue} stations actives sur ${countValue}`
+    },
+    
+    countSelectedBikes:function(){
+        let count = document.getElementById('selectedBikes');
+        value = count.childElementCount;
+        app.state.count = value;
+
+        app.displayCountSelectedBikes()
+    },
+
+    displayCountSelectedBikes:function(){
+
+        const h5 = document.getElementById('bikesSelecTitle');
+        h5.style.color = "";
+
+        const button = document.getElementById('formSubmitButton')
+        
+        if(app.state.count == 0){
+            h5.innerText = "Aucun vélos sélectionné"  
+            button.style.display = 'none'
+        };
+
+        if(app.state.count == 1){
+            h5.innerText = `${app.state.count} vélos sélectionné`
+            button.style.display = 'block'
+        }
+
+        if(app.state.count >= 2){
+            h5.innerText = `${app.state.count} vélos sélectionnés`
+            button.style.display = 'block'
+        }
+    },
+
+    resetCountSelectedBikesOnPost:function(){
+        const h5 = document.getElementById('bikesSelecTitle');
+        h5.style.color = "green";
+
+        const button = document.getElementById('formSubmitButton');
+        button.style.display = 'none';
+
+        if(app.state.count == 0){
+            alert("Oupsss, aucun vélos ajouté !")  
+        };
+
+        if(app.state.count == 1){
+            h5.innerText = `${app.state.count} vélo ajouté à cet inventaire !`
+        }
+
+        if(app.state.count >= 2){
+            h5.innerText = `${app.state.count} vélos ajoutés à cet inventaire !`
+        }
+
+        setTimeout(() => {
+            h5.innerText = 'Réaliser un autre inventaire';
+            h5.style.color = "";
+          }, 3000)
+    },
+
+    deleteDisplayedBikeChoice:function(){ 
+        let div = document.getElementsByClassName('bikeDiv');
+        const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
+
+        for(let button of buttons){
+                button.addEventListener('click', function(event){
+                div = event.target.closest('div');
+                div.remove();
+                app.countSelectedBikes();
+            });
+        } 
+    },
+
+    postSuccesMessage:function(){
+        const div = document.getElementById('selectedBikes');
+
+        div.innerHTML =
+        ` <div class="alert alert-success" role="alert">
+            Données postées ! 
+         </div>
+        `
+        setTimeout(() => {
+            div.innerHTML = '';
+          }, 2000)
+    },
+
 
  };
 
