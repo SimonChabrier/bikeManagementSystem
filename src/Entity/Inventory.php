@@ -7,15 +7,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\InventoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Monolog\DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource (
+ *
  * 
  *     collectionOperations={
  *          "post",
+ *          "get"
  *     },
  * 
  *     itemOperations={
@@ -37,12 +38,14 @@ use Doctrine\ORM\Mapping as ORM;
  *      },
  * )
  * 
+ * 
  * @ORM\Entity(repositoryClass=InventoryRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
 class Inventory
 {
     /**
+     * @Groups({"inventories:read"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -50,6 +53,7 @@ class Inventory
     private $id;
 
     /**
+     * @Groups({"inventories:read"})
      * @ORM\Column(type="datetime_immutable")
      * @Gedmo\Timestampable(on="create")
      */
