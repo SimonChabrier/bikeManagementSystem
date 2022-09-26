@@ -2,14 +2,14 @@ const app =
 {
     init: function() {
         console.log("app init");
-        app.listeners();          
+        app.addAllEventListeners();          
     },
     
     state : {
         count : 0,
     },
 
-    listeners:function(){
+    addAllEventListeners:function(){
 
         app.getBikesList();
         app.getStationsList();
@@ -17,64 +17,64 @@ const app =
 
 
         //display each bike option selected
-        const selectedBikes = document.getElementById('bikes');
-        selectedBikes.addEventListener('change', function (event){
-            let bikesIri = event.target.options[event.target.selectedIndex].id
-            app.handleDisplayChoice(event, bikesIri);
-            
-        });
+        document.getElementById('bikes').addEventListener('change', (event => {
+            app.handleDisplayChoice(event);
+        }));
    
         //Submit Api Post 
-        document.getElementById('submit').addEventListener('click', function (event){
+        document.getElementById('submitButton').addEventListener('click', (event => {
             event.preventDefault()
             app.handleSubmitChoices();
-        });
+        }));
     }, 
     
     //fetch api bikes
-    getBikesList: function () {
+    getBikesList: async function () {
 
         const location = window.location.origin;
         const endPoint = '/api/bikes';
         const apiRootUrl = location + endPoint;
 
-        let config = {
+        let fetchOptions = {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache'
         };
-      
-        fetch(apiRootUrl, config)
-          .then(response => {
-              return response.json();
-          })
-          .then(data => {
-            app.extractBikesItems(data['hydra:member']);
-            //pousser les data dans l'objet state
-            //app.state.bikesData.push(data['hydra:member']);
-          });
+        try
+        {
+            response = await fetch(apiRootUrl, fetchOptions);
+            data = await response.json();
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+
+        app.extractBikesItems(data['hydra:member']);
     },
 
     //fetch api station
-    getStationsList: function () {
+    getStationsList: async function () {
         
         const location = window.location.origin;
         const endPoint = '/api/stations';
         const apiRootUrl = location + endPoint;
     
-        let config = {
+        let fetchOptions = {
             method: 'GET',
             mode: 'cors',
             cache: 'no-cache'
         };
-          
-        fetch(apiRootUrl, config)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-            app.extractStationsItems(data['hydra:member']);
-            });
+        try
+        {
+            response = await fetch(apiRootUrl, fetchOptions);
+            data = await response.json();
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+        app.extractStationsItems(data['hydra:member']);
     },
     
     extractBikesItems: function (bikesArray){
@@ -104,10 +104,10 @@ const app =
         app.createStationOptionList(stationsName);
     },
 
-    createBikesOptionList: function(bikesArray){
+    createBikesOptionList: function(choiceValue){
         const select = document.getElementById('bikes')
 
-        bikesArray.forEach(bike => {
+        choiceValue.forEach(bike => {
             if(bike[3] == 'Disponible'){
             const option = new Option(bike[0], bike[0]);
             option.setAttribute("id", bike[1])
@@ -115,51 +115,61 @@ const app =
             }
         });
 
-        const totalBikesCount = bikesArray.length
-        const availableBikes = document.getElementsByTagName('option');
-        const countValue = availableBikes.length;
-
-        const displayAvailableBikesCount = document.getElementById('availableBikesCount');
-        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
+        app.diplayTotalAvailableBikes(choiceValue);
     
+    },
+
+    diplayTotalAvailableBikes: function(choiceValue){
+          const totalBikesCount = choiceValue.length
+          const availableBikes = document.getElementsByTagName('option');
+          const countValue = availableBikes.length;
+  
+          const displayAvailableBikesCount = document.getElementById('availableBikesCount');
+          displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
     },
 
     createStationOptionList: function(choiceValue){
         const select = document.getElementById('stations')
         
         choiceValue.forEach(station => {
-
             const option = new Option(station[0], station[0]);
             option.setAttribute("id", station[1])
             select.appendChild(option); 
         });  
-  
+
+        app.diplayTotalAvailableStations(choiceValue);
+   
+    },
+
+    diplayTotalAvailableStations: function(choiceValue){
         const countValue = choiceValue.length;
         const displayCount = document.getElementById('availableStationsCount');
         displayCount.innerHTML = `${countValue} stations actives sur ${countValue}`
     },
     
-    handleDisplayChoice:function(event, bikesIri){
+    handleDisplayChoice:function(event){
 
-        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
+        const bikeIri = event.target.options[event.target.selectedIndex].id
+        
         
         const div = document.createElement('div');
-        div.setAttribute("id", bikesIri);
+        div.setAttribute("id", bikeIri);
         div.className = "bikeDiv";
 
-        const textElement = document.createElement('text');
-        textElement.className = "form-control bikeElement mt-2 mb-2";
-        textElement.setAttribute('disabled', true)
-        textElement.innerText = event.target.value;
-        textElement.setAttribute("id", bikesIri);
+        const bikeNumber = document.createElement('text');
+        bikeNumber.className = "form-control bikeElement mt-2 mb-2";
+        bikeNumber.setAttribute('disabled', true)
+        bikeNumber.innerText = event.target.value;
+        bikeNumber.setAttribute("id", bikeIri);
 
-        div.appendChild(textElement);
+        div.appendChild(bikeNumber);
 
-        const button = document.createElement('submit');
+        const button = document.createElement('button');
         button.className = "btn btn-danger btn-sm";
-        button.innerText = `Supprimer: ${textElement.innerText}`;
-        button.setAttribute("id", bikesIri);
+        button.innerText = `Supprimer: ${bikeNumber.innerText}`;
+        button.setAttribute("id", bikeIri);
 
+        const divDisplaydSelectedBikes = document.getElementById('selectedBikes'); 
         div.appendChild(button);
         divDisplaydSelectedBikes.appendChild(div);
 
@@ -181,7 +191,7 @@ const app =
         const h5 = document.getElementById('bikesSelecTitle');
         h5.style.color = "";
 
-        const button = document.getElementById('submit')
+        const button = document.getElementById('submitButton')
         
         if(app.state.count == 0){
             h5.innerText = "Aucun vélos sélectionné"  
