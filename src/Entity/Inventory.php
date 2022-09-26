@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource (
  *
+ *     attributes={"order"=
+ *          {"createdAt": "DESC"}
+ *     },
  * 
  *     collectionOperations={
  *          "post",
@@ -67,7 +70,6 @@ class Inventory
 
     /**
      * @Groups({"inventories:read", "inventories:write"})
-     * 
      * @ORM\ManyToOne(
      *      targetEntity=Station::class, 
      *      inversedBy="inventories", 

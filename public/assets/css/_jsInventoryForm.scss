@@ -5,3 +5,26 @@
     opacity: 0;
     transition: 1s;
 }
+
+.inventoryCard {
+    width: 45%;
+    margin: 0.5rem;
+    float: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+}
+
+.inventoriesRender {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+span.spanStationName {
+    padding-left: 0.2rem;
+}
+
+ol.inventoryOl {
+    padding-left: .6rem;
+}

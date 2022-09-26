@@ -109,6 +109,7 @@ const app =
                 console.log('Api POST Validé')
                 app.postSuccesMessage();
                 app.resetCountSelectedBikesOnPost();
+                list.fetchInventories();
             })
             .catch(function(errorMsg){
                 console.log(errorMsg)
@@ -134,6 +135,7 @@ const app =
             app.handleAlertUserIfPostEmptyValues();
             app.handlePostSubmitChoices();
             app.handleResetStationOptionIndexAfterPost();
+            list.handleResetDisplayedInventories();
         }));
     }, 
 
