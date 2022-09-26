@@ -16,13 +16,16 @@ const app =
         //display each bike option selected
         document.getElementById('bikes').addEventListener('change', (event => {
             app.handleDisplayChoice(event);
+            app.handleResetBikeOptionIndex();
         }));
    
         //Submit Api Post 
         document.getElementById('formSubmitButton').addEventListener('click', (event => {
             event.preventDefault()
+
             app.handleAlertUserIfPostEmptyValues();
-            app.handleSubmitChoices();
+            app.handlePostSubmitChoices();
+            app.handleResetStationOptionIndexAfterPost();
         }));
     }, 
     
@@ -115,13 +118,15 @@ const app =
     
     },
 
-    diplayTotalAvailableBikes: function(choiceValue){
-          const totalBikesCount = choiceValue.length
-          const availableBikes = document.getElementsByTagName('option');
-          const countValue = availableBikes.length;
-  
-          const displayAvailableBikesCount = document.getElementById('availableBikesCount');
-          displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
+    diplayTotalAvailableBikes: function(option){
+
+        const availableBikes = document.getElementsByTagName('option');
+        const displayAvailableBikesCount = document.getElementById('availableBikesCount');
+        
+        const totalBikesCount = option.length        
+        const countValue = availableBikes.length;
+
+        displayAvailableBikesCount.innerHTML = `${countValue} vélos dispo sur ${totalBikesCount}`
     },
 
     createStationOptionList: function(choiceValue){
@@ -229,7 +234,22 @@ const app =
           }, 3000)
     },
 
-    //bouttons supprimer
+    handleResetBikeOptionIndex:function(){
+        const bikesOptions = document.getElementById('bikes')
+        const currentSelectedIndex = bikesOptions.options.selectedIndex;
+        if(currentSelectedIndex !== 0){
+            bikesOptions.options.selectedIndex = 0
+        }
+    },
+
+    handleResetStationOptionIndexAfterPost:function(){
+        const stationOptions = document.getElementById('stations')
+        const currentSelectedIndex = stationOptions.options.selectedIndex;
+        if(currentSelectedIndex !== 0){
+            stationOptions.options.selectedIndex = 0
+        }
+    },
+
     deleteDisplayedBikeChoice:function(){ 
         let div = document.getElementsByClassName('bikeDiv');
         const buttons = document.getElementsByClassName('btn btn-danger btn-sm');
@@ -256,8 +276,8 @@ const app =
           }, 2000)
     },
 
-    //Gestion des values d'options selectionnées pour API Post
-    handleSubmitChoices:function(){
+    handlePostSubmitChoices:function(){
+        //gestion des vélos
         const bikes = [];
     
         const values = document.getElementsByClassName('bikeElement');
@@ -267,17 +287,19 @@ const app =
             bikes.push(value.getAttribute("id"));
         })
 
+        //gestion de la station
         const selectedStation = document.getElementById('stations');
-        const station = selectedStation.options[ selectedStation.selectedIndex ].id
+        const station = selectedStation.options[selectedStation.selectedIndex].id
 
+        //post sur l'API
         app.apiPost(bikes, station);
     },
 
     handleAlertUserIfPostEmptyValues:function(){
-        const currentBikeOptionValue = document.getElementById('bikes');
+        const currentBikeOptionValue = document.getElementsByClassName('bikeDiv');
         const currentStationOptionValue = document.getElementById('stations');
         
-        if(currentBikeOptionValue.options.selectedIndex == 0){
+        if(currentBikeOptionValue.length == 0){
             alert('Vous devez selectionner au minimum un vélo !')
         }
 
