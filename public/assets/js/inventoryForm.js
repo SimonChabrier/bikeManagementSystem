@@ -5,7 +5,8 @@ const app =
         app.addAllEventListeners();  
         app.fetchBikesList();
         app.fecthStationsList();
-        app.displayCountSelectedBikes();    
+        app.displayCountSelectedBikes();   
+        
     },
     
     state : {
@@ -173,6 +174,8 @@ const app =
 
         app.deleteDisplayedBikeChoice();
         app.countSelectedBikes();
+
+        app.alertUserIfDuplicateChoice();
         
     },
 
@@ -389,6 +392,50 @@ const app =
           }, 2000)
     },
 
+    alertUserIfDuplicateChoice: function(){
+        console.log('alertUserIfDuplicateChoice')
+        
+        const divs = document.getElementsByClassName('form-control bikeElement mt-2 mb-2'); 
+        const divsArray = []
+        // j'indexe chaque div dans le tableau'
+        for(let div of divs){
+            divsArray.push(div.textContent)
+        }
+        //je filtre pour chercher les valeurs dupliquées
+        const duplicateArray = divsArray.filter(
+            (value, index) => index !== divsArray.indexOf(value)
+        );
+        //si une valeur dupliquée existe elle est indexée dans duplicateArray alors son length passe de 0 à 1...
+        if(duplicateArray.length > 0){
+
+            alert(`Le vélo ${duplicateArray} est déjà sélectionné !`);
+
+            //je récupère l'ensemble des divs affichés avec des choix dé vélo
+            let divs = document.getElementsByClassName('bikeDiv');
+            //je récupère le nombre
+            let length = divs.length;
+            
+            for(let div of divs){
+            //comme le dernière div vient d'être annulée par le filtrage
+                if (!--length){
+                    div.style.background = "red";
+                    div.style.padding = '1rem';
+                    div.style.borderRadius = '.5rem';
+                    // je la supprime en gérant son opacité pour fluidifier sa disparition
+                    setTimeout(() => {
+                        div.style.opacity = 0;
+                    }, 500)
+
+                    setTimeout(() => {
+                    div.remove();
+                    //je resete le conteur de vélos sélectionnés.
+                    app.countSelectedBikes()
+                    }, 1000)
+                }
+            }
+        }
+        
+    }
 
  };
 
