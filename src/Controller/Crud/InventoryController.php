@@ -56,7 +56,6 @@ class InventoryController extends AbstractController
      */
     public function show(Inventory $inventory): Response
     {
-        dump($inventory);
 
         return $this->render('inventory/show.html.twig', [
             'inventory' => $inventory,
