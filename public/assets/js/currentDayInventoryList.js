@@ -74,7 +74,8 @@ const list = {
     },
 
     handleResetDisplayedInventories(){
-        document.getElementById('app').innerHTML = '';
+        console.log('handleResetDisplayedInventories')
+        document.getElementById('todayInventories').innerHTML = '';
     }
 }
 

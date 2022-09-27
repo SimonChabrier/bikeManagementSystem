@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource (
  *     shortName="inventories", 
- *     attributes = { "order" = { "createdAt": "DESC" } },
+ *     attributes = { "order" = { "id": "DESC" } },
  * 
  *     collectionOperations = { "post", "get"},
  *     itemOperations = { "get" },

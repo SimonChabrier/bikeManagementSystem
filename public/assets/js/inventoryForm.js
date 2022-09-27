@@ -135,6 +135,7 @@ const app =
             app.handleAlertUserIfPostEmptyValues();
             app.handlePostSubmitChoices();
             app.handleResetStationOptionIndexAfterPost();
+            //reset div qui retourne les card inventaires du jour.
             list.handleResetDisplayedInventories();
         }));
     }, 
