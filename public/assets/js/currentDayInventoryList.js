@@ -38,8 +38,14 @@ const list = {
 
         console.log('extractInventoriesItems')
 
+        let currentDate = new Date();
+
         for (let inventory of inventories){
-            
+
+            let inventoryDate = inventory.createdAt;
+
+           if(currentDate.toISOString().slice(0, 10) == inventoryDate.slice(0, 10)){
+
             const renderDiv = document.getElementById('todayInventories');
 
             //créer une div card
@@ -73,6 +79,7 @@ const list = {
             
             //accrocher le tout à la div de render
             renderDiv.appendChild(inventoryCard)
+            }
         }
 
         list.dynamizeInventoriesListTitle();
