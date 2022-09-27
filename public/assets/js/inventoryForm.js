@@ -312,8 +312,9 @@ const app =
         const button = document.getElementById('formSubmitButton')
         
         if(app.state.count == 0){
-            h5.innerText = "Aucun vélos sélectionné"  
-            button.style.display = 'none'
+            h5.innerText = "Commencez par sélectionner un vélo !";
+            h5.style.color = "red";
+            button.style.display = 'none';
         };
 
         if(app.state.count == 1){

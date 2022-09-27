@@ -40,6 +40,7 @@ const list = {
 
         let currentDate = new Date();
 
+        //dimension 1 du tableau d'objet
         for (let inventory of inventories){
 
             let inventoryDate = inventory.createdAt;
@@ -48,36 +49,35 @@ const list = {
 
             const renderDiv = document.getElementById('todayInventories');
 
-            //créer une div card
+            //créer une div card globale qui représentera un inventaire
             const inventoryCard = document.createElement('div');
             inventoryCard.className ="inventoryCard";
             inventoryCard.setAttribute('id', inventory.id);
-            //creer un span title
+            
+            //creer un span title pour aficher le nom de la station de l'inventaire
             const spanTitle = document.createElement('span');
             spanTitle.className = "spanStationName"
-            //accrocher le span à la div card
-            inventoryCard.appendChild(spanTitle)
-            //accrocher le titre à la span
             spanTitle.innerText = inventory.station.name;
-            //creer une div content
+            inventoryCard.appendChild(spanTitle)
+           
+            //creer une div content pour y insérer la liste de vélo de l'inventaire
             const inventoryContentDiv = document.createElement('div');
             inventoryContentDiv.className = "stationList";
-            //acrocher la liste des bikes à la card
             inventoryCard.appendChild(inventoryContentDiv)
-            //crer les ol
+            
+            //crer une balise ol pour y insérer les li
             const olElement = document.createElement('ol');
             olElement.className ="inventoryOl";
-            //ajouter le ol à au content
             inventoryContentDiv.appendChild(olElement);
 
-                for(let bikes of inventory.bikes){
-                
+                //Dimension 2 du tableau d'objet => {bikes[1,2 etc]}
+                for(let bikes of inventory.bikes){ 
                 const liElement = document.createElement('li');
                 liElement.innerText = bikes.number;
                 olElement.appendChild(liElement);
                 }
             
-            //accrocher le tout à la div de render
+            //accrocher le tout à la div de génrale qui contiendra l'ensemble des cartes d'inventaire
             renderDiv.appendChild(inventoryCard)
             }
         }
