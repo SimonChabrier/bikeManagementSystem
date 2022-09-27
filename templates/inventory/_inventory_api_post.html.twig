@@ -1,5 +1,5 @@
 {% block javascripts %}
-    <script src="{{ asset('assets/js/app.js') }}" defer></script>
+    <script src="{{ asset('assets/js/inventoryForm.js') }}" defer></script>
 {% endblock %}
 
 <form>
@@ -14,7 +14,7 @@
     <div class="col">
         <label for="stationSelect" class="mb-2" id="availableStationsCount">Station select</label>
         <select class="form-control" id="stations" placeholder="choisir une stations">
-            <option selected disabled  >-- Choix Station --</option>
+            <option selected >-- Choix Station --</option>
             {# here list options are generate via JS #}
         </select>
     </div>

@@ -109,6 +109,7 @@ const app =
                 console.log('Api POST Validé')
                 app.postSuccesMessage();
                 app.resetCountSelectedBikesOnPost();
+                list.fetchInventories();
             })
             .catch(function(errorMsg){
                 console.log(errorMsg)
@@ -134,6 +135,8 @@ const app =
             app.handleAlertUserIfPostEmptyValues();
             app.handlePostSubmitChoices();
             app.handleResetStationOptionIndexAfterPost();
+            //reset div qui retourne les card inventaires du jour.
+            list.handleResetDisplayedInventories();
         }));
     }, 
 
@@ -143,6 +146,11 @@ const app =
         
         const div = document.createElement('div');
         div.setAttribute("id", bikeIri);
+
+        setTimeout(() => {
+          div.style.opacity = 1;
+        }, 100 ); 
+        
         div.className = "bikeDiv";
 
         const bikeNumber = document.createElement('text');
@@ -154,7 +162,7 @@ const app =
         div.appendChild(bikeNumber);
 
         const button = document.createElement('button');
-        button.className = "btn btn-danger btn-sm";
+        button.className = "btn btn-danger btn-sm bikeButton";
         button.innerText = `Supprimer: ${bikeNumber.innerText}`;
         button.setAttribute("id", bikeIri);
 

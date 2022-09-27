@@ -71,8 +71,7 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=4)
-     * @Groups("bike:get")
-     * @Groups("station:get")
+     * @Groups({"bike:get", "station:get", "inventories:read"})
      */
     private $number;
 

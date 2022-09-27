@@ -62,7 +62,7 @@ class Station
     /**
      * 
      * @ORM\Column(type="string", length=150)
-     * @Groups("station:get")
+     * @Groups({"station:get", "inventories:read"})
      */
     private $name;
 

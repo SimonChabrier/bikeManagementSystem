@@ -7,35 +7,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use App\Repository\InventoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Monolog\DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource (
+ *     shortName="inventories", 
+ *     attributes = { "order" = { "id": "DESC" } },
  * 
- *     collectionOperations={
- *          "post",
- *     },
- * 
- *     itemOperations={
- *          "get"={
- *              "normalization_context"={
- *              "groups"={"inventories:read", "inventories:item:get"}
- *              },
- *          },
- *     },
- * 
- *     shortName="inventories",
- * 
- *     normalizationContext={
- *          "groups"={"inventories:read"}
- *      },
- * 
- *     denormalizationContext={
- *          "groups"={"inventories:write"}
- *      },
+ *     collectionOperations = { "post", "get"},
+ *     itemOperations = { "get" },
+
+ *     normalizationContext = { "groups" = { "inventories:read" } },
+ *     denormalizationContext = { "groups" = { "inventories:write" } },
  * )
+ * 
  * 
  * @ORM\Entity(repositoryClass=InventoryRepository::class)
  * @ORM\HasLifecycleCallbacks
@@ -43,6 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Inventory
 {
     /**
+     * @Groups({"inventories:read"})
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -50,6 +37,7 @@ class Inventory
     private $id;
 
     /**
+     * @Groups({"inventories:read"})
      * @ORM\Column(type="datetime_immutable")
      * @Gedmo\Timestampable(on="create")
      */
@@ -63,7 +51,6 @@ class Inventory
 
     /**
      * @Groups({"inventories:read", "inventories:write"})
-     * 
      * @ORM\ManyToOne(
      *      targetEntity=Station::class, 
      *      inversedBy="inventories", 
