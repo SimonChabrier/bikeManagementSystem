@@ -372,7 +372,9 @@ const app =
                 div.style.padding = '1rem';
                 div.style.borderRadius = '.5rem';
                 div.style.opacity = 0;
-
+                //TODO à vérifier si on clique super vite sur deux insert le dernier peut rester mais avec une opacité à 0
+                //TODO parce que le premier n'avait pas encore fini de diparaitre et de rentrer dans remove
+                //TODO le second peut alors ne pas rentrer dans remove et rester avec une opacité à 0 ! 
                 setTimeout(() => {
                     div.remove();
                     app.countSelectedBikes()
