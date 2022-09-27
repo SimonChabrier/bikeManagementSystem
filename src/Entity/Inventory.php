@@ -12,33 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource (
- *
- *     attributes={"order"=
- *          {"createdAt": "DESC"}
- *     },
+ *     shortName="inventories", 
+ *     attributes = { "order" = { "createdAt": "DESC" } },
  * 
- *     collectionOperations={
- *          "post",
- *          "get"
- *     },
- * 
- *     itemOperations={
- *          "get"={
- *              "normalization_context"={
- *              "groups"={"inventories:read", "inventories:item:get"}
- *              },
- *          },
- *     },
- * 
- *     shortName="inventories",
- * 
- *     normalizationContext={
- *          "groups"={"inventories:read"}
- *      },
- * 
- *     denormalizationContext={
- *          "groups"={"inventories:write"}
- *      },
+ *     collectionOperations = { "post", "get"},
+ *     itemOperations = { "get" = { "normalization_context" = { "groups" = { "inventories:read", "inventories:item:get"} } } },
+
+ *     normalizationContext = { "groups" = { "inventories:read" } },
+ *     denormalizationContext = { "groups" = { "inventories:write" } },
  * )
  * 
  * 
