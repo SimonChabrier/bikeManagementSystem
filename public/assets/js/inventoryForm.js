@@ -1,3 +1,5 @@
+//TODO ajouter un bouton pour faire un reset de l'enmble des vélos sélectionnés
+
 const app = 
 {
     init: function() {
