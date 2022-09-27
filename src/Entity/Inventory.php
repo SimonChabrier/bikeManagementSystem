@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     attributes = { "order" = { "createdAt": "DESC" } },
  * 
  *     collectionOperations = { "post", "get"},
- *     itemOperations = { "get" = { "normalization_context" = { "groups" = { "inventories:read", "inventories:item:get"} } } },
+ *     itemOperations = { "get" },
 
  *     normalizationContext = { "groups" = { "inventories:read" } },
  *     denormalizationContext = { "groups" = { "inventories:write" } },
