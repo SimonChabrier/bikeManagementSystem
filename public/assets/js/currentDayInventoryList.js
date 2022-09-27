@@ -9,6 +9,8 @@ const list = {
 
     fetchInventories: async function () {
 
+        
+
         const location = window.location.origin;
         const endPoint = '/api/inventories';
         const apiRootUrl = location + endPoint;
@@ -29,9 +31,10 @@ const list = {
         }
 
         list.extractInventoriesItems(data['hydra:member']);
+        
     },
 
-    extractInventoriesItems(inventories){
+    extractInventoriesItems:function(inventories){
 
         console.log('extractInventoriesItems')
 
@@ -71,11 +74,25 @@ const list = {
             //accrocher le tout à la div de render
             renderDiv.appendChild(inventoryCard)
         }
+
+        list.dynamizeInventoriesListTitle();
     },
 
-    handleResetDisplayedInventories(){
+    handleResetDisplayedInventories:function(){
         console.log('handleResetDisplayedInventories')
         document.getElementById('todayInventories').innerHTML = '';
+    },
+
+    dynamizeInventoriesListTitle:function(){
+
+        const h5 = document.getElementById('dayInventoriesTitle');
+        const inventoriesList = document.querySelectorAll(".inventoryCard");
+        const cardsCount = inventoriesList.length
+
+        let sentance = "inventaire";
+        if(cardsCount > 1) { sentance = "inventaires" }
+
+        return inventoriesList.length > 0 ? h5.innerText = `${cardsCount} ${sentance}` : h5.innerText = "Aucun inventaire aujourd'hui !";
     }
 }
 
