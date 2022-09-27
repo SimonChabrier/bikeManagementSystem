@@ -107,7 +107,7 @@ const app =
             )
             .then(function(){
                 console.log('Api POST Validé')
-                app.postSuccesMessage();
+                app.postSuccessMessage();
                 app.resetCountSelectedBikesOnPost();
                 list.fetchInventories();
             })
@@ -135,6 +135,7 @@ const app =
             app.handleAlertUserIfPostEmptyValues();
             app.handlePostSubmitChoices();
             app.handleResetStationOptionIndexAfterPost();
+            
             //reset div qui retourne les card inventaires du jour.
             list.handleResetDisplayedInventories();
         }));
@@ -170,7 +171,7 @@ const app =
         div.appendChild(button);
         divDisplaydSelectedBikes.appendChild(div);
 
-        app.deleteDisplayedBikeChoice(); 
+        app.deleteDisplayedBikeChoice();
         app.countSelectedBikes();
         
     },
@@ -259,10 +260,13 @@ const app =
             const option = new Option(bike[0], bike[0]);
             option.setAttribute("id", bike[1])
             select.appendChild(option);
+
+            app.diplayTotalAvailableBikes(choiceValue);
+
             }
         });
 
-        app.diplayTotalAvailableBikes(choiceValue);
+        
     
     },
 
@@ -359,14 +363,20 @@ const app =
 
         for(let button of buttons){
                 button.addEventListener('click', function(event){
+                event.preventDefault();
                 div = event.target.closest('div');
-                div.remove();
-                app.countSelectedBikes();
+                div.style.opacity = 0;
+
+                setTimeout(() => {
+                    div.remove();
+                    app.countSelectedBikes()
+                  }, 350)
+                ;
             });
         } 
     },
 
-    postSuccesMessage:function(){
+    postSuccessMessage:function(){
         const div = document.getElementById('selectedBikes');
 
         div.innerHTML =
