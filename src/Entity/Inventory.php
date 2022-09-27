@@ -12,30 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource (
- *
+ *     shortName="inventories", 
+ *     attributes = { "order" = { "id": "DESC" } },
  * 
- *     collectionOperations={
- *          "post",
- *          "get"
- *     },
- * 
- *     itemOperations={
- *          "get"={
- *              "normalization_context"={
- *              "groups"={"inventories:read", "inventories:item:get"}
- *              },
- *          },
- *     },
- * 
- *     shortName="inventories",
- * 
- *     normalizationContext={
- *          "groups"={"inventories:read"}
- *      },
- * 
- *     denormalizationContext={
- *          "groups"={"inventories:write"}
- *      },
+ *     collectionOperations = { "post", "get"},
+ *     itemOperations = { "get" },
+
+ *     normalizationContext = { "groups" = { "inventories:read" } },
+ *     denormalizationContext = { "groups" = { "inventories:write" } },
  * )
  * 
  * 
@@ -67,7 +51,6 @@ class Inventory
 
     /**
      * @Groups({"inventories:read", "inventories:write"})
-     * 
      * @ORM\ManyToOne(
      *      targetEntity=Station::class, 
      *      inversedBy="inventories", 
