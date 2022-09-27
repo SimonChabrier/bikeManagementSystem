@@ -368,12 +368,15 @@ const app =
                 button.addEventListener('click', function(event){
                 event.preventDefault();
                 div = event.target.closest('div');
+                div.style.background = "red";
+                div.style.padding = '1rem';
+                div.style.borderRadius = '.5rem';
                 div.style.opacity = 0;
 
                 setTimeout(() => {
                     div.remove();
                     app.countSelectedBikes()
-                  }, 350)
+                  }, 500)
                 ;
             });
         } 
