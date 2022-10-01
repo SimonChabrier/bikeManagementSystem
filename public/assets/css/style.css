@@ -7,37 +7,28 @@
 /*-------------------------------------------------------------------------------------*/
 /* poppins-200 - latin */
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 200;
-  src: url("../fonts/poppins/poppins-v19-latin-200.eot");
-  /* IE9 Compat Modes */
-  src: local(""), url("../fonts/poppins/poppins-v19-latin-200.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-200.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-200.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-200.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-200.svg#Poppins") format("svg");
-  /* Legacy iOS */
+  src: url("../fonts/poppins/poppins-v19-latin-200.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-200.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-200.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-200.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-200.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-200.svg#Poppins") format("svg"); /* Legacy iOS */
 }
-
 /* poppins-regular - latin */
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/poppins/poppins-v19-latin-regular.eot");
-  /* IE9 Compat Modes */
-  src: local(""), url("../fonts/poppins/poppins-v19-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-regular.svg#Poppins") format("svg");
-  /* Legacy iOS */
+  src: url("../fonts/poppins/poppins-v19-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-regular.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-regular.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-regular.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-regular.svg#Poppins") format("svg"); /* Legacy iOS */
 }
-
 /* poppins-600 - latin */
 @font-face {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  src: url("../fonts/poppins/poppins-v19-latin-600.eot");
-  /* IE9 Compat Modes */
-  src: local(""), url("../fonts/poppins/poppins-v19-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-600.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-600.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-600.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-600.svg#Poppins") format("svg");
-  /* Legacy iOS */
+  src: url("../fonts/poppins/poppins-v19-latin-600.eot"); /* IE9 Compat Modes */
+  src: local(""), url("../fonts/poppins/poppins-v19-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v19-latin-600.woff2") format("woff2"), url("../fonts/poppins/poppins-v19-latin-600.woff") format("woff"), url("../fonts/poppins/poppins-v19-latin-600.ttf") format("truetype"), url("../fonts/poppins/poppins-v19-latin-600.svg#Poppins") format("svg"); /* Legacy iOS */
 }
-
 /*-------------------------------------------------------------------------------------*/
 /*  TYPO															   
 /*-------------------------------------------------------------------------------------*/
@@ -55,7 +46,7 @@ body {
 
 h1 {
   color: #0D5483;
-  font-size: 2rem !important;
+  font-size: 1.5rem !important;
   font-weight: 400 !important;
   text-transform: uppercase !important;
 }
@@ -94,7 +85,7 @@ h5 {
 }
 
 ol > li {
-  font-size: .8rem;
+  font-size: 0.8rem;
   list-style-type: none;
   text-transform: uppercase;
   line-height: 1.5rem;
@@ -106,7 +97,7 @@ p {
 }
 
 .nav-link {
-  padding-bottom: .25rem;
+  padding-bottom: 0.25rem;
 }
 
 a {
@@ -167,7 +158,7 @@ span {
   margin: 0.5rem 0 !important;
 }
 
-.my1remBottomMarg, h1, .container {
+.my1remBottomMarg, .container {
   margin-bottom: 1rem !important;
 }
 
@@ -176,7 +167,6 @@ span {
 }
 
 .mediumTransition, a:hover, .btn:hover, .fab:hover {
-  -webkit-transition: 1.5s !important;
   transition: 1.5s !important;
 }
 
@@ -184,28 +174,17 @@ span {
 /*  LAYOUT													   
 /*-------------------------------------------------------------------------------------*/
 .card-group {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-flow: row wrap;
+  justify-content: center;
   gap: 30px;
 }
 
 .myInlineFlex {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
   gap: 0.3rem;
   color: #0D5483;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 label.form-check-label.required {
@@ -213,23 +192,17 @@ label.form-check-label.required {
 }
 
 .pictContainer img {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
 /*-------------------------------------------------------------------------------------*/
 /*  JS INVENTORY FORM													   
 /*-------------------------------------------------------------------------------------*/
 .bikeDiv {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
   gap: 1.5rem;
   opacity: 0;
-  -webkit-transition: 1s;
   transition: 1s;
 }
 
@@ -243,14 +216,9 @@ label.form-check-label.required {
 }
 
 .inventoriesRender {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 span.spanStationName {
@@ -258,12 +226,12 @@ span.spanStationName {
 }
 
 ol.inventoryOl {
-  padding-left: .6rem;
+  padding-left: 0.6rem;
 }
 
 #availableBikesCount,
 #availableStationsCount {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 /*-------------------------------------------------------------------------------------*/
@@ -276,5 +244,4 @@ ol.inventoryOl {
 /* Small devices (phones, 414px and up) */
 /* Small devices (phones, 540px and up) */
 /* Medium devices (tablets, 768px and up) */
-/* XL devices (large desktops, 1200px and up) */
-/*# sourceMappingURL=style.css.map */
+/* XL devices (large desktops, 1200px and up) *//*# sourceMappingURL=style.css.map */
