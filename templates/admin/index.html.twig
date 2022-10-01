@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Infos du {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}{% endblock %}
 {% block body %}
+{% block javascripts %}<script src="{{ asset ('assets/js/availability.js') }}" defer></script>{% endblock %}
+
+<div class='container' id="unavailableBikes">
+<ol id="bikesList"></ol>
+</div>
 
 <div class="container">
     <h1>INFOS DU {{ 'now' | format_datetime(locale='FR_fr',pattern="EEEE dd MMMM YYYY") }}</h1>
@@ -208,3 +213,5 @@
 </div>
 
 {% endblock %}
+
+

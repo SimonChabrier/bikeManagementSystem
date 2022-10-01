@@ -14,10 +14,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ApiResource(
- * paginationEnabled=false,
- * collectionOperations={"get"},
- * itemOperations={"get"},
- * normalizationContext={"groups"={"bike:get"}},
+ * attributes = { "order" = { "availablity": "ASC" }},
+ * paginationEnabled = false,
+ * collectionOperations = { "get" },
+ * itemOperations={ "get" },
+ * normalizationContext={ "groups" = { "bike:read" }},
  * )
  * 
  * 
@@ -33,7 +34,7 @@ class Bike
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("bike:get")
+     * @Groups("bike:read")
      * 
      */
     private $id;
@@ -47,7 +48,7 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=30)
-     * @Groups("bike:get")
+     * @Groups("bike:read")
      */
     private $availablity = "Disponible";
 
@@ -71,7 +72,7 @@ class Bike
 
     /**
      * @ORM\Column(type="string", length=4)
-     * @Groups({"bike:get", "station:get", "inventories:read"})
+     * @Groups({"bike:read", "station:get", "inventories:read"})
      */
     private $number;
 
@@ -104,6 +105,7 @@ class Bike
     /**
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
+     * @Groups("bike:read")
      * 
      */
     private $updatedAt;
